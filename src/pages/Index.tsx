@@ -53,17 +53,13 @@ const Index = () => {
         {heroSlides.map((slide, i) =>
           <div
             key={i}
-            className="absolute inset-0 transition-opacity duration-1000 bg-black"
+            className="absolute inset-0 transition-opacity duration-1000"
             style={{ opacity: currentSlide === i ? 1 : 0 }}>
-            
-            {/* Blurred backdrop for mobile to prevent bare black borders */}
-            <img src={slide.src} alt="" className={`absolute inset-0 w-full h-full object-cover blur-3xl opacity-50 md:hidden ${slide.position}`} />
 
-            {/* Main Image: fully visible on mobile, covers on desktop */}
-            <img src={slide.src} alt="" className={`relative w-full h-full object-contain md:object-cover ${slide.position}`} />
+            <img src={slide.src} alt="" className={`w-full h-full object-cover ${slide.position}`} />
           </div>
         )}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
         <div className="relative z-10 h-full flex items-center">
           <div className="container mx-auto px-4">
             <motion.div
