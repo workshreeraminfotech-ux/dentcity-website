@@ -13,7 +13,14 @@ const navLinks = [
       { label: "Dr.Rathin Bhindi", path: "/about#dr-rathin" }
     ]
   },
-  { label: "Services", path: "/services" },
+  { 
+    label: "Services", 
+    path: "/services",
+    subLinks: [
+      { label: "Dental Implant", path: "/services#dental-implant" },
+      { label: "General Dentistry", path: "/services#general-dentistry" }
+    ]
+  },
   { label: "Gallery", path: "/gallery" },
   { label: "Contact", path: "/contact" },
 ];

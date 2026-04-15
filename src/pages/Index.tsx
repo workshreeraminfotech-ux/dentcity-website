@@ -13,7 +13,12 @@ import serviceImplants from "@/assets/service-implants.jpg";
 import serviceOrthodontics from "@/assets/service-orthodontics.jpg";
 import gallery1 from "@/assets/gallery-1.jpg";
 
-const heroSlides = [fatherIhde, ssp9486, machine, re];
+const heroSlides = [
+  { src: fatherIhde, position: "object-top" },
+  { src: ssp9486, position: "object-top" },
+  { src: machine, position: "object-center" },
+  { src: re, position: "object-center" }
+];
 
 const stats = [
   { icon: Users, value: "5000+", label: "Happy Patients" },
@@ -51,7 +56,7 @@ const Index = () => {
             className="absolute inset-0 transition-opacity duration-1000"
             style={{ opacity: currentSlide === i ? 1 : 0 }}>
 
-            <img src={slide} alt="" className="w-full h-full object-cover" />
+            <img src={slide.src} alt="" className={`w-full h-full object-cover ${slide.position}`} />
           </div>
         )}
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
