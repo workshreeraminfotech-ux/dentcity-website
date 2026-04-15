@@ -13,7 +13,7 @@ import serviceImplants from "@/assets/service-implants.jpg";
 import serviceOrthodontics from "@/assets/service-orthodontics.jpg";
 import gallery1 from "@/assets/gallery-1.jpg";
 
-const heroSlides = [fatherIhde, ssp9486, re, machine];
+const heroSlides = [fatherIhde, ssp9486, machine, re];
 
 const stats = [
   { icon: Users, value: "5000+", label: "Happy Patients" },
