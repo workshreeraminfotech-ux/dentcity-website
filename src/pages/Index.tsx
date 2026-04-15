@@ -5,14 +5,15 @@ import { ArrowRight, Shield, Award, Clock, Users, ChevronRight, MessageCircle } 
 import SectionHeading from "@/components/SectionHeading";
 import { StaggerTestimonials } from "@/components/ui/stagger-testimonials";
 
-import machine from "@/assets/machine.webp";
-import childrenCheckup from "@/assets/children checkup.webp";
-import re from "@/assets/re.webp";
+import fatherIhde from "@/assets/hero section photos/father of corticobasal implant - pro. dr. stefan ihde.jpg";
+import ssp9486 from "@/assets/hero section photos/SSP_9486.JPG";
+import re from "@/assets/hero section photos/re.webp";
+import machine from "@/assets/hero section photos/machine.webp";
 import serviceImplants from "@/assets/service-implants.jpg";
 import serviceOrthodontics from "@/assets/service-orthodontics.jpg";
 import gallery1 from "@/assets/gallery-1.jpg";
 
-const heroSlides = [machine, childrenCheckup, re];
+const heroSlides = [fatherIhde, ssp9486, re, machine];
 
 const stats = [
   { icon: Users, value: "5000+", label: "Happy Patients" },
