@@ -15,7 +15,7 @@ const About = () => {
   return (
     <>
       {/* Hero */}
-      <section className="relative pt-32 pb-20 bg-muted">
+      <section id="implant" className="relative pt-32 pb-20 bg-muted">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -92,7 +92,7 @@ const About = () => {
       </section>
 
       {/* Doctor Section */}
-      <section className="section-padding">
+      <section id="dr-rathin" className="section-padding">
         <div className="container mx-auto">
           <SectionHeading
             subtitle="Meet Our Expert"
