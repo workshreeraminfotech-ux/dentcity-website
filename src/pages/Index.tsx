@@ -6,7 +6,7 @@ import SectionHeading from "@/components/SectionHeading";
 import { StaggerTestimonials } from "@/components/ui/stagger-testimonials";
 
 import fatherIhde from "@/assets/hero section photos/father of corticobasal implant - pro. dr. stefan ihde.jpg";
-import ssp9486 from "@/assets/hero section photos/SSP_9486.JPG";
+import ssp9486 from "@/assets/hero section photos/SSP_9484.JPG";
 import re from "@/assets/hero section photos/re.webp";
 import machine from "@/assets/hero section photos/machine.webp";
 import serviceImplants from "@/assets/service-implants.jpg";
