@@ -5,6 +5,7 @@ import { ArrowRight, Shield, Award, Clock, Users, ChevronRight, ChevronLeft } fr
 import SectionHeading from "@/components/SectionHeading";
 import { StaggerTestimonials } from "@/components/ui/stagger-testimonials";
 
+import heroVideo from "@/assets/hero section photos/dental implant video hero section.mp4";
 import fatherIhde from "@/assets/hero section photos/father of corticobasal implant - pro. dr. stefan ihde.jpg";
 import fatherIhdeMobile from "@/assets/hero section photos/father of corticobasal implant - pro. dr. stefan ihde 1.jpeg";
 import ssp9484 from "@/assets/hero section photos/SSP_9484.JPG";
@@ -18,6 +19,17 @@ import serviceOrthodontics from "@/assets/service-orthodontics.jpg";
 import gallery1 from "@/assets/gallery-1.jpg";
 
 const heroSlides = [
+  {
+    isVideo: true,
+    videoSrc: heroVideo,
+    overlay: "from-black/70 via-black/45 to-black/15",
+    badge: "Dentcity Implant Centre",
+    heading: "Your Smile.\nOur Precision.",
+    sub: "Experience life-changing dental implants at Dentcity — where science meets artistry",
+    cta: "Book a Consultation",
+    ctaLink: "/contact",
+    accent: "#D4AF37",
+  },
   {
     desktopSrc: fatherIhde,
     mobileSrc: fatherIhdeMobile,
@@ -105,23 +117,34 @@ const Index = () => {
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
-        {/* Background slides with Ken Burns zoom */}
+        {/* Background slides */}
         {heroSlides.map((slide, i) => (
           <div
             key={i}
             className="absolute inset-0 transition-opacity duration-1000"
             style={{ opacity: currentSlide === i ? 1 : 0 }}
           >
-            <picture>
-              <source media="(max-width: 767px)" srcSet={slide.mobileSrc} />
-              <img
-                src={slide.desktopSrc}
-                alt=""
-                className={`w-full h-full object-cover ${slide.position} ${
-                  currentSlide === i ? "scale-110" : "scale-100"
-                } transition-transform duration-[8000ms] ease-out`}
+            {slide.isVideo ? (
+              <video
+                src={slide.videoSrc}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover"
               />
-            </picture>
+            ) : (
+              <picture>
+                <source media="(max-width: 767px)" srcSet={slide.mobileSrc} />
+                <img
+                  src={slide.desktopSrc}
+                  alt=""
+                  className={`w-full h-full object-cover ${slide.position} ${
+                    currentSlide === i ? "scale-110" : "scale-100"
+                  } transition-transform duration-[8000ms] ease-out`}
+                />
+              </picture>
+            )}
             <div className={`absolute inset-0 bg-gradient-to-r ${slide.overlay}`} />
           </div>
         ))}
