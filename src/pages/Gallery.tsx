@@ -16,28 +16,33 @@ import frontView from "@/assets/gallery/front-view.webp";
 import childrenRoom from "@/assets/gallery/children-room.webp";
 import checkupRoom from "@/assets/gallery/checkup-room.webp";
 import reception3 from "@/assets/gallery/reception3.webp";
-import dr1 from "@/assets/gallery/dr1.webp";
-import dr2 from "@/assets/gallery/dr2.webp";
-import dr3 from "@/assets/gallery/dr3.webp";
-import dr4 from "@/assets/gallery/dr4.webp";
-import dr5 from "@/assets/gallery/dr5.webp";
-import dr6 from "@/assets/gallery/dr6.webp";
-import dr7 from "@/assets/gallery/dr7.webp";
-import dr8 from "@/assets/gallery/dr8.webp";
-import dr9 from "@/assets/gallery/dr9.webp";
-import dr10 from "@/assets/gallery/dr10.webp";
-import dr10b from "@/assets/gallery/dr10b.webp";
-import dr11 from "@/assets/gallery/dr11.webp";
-import dr12 from "@/assets/gallery/dr12.webp";
-import dr13 from "@/assets/gallery/dr13.webp";
-import dr14 from "@/assets/gallery/dr14.webp";
-import dr15 from "@/assets/gallery/dr15.webp";
-import dr16 from "@/assets/gallery/dr16.webp";
-import dr18 from "@/assets/gallery/dr18.webp";
-import dr19 from "@/assets/gallery/dr19.webp";
-import dr20 from "@/assets/gallery/dr20.webp";
-import dr21 from "@/assets/gallery/dr21.webp";
-import dr22 from "@/assets/gallery/dr22.webp";
+import pic1 from "@/assets/gallery/achievements/Picture1.jpg";
+import pic2 from "@/assets/gallery/achievements/Picture2.jpg";
+import pic4 from "@/assets/gallery/achievements/Picture4.jpg";
+import pic6 from "@/assets/gallery/achievements/Picture6.jpg";
+import pic12 from "@/assets/gallery/achievements/Picture12.jpg";
+import pic13 from "@/assets/gallery/achievements/Picture13.jpg";
+import pic16 from "@/assets/gallery/achievements/Picture16.jpg";
+import pic22 from "@/assets/gallery/achievements/Picture22.jpg";
+import pic24 from "@/assets/gallery/achievements/Picture24.jpg";
+import pic26 from "@/assets/gallery/achievements/Picture26.jpg";
+import pic27 from "@/assets/gallery/achievements/Picture27.jpg";
+import pic30 from "@/assets/gallery/achievements/Picture30.jpg";
+import pic32 from "@/assets/gallery/achievements/Picture32.jpg";
+import pic34 from "@/assets/gallery/achievements/Picture34.jpg";
+import pic35 from "@/assets/gallery/achievements/Picture35.jpg";
+import pic36 from "@/assets/gallery/achievements/Picture36.jpg";
+import pic38 from "@/assets/gallery/achievements/Picture38.jpg";
+import pic39 from "@/assets/gallery/achievements/Picture39.jpg";
+import pic41 from "@/assets/gallery/achievements/Picture41.jpg";
+import pic42 from "@/assets/gallery/achievements/Picture42.jpg";
+import pic43 from "@/assets/gallery/achievements/Picture43.jpg";
+import pic44 from "@/assets/gallery/achievements/Picture44.jpg";
+import pic45 from "@/assets/gallery/achievements/Picture45.jpg";
+import pic46 from "@/assets/gallery/achievements/Picture46.jpg";
+import pic47 from "@/assets/gallery/achievements/Picture47.jpg";
+import pic48 from "@/assets/gallery/achievements/Picture48.jpg";
+import pic49 from "@/assets/gallery/achievements/Picture49.jpg";
 
 const clinicImages = [
   { src: frontView, alt: "DENTCITY Front View" },
@@ -56,28 +61,33 @@ const clinicImages = [
 ];
 
 const achievementImages = [
-  { src: dr10, alt: "Famdent Excellence in Dentistry Award 2025" },
-  { src: dr14, alt: "Famdent Excellence Awards Ceremony" },
-  { src: dr6, alt: "10 Under 10 Dentist of the Year Award" },
-  { src: dr19, alt: "Receiving Winner Certificate" },
-  { src: dr5, alt: "PG Diploma — International Implant Foundation" },
-  { src: dr13, alt: "IDA Convocation Ceremony" },
-  { src: dr18, alt: "Simpladent Implant Foundation Certificate" },
-  { src: dr4, alt: "Certificate of Excellence" },
-  { src: dr15, alt: "Implant Training Certification" },
-  { src: dr16, alt: "DIDIIRC Certificate of Completion" },
-  { src: dr1, alt: "International Implant Foundation Conference" },
-  { src: dr11, alt: "APJ Abdul Kalam Research Centre Training" },
-  { src: dr12, alt: "APJ Abdul Kalam Education Centre Team" },
-  { src: dr9, alt: "With Happy Patient After Surgery" },
-  { src: dr10b, alt: "With Distinguished Guest" },
-  { src: dr8, alt: "Clinic Inauguration Ceremony" },
-  { src: dr20, alt: "Inauguration with VIP Guests" },
-  { src: dr7, alt: "Inauguration with Dignitaries" },
-  { src: dr3, alt: "Inauguration — Guest Welcome" },
-  { src: dr2, alt: "Grand Opening Celebration" },
-  { src: dr21, alt: "Felicitation at Clinic Opening" },
-  { src: dr22, alt: "Inauguration with Guests" },
+  { src: pic1,  alt: "Dr. Rathin Bhindi — Achievement" },
+  { src: pic2,  alt: "Certificate of Excellence" },
+  { src: pic4,  alt: "Award Ceremony" },
+  { src: pic6,  alt: "Recognition Award" },
+  { src: pic12, alt: "International Certification" },
+  { src: pic13, alt: "Diploma Award" },
+  { src: pic16, alt: "Conference Achievement" },
+  { src: pic22, alt: "Certificate Presentation" },
+  { src: pic24, alt: "Achievement Felicitation" },
+  { src: pic26, alt: "Award Presentation" },
+  { src: pic27, alt: "Excellence Award" },
+  { src: pic30, alt: "Distinguished Achievement" },
+  { src: pic32, alt: "Certification Ceremony" },
+  { src: pic34, alt: "Dental Excellence Award" },
+  { src: pic35, alt: "International Implant Foundation" },
+  { src: pic36, alt: "Felicitation Ceremony" },
+  { src: pic38, alt: "Award — Dr. Rathin Bhindi" },
+  { src: pic39, alt: "Recognition Ceremony" },
+  { src: pic41, alt: "Achievement Recognition" },
+  { src: pic42, alt: "Certificate of Achievement" },
+  { src: pic43, alt: "Conference Recognition" },
+  { src: pic44, alt: "Award Felicitation" },
+  { src: pic45, alt: "Dental Implant Foundation" },
+  { src: pic46, alt: "Recognition Award Ceremony" },
+  { src: pic47, alt: "Distinguished Dentist Award" },
+  { src: pic48, alt: "Achievement Diploma" },
+  { src: pic49, alt: "Excellence in Dentistry" },
 ];
 
 const Gallery = () => {
