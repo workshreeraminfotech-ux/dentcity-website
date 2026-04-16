@@ -79,16 +79,11 @@ const featuredServices = [
   { title: "Orthodontics", desc: "Straighten your smile with modern braces and clear aligners.", img: serviceOrthodontics },
   { title: "Smile Design", desc: "Transform your smile with customized cosmetic treatments.", img: gallery1 }];
 
-const quickMenuItems = [
-  { label: "Whitening", link: "/services#general-dentistry" },
-  { label: "Implants", link: "/services#dental-implant" },
-  { label: "Braces", link: "/services#general-dentistry" },
-];
+
 
 const Index = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [paused, setPaused] = useState(false);
-  const [toothMenuOpen, setToothMenuOpen] = useState(false);
   const totalSlides = heroSlides.length;
 
   useEffect(() => {
@@ -226,47 +221,7 @@ const Index = () => {
           <ChevronRight className="w-5 h-5" />
         </button>
 
-        {/* ── Floating Tooth Icon + Quick Menu (top-right) ── */}
-        <div className="absolute top-24 md:top-28 right-4 md:right-8 z-50 flex flex-col items-center">
-          <AnimatePresence>
-            {toothMenuOpen && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.85, y: 10 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.85, y: 10 }}
-                transition={{ duration: 0.3, type: "spring", stiffness: 280 }}
-                className="absolute bottom-[calc(100%+12px)] right-0 flex flex-col gap-2 items-end"
-              >
-                {quickMenuItems.map((item, idx) => (
-                  <Link
-                    key={idx}
-                    to={item.link}
-                    onClick={() => setToothMenuOpen(false)}
-                    className="text-xs font-semibold text-white bg-black/50 hover:bg-black/70 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full shadow-lg whitespace-nowrap transition-all hover:scale-105"
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </motion.div>
-            )}
-          </AnimatePresence>
 
-          <button
-            onClick={() => setToothMenuOpen(!toothMenuOpen)}
-            className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white/15 hover:bg-white/30 border-2 border-white/35 flex items-center justify-center text-white shadow-[0_0_20px_rgba(255,255,255,0.25)] hover:shadow-[0_0_35px_rgba(255,255,255,0.45)] transition-all"
-          >
-            <svg
-              className={`w-7 h-7 md:w-8 md:h-8 transition-transform duration-500 ${toothMenuOpen ? "rotate-12 scale-90" : "animate-pulse"}`}
-              viewBox="0 0 64 64"
-              fill="currentColor"
-            >
-              <path d="M32 4c-5 0-9.5 2.5-12 6.5C17 16 12 18 10 26c-2 8 1 14 4 20 2 4.5 4 10 6.5 14 1.5 2.5 5.5 2.5 7 0 1.5-3 3-7 4.5-10.5 1-2.5 2-4 3-4s2 1.5 3 4c1.5 3.5 3 7.5 4.5 10.5 1.5 2.5 5.5 2.5 7 0 2.5-4 4.5-9.5 6.5-14 3-6 6-12 4-20-2-8-7-10-10-15.5C41.5 6.5 37 4 32 4z" />
-            </svg>
-          </button>
-          <span className="text-[10px] font-bold text-white/80 tracking-widest uppercase mt-2 drop-shadow-md animate-bounce">
-            {toothMenuOpen ? "Close" : "Quick Menu"}
-          </span>
-        </div>
 
         {/* ── Slide dots ── */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2 items-center">
