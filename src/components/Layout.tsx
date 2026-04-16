@@ -5,14 +5,21 @@ import Footer from "./Footer";
 import WhatsAppButton from "./WhatsAppButton";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
 
   useEffect(() => {
-    // Use timeout to ensure DOM is painted, and 'auto' to bypass smooth scrolling
     setTimeout(() => {
+      if (hash) {
+        const id = hash.replace("#", "");
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+          return;
+        }
+      }
       window.scrollTo({ top: 0, behavior: "auto" });
-    }, 0);
-  }, [pathname]);
+    }, 100);
+  }, [pathname, hash]);
 
   return (
     <div className="min-h-screen flex flex-col">
