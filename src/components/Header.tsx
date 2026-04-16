@@ -27,6 +27,7 @@ const navLinks = [
 
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
   const location = useLocation();
 
   return (
@@ -87,7 +88,10 @@ const Header = () => {
 
         {/* Mobile Toggle */}
         <button
-          onClick={() => setMobileOpen(!mobileOpen)}
+          onClick={() => {
+            if (mobileOpen) setExpandedMenu(null);
+            setMobileOpen(!mobileOpen);
+          }}
           className="lg:hidden p-2 text-foreground"
           aria-label="Toggle menu"
         >
@@ -109,7 +113,15 @@ const Header = () => {
                 <div key={link.path} className="flex flex-col">
                   <Link
                     to={link.path}
-                    onClick={() => !link.subLinks && setMobileOpen(false)}
+                    onClick={(e) => {
+                      if (link.subLinks) {
+                        e.preventDefault();
+                        setExpandedMenu(expandedMenu === link.path ? null : link.path);
+                      } else {
+                        setMobileOpen(false);
+                        setExpandedMenu(null);
+                      }
+                    }}
                     className={`flex items-center justify-between text-sm font-medium py-3 px-4 rounded-lg transition-colors ${
                       location.pathname === link.path && !link.subLinks
                         ? "bg-accent text-foreground"
@@ -117,22 +129,36 @@ const Header = () => {
                     }`}
                   >
                     {link.label}
-                    {link.subLinks && <ChevronDown className="w-4 h-4" />}
+                    {link.subLinks && (
+                      <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${expandedMenu === link.path ? "rotate-180" : ""}`} />
+                    )}
                   </Link>
-                  {link.subLinks && (
-                    <div className="pl-6 flex flex-col gap-1 mt-1 mb-2 border-l border-border/40 ml-4">
-                      {link.subLinks.map((sub, idx) => (
-                        <Link
-                          key={idx}
-                          to={sub.path}
-                          onClick={() => setMobileOpen(false)}
-                          className="text-sm py-2 px-4 text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-accent/50"
-                        >
-                          {sub.label}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
+                  <AnimatePresence>
+                    {link.subLinks && expandedMenu === link.path && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="pl-6 flex flex-col gap-1 mt-1 mb-2 border-l border-border/40 ml-4">
+                          {link.subLinks.map((sub, idx) => (
+                            <Link
+                              key={idx}
+                              to={sub.path}
+                              onClick={() => {
+                                setMobileOpen(false);
+                                setExpandedMenu(null);
+                              }}
+                              className="text-sm py-2 px-4 text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-accent/50"
+                            >
+                              {sub.label}
+                            </Link>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               ))}
               <div className="flex flex-col gap-2 mt-2 pt-4 border-t border-border/50">
