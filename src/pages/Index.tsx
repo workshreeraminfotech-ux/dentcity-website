@@ -139,36 +139,49 @@ const Index = () => {
             title="Premium Dental Services"
             description="From preventive care to advanced restorative procedures, we provide comprehensive dental solutions." />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {featuredServices.map((service, i) =>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
+            {featuredServices.map((service, i) => {
+              const isImplant = service.title === "Dental Implants";
+              return (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.15 }}
-                className="group rounded-2xl overflow-hidden hover-lift bg-card border border-border">
+                className={`group rounded-2xl overflow-hidden hover-lift relative bg-card ${
+                  isImplant 
+                    ? "border-2 border-primary shadow-[0_0_25px_rgba(0,0,0,0.1)] lg:-translate-y-2" 
+                    : "border border-border"
+                }`}>
 
-                <div className="h-56 overflow-hidden">
+                <div className="h-56 overflow-hidden relative">
                   <img
                     src={service.img}
                     alt={service.title}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     loading="lazy" />
-
+                  
+                  {isImplant && (
+                    <div className="absolute top-4 right-4 bg-primary text-primary-foreground text-xs font-bold px-4 py-1.5 rounded-full shadow-lg z-10">
+                      Our Speciality
+                    </div>
+                  )}
                 </div>
                 <div className="p-6">
-                  <h3 className="font-display text-xl font-bold text-foreground">{service.title}</h3>
+                  <h3 className={`font-display text-xl font-bold ${isImplant ? "text-primary" : "text-foreground"}`}>
+                    {service.title}
+                  </h3>
                   <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{service.desc}</p>
                   <Link
-                    to="/services"
+                    to={isImplant ? "/services#dental-implant" : "/services"}
                     className="inline-flex items-center gap-1 text-sm font-medium text-foreground mt-4 hover:gap-2 transition-all">
 
                     Learn more <ChevronRight className="w-4 h-4" />
                   </Link>
                 </div>
               </motion.div>
-            )}
+            )})}
           </div>
           <div className="text-center mt-10">
             <Link
