@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Shield, Award, Clock, Users, ChevronRight, MessageCircle } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import { StaggerTestimonials } from "@/components/ui/stagger-testimonials";
@@ -42,6 +42,7 @@ const featuredServices = [
 
 const Index = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [showHeroContent, setShowHeroContent] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -67,34 +68,53 @@ const Index = () => {
           </div>
         )}
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
-        <div className="relative z-10 h-full flex items-center">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.3 }}
-              className="max-w-2xl">
-
-              <span className="inline-block text-xs font-semibold tracking-[0.25em] uppercase text-primary-foreground/60 mb-4">
-                DENTCITY Superspeciality Dental & Implant Centre
-              </span>
-              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground/40 leading-tight">
-                Advanced Dental Care with Precision & Comfort
-              </h1>
-              <p className="mt-5 text-lg text-primary-foreground/50 leading-relaxed max-w-lg">
-                Experience world-class dental treatments in a modern, comfortable environment. Your smile is our speciality.
-              </p>
-              <div className="mt-8 flex flex-wrap gap-4">
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-primary-foreground text-primary font-medium text-sm hover:opacity-90 transition-opacity shadow-lg">
-
-                  Book Appointment <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </motion.div>
-          </div>
+        <div className="absolute top-28 md:top-36 right-4 md:right-8 z-50 flex flex-col items-center">
+          <button
+            onClick={() => setShowHeroContent(!showHeroContent)}
+            className="w-14 h-14 md:w-16 md:h-16 rounded-full glass bg-white/10 hover:bg-white/20 border border-white/30 flex items-center justify-center text-primary-foreground shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] transition-all group"
+          >
+            <svg className={`w-7 h-7 md:w-8 md:h-8 transition-transform duration-500 ${showHeroContent ? 'scale-90 opacity-70' : 'group-hover:scale-110 animate-pulse'}`} viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2c-2.4 0-4.6 1.4-5.5 3.5C4 6.7 2 9.5 2 13c0 4.5 3 6.9 4 10.5.5 1.5 2.8 1.5 3.3 0C10.5 20 11.5 18 12 18s1.5 2 2.7 5.5c.5 1.5 2.8 1.5 3.3 0 1-3.6 4-6 4-10.5 0-3.5-2-6.3-4.5-7.5C16.6 3.4 14.4 2 12 2z" />
+            </svg>
+          </button>
+          <span className="text-xs font-semibold text-primary-foreground tracking-wider uppercase drop-shadow-md opacity-90 mt-3 animate-bounce">
+            {showHeroContent ? "Hide" : "Click Here"}
+          </span>
         </div>
+
+        <AnimatePresence>
+          {showHeroContent && (
+            <div className="absolute inset-0 z-10 h-full flex items-center">
+              <div className="container mx-auto px-4">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9, x: -20 }}
+                  animate={{ opacity: 1, scale: 1, x: 0 }}
+                  exit={{ opacity: 0, scale: 0.9, x: -20 }}
+                  transition={{ duration: 0.5, type: "spring" }}
+                  className="max-w-2xl bg-black/20 p-6 md:p-8 rounded-3xl backdrop-blur-sm border border-white/10 shadow-2xl"
+                >
+                  <span className="inline-block text-xs font-semibold tracking-[0.25em] uppercase text-primary-foreground/80 mb-4 drop-shadow-md">
+                    DENTCITY Superspeciality Dental & Implant Centre
+                  </span>
+                  <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight drop-shadow-lg">
+                    Advanced Dental Care with Precision & Comfort
+                  </h1>
+                  <p className="mt-5 text-lg text-primary-foreground/90 leading-relaxed max-w-lg drop-shadow-md">
+                    Experience world-class dental treatments in a modern, comfortable environment. Your smile is our speciality.
+                  </p>
+                  <div className="mt-8 flex flex-wrap gap-4">
+                    <Link
+                      to="/contact"
+                      className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-primary-foreground text-primary font-medium text-sm hover:opacity-90 transition-opacity shadow-lg">
+
+                      Book Appointment <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  </div>
+                </motion.div>
+              </div>
+            </div>
+          )}
+        </AnimatePresence>
 
         {/* Slide indicators */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex gap-2">
