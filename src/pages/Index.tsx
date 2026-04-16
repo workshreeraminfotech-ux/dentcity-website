@@ -66,7 +66,7 @@ const Index = () => {
             </picture>
           </div>
         )}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-black/10" />
         <div className="relative z-10 h-full flex items-center">
           <div className="container mx-auto px-4">
             <motion.div
@@ -78,7 +78,7 @@ const Index = () => {
               <span className="inline-block text-xs font-semibold tracking-[0.25em] uppercase text-primary-foreground/60 mb-4">
                 DENTCITY Superspeciality Dental & Implant Centre
               </span>
-              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight">
+              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground/85 leading-tight">
                 Advanced Dental Care with Precision & Comfort
               </h1>
               <p className="mt-5 text-lg text-primary-foreground/70 leading-relaxed max-w-lg">
