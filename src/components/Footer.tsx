@@ -93,9 +93,12 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-primary-foreground/10 text-center">
+        <div className="mt-12 pt-8 border-t border-primary-foreground/10 flex flex-col sm:flex-row items-center justify-between gap-2">
           <p className="text-xs opacity-50">
             © {new Date().getFullYear()} DENTCITY Superspeciality Dental & Implant Centre. All rights reserved.
+          </p>
+          <p className="text-xs opacity-50">
+            Developed by <span className="opacity-100 font-semibold">SR Infotech</span>
           </p>
         </div>
       </div>
