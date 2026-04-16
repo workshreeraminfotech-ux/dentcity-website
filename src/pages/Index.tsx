@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Shield, Award, Clock, Users, ChevronRight, ChevronLeft } from "lucide-react";
@@ -97,14 +97,24 @@ const Index = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [paused, setPaused] = useState(false);
   const totalSlides = heroSlides.length;
+  const videoRef = useRef<HTMLVideoElement>(null);
 
+  // Auto-advance — skip timer when video slide is active (it advances on video end)
   useEffect(() => {
-    if (paused) return;
+    if (paused || heroSlides[currentSlide].isVideo) return;
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % totalSlides);
     }, 5000);
     return () => clearInterval(interval);
-  }, [paused]);
+  }, [paused, currentSlide]);
+
+  // Restart video every time slide 0 becomes active
+  useEffect(() => {
+    if (currentSlide === 0 && videoRef.current) {
+      videoRef.current.currentTime = 0;
+      videoRef.current.play();
+    }
+  }, [currentSlide]);
 
   const goNext = () => setCurrentSlide((prev) => (prev + 1) % totalSlides);
   const goPrev = () => setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
@@ -126,12 +136,14 @@ const Index = () => {
           >
             {slide.isVideo ? (
               <video
+                ref={videoRef}
                 src={slide.videoSrc}
                 autoPlay
-                loop
                 muted
                 playsInline
-                className="w-full h-full object-cover"
+                onEnded={goNext}
+                className="w-full h-full object-contain md:object-cover"
+                style={{ background: "#0a0a0a" }}
               />
             ) : (
               <picture>
