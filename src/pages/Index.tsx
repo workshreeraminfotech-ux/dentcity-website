@@ -135,29 +135,15 @@ const Index = () => {
             style={{ opacity: currentSlide === i ? 1 : 0 }}
           >
             {slide.isVideo ? (
-              <div className="relative w-full h-full overflow-hidden bg-black">
-                {/* Blurred background layer — fills the sides naturally */}
-                <video
-                  src={slide.videoSrc}
-                  autoPlay
-                  muted
-                  playsInline
-                  loop
-                  aria-hidden="true"
-                  className="absolute inset-0 w-full h-full object-cover scale-110"
-                  style={{ filter: "blur(18px) brightness(0.5)", transform: "scale(1.15)" }}
-                />
-                {/* Actual video — fully visible, no crop */}
-                <video
-                  ref={videoRef}
-                  src={slide.videoSrc}
-                  autoPlay
-                  muted
-                  playsInline
-                  onEnded={goNext}
-                  className="relative z-10 w-full h-full object-contain"
-                />
-              </div>
+              <video
+                ref={videoRef}
+                src={slide.videoSrc}
+                autoPlay
+                muted
+                playsInline
+                onEnded={goNext}
+                className="w-full h-full object-cover"
+              />
             ) : (
               <picture>
                 <source media="(max-width: 767px)" srcSet={slide.mobileSrc} />
