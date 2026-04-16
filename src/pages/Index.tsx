@@ -15,7 +15,7 @@ import gallery1 from "@/assets/gallery-1.jpg";
 
 const heroSlides = [
   { src: fatherIhde, position: "object-top" },
-  { src: ssp9486, position: "object-top" },
+  { src: ssp9486, position: "object-center sm:object-top" },
   { src: machine, position: "object-center" },
   { src: re, position: "object-center" }
 ];
