@@ -6,18 +6,22 @@ import SectionHeading from "@/components/SectionHeading";
 import { StaggerTestimonials } from "@/components/ui/stagger-testimonials";
 
 import fatherIhde from "@/assets/hero section photos/father of corticobasal implant - pro. dr. stefan ihde.jpg";
-import ssp9486 from "@/assets/hero section photos/SSP_9484.JPG";
+import fatherIhdeMobile from "@/assets/hero section photos/father of corticobasal implant - pro. dr. stefan ihde 1.jpeg";
+import ssp9484 from "@/assets/hero section photos/SSP_9484.JPG";
+import ssp9484Mobile from "@/assets/hero section photos/SSP_9484 1.jpeg";
 import re from "@/assets/hero section photos/re.webp";
+import reMobile from "@/assets/hero section photos/re 1.webp";
 import machine from "@/assets/hero section photos/machine.webp";
+import machineMobile from "@/assets/hero section photos/machine 1.webp";
 import serviceImplants from "@/assets/service-implants.jpg";
 import serviceOrthodontics from "@/assets/service-orthodontics.jpg";
 import gallery1 from "@/assets/gallery-1.jpg";
 
 const heroSlides = [
-  { src: fatherIhde, position: "object-top" },
-  { src: ssp9486, position: "object-center sm:object-top" },
-  { src: machine, position: "object-center" },
-  { src: re, position: "object-center" }
+  { desktopSrc: fatherIhde, mobileSrc: fatherIhdeMobile, position: "object-top" },
+  { desktopSrc: ssp9484, mobileSrc: ssp9484Mobile, position: "object-center sm:object-top" },
+  { desktopSrc: machine, mobileSrc: machineMobile, position: "object-center" },
+  { desktopSrc: re, mobileSrc: reMobile, position: "object-center" }
 ];
 
 const stats = [
@@ -55,8 +59,11 @@ const Index = () => {
             key={i}
             className="absolute inset-0 transition-opacity duration-1000"
             style={{ opacity: currentSlide === i ? 1 : 0 }}>
-
-            <img src={slide.src} alt="" className={`w-full h-full object-cover ${slide.position}`} />
+            
+            <picture>
+              <source media="(max-width: 767px)" srcSet={slide.mobileSrc} />
+              <img src={slide.desktopSrc} alt="" className={`w-full h-full object-cover ${slide.position}`} />
+            </picture>
           </div>
         )}
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
