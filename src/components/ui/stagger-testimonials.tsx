@@ -1,20 +1,71 @@
 "use client"
 
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const SQRT_5000 = Math.sqrt(5000);
 
+// Google Maps review link for Dentcity
+const GOOGLE_REVIEW_URL = "https://g.page/r/dentcity/review";
+
 const testimonials = [
-  { tempId: 0, testimonial: "The best dental experience I've ever had. The team is professional and caring.", by: "Riya Patel", imgSrc: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150&h=150" },
-  { tempId: 1, testimonial: "Got my dental implants done here. Painless procedure and excellent results.", by: "Amit Shah", imgSrc: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&q=80&w=150&h=150" },
-  { tempId: 2, testimonial: "My kids love coming here! The pediatric care is outstanding.", by: "Priya Mehta", imgSrc: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150&h=150" },
-  { tempId: 3, testimonial: "I was always afraid of dentists, but the doctors here made me feel completely at ease.", by: "Karan Desai", imgSrc: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150&h=150" },
-  { tempId: 4, testimonial: "Recommending Dentcity to all my friends. Excellent service and state-of-the-art clinic.", by: "Neha Singh", imgSrc: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=150&h=150" },
-  { tempId: 5, testimonial: "Affordable treatments with high-quality results. Very satisfied with my braces journey.", by: "Rahul Verma", imgSrc: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=150&h=150" },
-  { tempId: 6, testimonial: "The smile design completely changed my confidence. Thank you Dentcity!", by: "Anjali Gupta", imgSrc: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150&h=150" },
-  { tempId: 7, testimonial: "Very hygienic and well-maintained clinic. The staff ensures you are comfortable throughout.", by: "Vikram Joshi", imgSrc: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=150&h=150" }
+  {
+    tempId: 0,
+    testimonial: "I believe Dr. Bhindi is one of the best Dentist in Rajkot. His educational qualifications combined with practical experience gives us very smooth treatments. Best thing about him is that he likes to retain original teeth and just removes minimal parts. Highly recommend!",
+    by: "Jay Exports",
+    rating: 5,
+    imgSrc: "https://ui-avatars.com/api/?name=Jay+Exports&background=0D8ABC&color=fff&size=100"
+  },
+  {
+    tempId: 1,
+    testimonial: "I had 4 lower implants and 2 upper bridges in 2022/2023. Dr Rathin carried out all the work professionally and with courtesy at every stage. I was kept informed at every stage. I highly recommend this surgery for any dental related issues.",
+    by: "Naren Surani",
+    rating: 5,
+    imgSrc: "https://ui-avatars.com/api/?name=Naren+Surani&background=1A7A4A&color=fff&size=100"
+  },
+  {
+    tempId: 2,
+    testimonial: "Dentcity is one of the best Dental clinics I have ever visited for treatment. The setup is World class. Dr. Rathin Bhindi is highly qualified and well experienced. Painless and best treatment is his craft. His entire team is also very compatible.",
+    by: "Dr. Bhooshan Jikar",
+    rating: 5,
+    imgSrc: "https://ui-avatars.com/api/?name=Bhooshan+Jikar&background=7B3FA0&color=fff&size=100"
+  },
+  {
+    tempId: 3,
+    testimonial: "I have always had a great, smooth experience at Dentcity. Dr. Rathin Bhindi and his staff is respectful, friendly, caring, and courteous of your time. It runs very smoothly and efficiently. Would definitely recommend their services to anyone.",
+    by: "Dhruv Sejpal",
+    rating: 5,
+    imgSrc: "https://ui-avatars.com/api/?name=Dhruv+Sejpal&background=C0392B&color=fff&size=100"
+  },
+  {
+    tempId: 4,
+    testimonial: "Excellent experience with Dr. Rathin Bhindi. Very professional, gentle, and caring. The clinic is clean and well-equipped. Highly recommended for all dental needs!",
+    by: "Nishil Joshi",
+    rating: 5,
+    imgSrc: "https://ui-avatars.com/api/?name=Nishil+Joshi&background=E67E22&color=fff&size=100"
+  },
+  {
+    tempId: 5,
+    testimonial: "Dr Rathin Bhindi's Dentcity clinic is one of the best for dental treatment. Doctor is so generous and expert, staff is polite and cooperative, ambiance is also very nice.",
+    by: "Pratik Katariya",
+    rating: 5,
+    imgSrc: "https://ui-avatars.com/api/?name=Pratik+Katariya&background=2C3E7A&color=fff&size=100"
+  },
+  {
+    tempId: 6,
+    testimonial: "Came all the way from Kerala for dental implant for my dad. Really liked the ambiance and Dr Rathin explained every single procedure in detail and made us so comfortable. Definitely recommend for any dental treatment. Thank you Dr Rathin.",
+    by: "Pavan Surve",
+    rating: 5,
+    imgSrc: "https://ui-avatars.com/api/?name=Pavan+Surve&background=16A085&color=fff&size=100"
+  },
+  {
+    tempId: 7,
+    testimonial: "A young & energetic doctor having enthusiasm to be updated with latest technology and knowledge. Everyone must get at least his opinion regarding one's dental problem. Wishing him a glittering achievement.",
+    by: "Kiritbhai Mavani",
+    rating: 5,
+    imgSrc: "https://ui-avatars.com/api/?name=Kiritbhai+Mavani&background=8E44AD&color=fff&size=100"
+  },
 ];
 
 interface TestimonialCardProps {
@@ -65,23 +116,32 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
       />
       <img
         src={testimonial.imgSrc}
-        alt={`${testimonial.by.split(',')[0]}`}
-        className="mb-4 h-14 w-12 bg-muted object-cover object-top"
+        alt={`${testimonial.by}`}
+        className="mb-3 h-12 w-12 rounded-full bg-muted object-cover"
         style={{
           boxShadow: "3px 3px 0px hsl(var(--background))"
         }}
       />
+      {/* Star rating */}
+      <div className="flex gap-0.5 mb-3">
+        {Array.from({ length: testimonial.rating }).map((_, i) => (
+          <Star
+            key={i}
+            className={cn("w-3.5 h-3.5 fill-current", isCenter ? "text-yellow-300" : "text-yellow-500")}
+          />
+        ))}
+      </div>
       <h3 className={cn(
-        "text-base sm:text-xl font-medium",
+        "text-sm sm:text-base font-medium leading-snug line-clamp-5",
         isCenter ? "text-primary-foreground" : "text-foreground"
       )}>
         "{testimonial.testimonial}"
       </h3>
       <p className={cn(
-        "absolute bottom-8 left-8 right-8 mt-2 text-sm italic",
+        "absolute bottom-8 left-8 right-8 mt-2 text-sm font-semibold",
         isCenter ? "text-primary-foreground/80" : "text-muted-foreground"
       )}>
-        - {testimonial.by}
+        — {testimonial.by}
       </p>
     </div>
   );
@@ -122,57 +182,84 @@ export const StaggerTestimonials: React.FC = () => {
     return () => window.removeEventListener("resize", updateSize);
   }, []);
 
-  // Auto-scrolling feature
+  // Auto-scrolling
   useEffect(() => {
     const interval = setInterval(() => {
       handleMove(1);
-    }, 4000); // 4 seconds interval for auto scroll
+    }, 4000);
     return () => clearInterval(interval);
   }, [testimonialsList]);
 
   return (
-    <div
-      className="relative w-full overflow-hidden bg-transparent mt-4"
-      style={{ height: containerHeight }}
-    >
-      {testimonialsList.map((testimonial, index) => {
-        const position = testimonialsList.length % 2
-          ? index - (testimonialsList.length + 1) / 2
-          : index - testimonialsList.length / 2;
-        return (
-          <TestimonialCard
-            key={testimonial.tempId}
-            testimonial={testimonial}
-            handleMove={handleMove}
-            position={position}
-            cardSize={cardSize}
-          />
-        );
-      })}
-      <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2 z-20">
-        <button
-          onClick={() => handleMove(-1)}
-          className={cn(
-            "flex h-14 w-14 items-center justify-center text-2xl transition-colors rounded-full",
-            "bg-background border-2 border-border hover:bg-primary hover:text-primary-foreground",
-            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-          )}
-          aria-label="Previous testimonial"
+    <div>
+      <div
+        className="relative w-full overflow-hidden bg-transparent mt-4"
+        style={{ height: containerHeight }}
+      >
+        {testimonialsList.map((testimonial, index) => {
+          const position = testimonialsList.length % 2
+            ? index - (testimonialsList.length + 1) / 2
+            : index - testimonialsList.length / 2;
+          return (
+            <TestimonialCard
+              key={testimonial.tempId}
+              testimonial={testimonial}
+              handleMove={handleMove}
+              position={position}
+              cardSize={cardSize}
+            />
+          );
+        })}
+        <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2 z-20">
+          <button
+            onClick={() => handleMove(-1)}
+            className={cn(
+              "flex h-14 w-14 items-center justify-center text-2xl transition-colors rounded-full",
+              "bg-background border-2 border-border hover:bg-primary hover:text-primary-foreground",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            )}
+            aria-label="Previous testimonial"
+          >
+            <ChevronLeft />
+          </button>
+          <button
+            onClick={() => handleMove(1)}
+            className={cn(
+              "flex h-14 w-14 items-center justify-center text-2xl transition-colors rounded-full",
+              "bg-background border-2 border-border hover:bg-primary hover:text-primary-foreground",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            )}
+            aria-label="Next testimonial"
+          >
+            <ChevronRight />
+          </button>
+        </div>
+      </div>
+
+      {/* Google Review CTA */}
+      <div className="flex flex-col items-center gap-3 mt-6">
+        <div className="flex items-center gap-1">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+          ))}
+          <span className="ml-2 text-sm text-muted-foreground font-medium">5.0 — Google Reviews</span>
+        </div>
+        <a
+          href="https://g.page/r/CbRe5FpCkV1LEBM/review"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white border border-gray-200 shadow-md hover:shadow-lg transition-all text-sm font-semibold text-gray-700 hover:scale-105 active:scale-95"
         >
-          <ChevronLeft />
-        </button>
-        <button
-          onClick={() => handleMove(1)}
-          className={cn(
-            "flex h-14 w-14 items-center justify-center text-2xl transition-colors rounded-full",
-            "bg-background border-2 border-border hover:bg-primary hover:text-primary-foreground",
-            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-          )}
-          aria-label="Next testimonial"
-        >
-          <ChevronRight />
-        </button>
+          <svg className="w-5 h-5" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+          </svg>
+          Write a Review on Google
+        </a>
       </div>
     </div>
   );
 };
+
