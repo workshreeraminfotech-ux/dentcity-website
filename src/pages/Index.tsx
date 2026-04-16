@@ -78,7 +78,7 @@ const Index = () => {
               <span className="inline-block text-xs font-semibold tracking-[0.25em] uppercase text-primary-foreground/60 mb-4">
                 DENTCITY Superspeciality Dental & Implant Centre
               </span>
-              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight">
+              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-semibold text-primary-foreground/85 leading-tight tracking-wide drop-shadow-md">
                 Advanced Dental Care with Precision & Comfort
               </h1>
               <p className="mt-5 text-lg text-primary-foreground/70 leading-relaxed max-w-lg">
