@@ -5,7 +5,7 @@ import { ArrowRight, Shield, Award, Clock, Users, ChevronRight, ChevronLeft } fr
 import SectionHeading from "@/components/SectionHeading";
 import { StaggerTestimonials } from "@/components/ui/stagger-testimonials";
 
-import heroVideo from "@/assets/hero section photos/dental implant video hero section.mp4";
+import heroVideo from "@/assets/hero section photos/dental implant video hero section 1.mp4";
 import fatherIhde from "@/assets/hero section photos/father of corticobasal implant - pro. dr. stefan ihde.jpg";
 import fatherIhdeMobile from "@/assets/hero section photos/father of corticobasal implant - pro. dr. stefan ihde 1.jpeg";
 import ssp9484 from "@/assets/hero section photos/SSP_9484.JPG";
