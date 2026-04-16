@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Shield, Award, Clock, Users, ChevronRight, MessageCircle } from "lucide-react";
+import { ArrowRight, Shield, Award, Clock, Users, ChevronRight, ChevronLeft } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import { StaggerTestimonials } from "@/components/ui/stagger-testimonials";
 
@@ -18,10 +18,54 @@ import serviceOrthodontics from "@/assets/service-orthodontics.jpg";
 import gallery1 from "@/assets/gallery-1.jpg";
 
 const heroSlides = [
-  { desktopSrc: fatherIhde, mobileSrc: fatherIhdeMobile, position: "object-top" },
-  { desktopSrc: ssp9484, mobileSrc: ssp9484Mobile, position: "object-center sm:object-top" },
-  { desktopSrc: machine, mobileSrc: machineMobile, position: "object-center" },
-  { desktopSrc: re, mobileSrc: reMobile, position: "object-center" }
+  {
+    desktopSrc: fatherIhde,
+    mobileSrc: fatherIhdeMobile,
+    position: "object-top",
+    overlay: "from-black/75 via-black/50 to-black/20",
+    badge: "Global Expertise",
+    heading: "Internationally Trained.\nGlobally Trusted.",
+    sub: "Advanced implant techniques & world-class dental care",
+    cta: "Explore Treatments",
+    ctaLink: "/services#dental-implant",
+    accent: "#D4AF37",
+  },
+  {
+    desktopSrc: ssp9484,
+    mobileSrc: ssp9484Mobile,
+    position: "object-center sm:object-top",
+    overlay: "from-black/70 via-black/45 to-black/15",
+    badge: "Award Winning",
+    heading: "Award-Winning\nDental Excellence.",
+    sub: "Recognized for precision, care, and advanced dentistry",
+    cta: "Book Appointment",
+    ctaLink: "/contact",
+    accent: "#60B8F0",
+  },
+  {
+    desktopSrc: machine,
+    mobileSrc: machineMobile,
+    position: "object-center",
+    overlay: "from-black/80 via-black/55 to-black/20",
+    badge: "Latest Technology",
+    heading: "Advanced Technology.\nGentle Treatment.",
+    sub: "Equipped with the latest dental innovations for precise care",
+    cta: "View Services",
+    ctaLink: "/services",
+    accent: "#A8D5BA",
+  },
+  {
+    desktopSrc: re,
+    mobileSrc: reMobile,
+    position: "object-center",
+    overlay: "from-black/65 via-black/40 to-black/10",
+    badge: "Premium Experience",
+    heading: "Step Into Comfort\n& Care.",
+    sub: "Modern clinic designed for a stress-free dental experience",
+    cta: "Visit Our Clinic",
+    ctaLink: "/contact",
+    accent: "#F0C060",
+  },
 ];
 
 const stats = [
@@ -30,102 +74,211 @@ const stats = [
   { icon: Shield, value: "100%", label: "Safe & Sterile" },
   { icon: Clock, value: "24/7", label: "Emergency Care" }];
 
-
 const featuredServices = [
   { title: "Dental Implants", desc: "Permanent tooth replacement with precision-placed titanium implants.", img: serviceImplants },
   { title: "Orthodontics", desc: "Straighten your smile with modern braces and clear aligners.", img: serviceOrthodontics },
   { title: "Smile Design", desc: "Transform your smile with customized cosmetic treatments.", img: gallery1 }];
 
-
-
-
+const quickMenuItems = [
+  { label: "Whitening", link: "/services#general-dentistry" },
+  { label: "Implants", link: "/services#dental-implant" },
+  { label: "Braces", link: "/services#general-dentistry" },
+];
 
 const Index = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [showHeroContent, setShowHeroContent] = useState(false);
+  const [paused, setPaused] = useState(false);
+  const [toothMenuOpen, setToothMenuOpen] = useState(false);
+  const totalSlides = heroSlides.length;
 
   useEffect(() => {
+    if (paused) return;
     const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+      setCurrentSlide((prev) => (prev + 1) % totalSlides);
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [paused]);
+
+  const goNext = () => setCurrentSlide((prev) => (prev + 1) % totalSlides);
+  const goPrev = () => setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
 
   return (
     <>
-      {/* Hero */}
-      <section className="relative h-screen overflow-hidden">
-        {heroSlides.map((slide, i) =>
+      {/* ─── Hero ─── */}
+      <section
+        className="relative h-screen overflow-hidden"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+      >
+        {/* Background slides with Ken Burns zoom */}
+        {heroSlides.map((slide, i) => (
           <div
             key={i}
             className="absolute inset-0 transition-opacity duration-1000"
-            style={{ opacity: currentSlide === i ? 1 : 0 }}>
-            
+            style={{ opacity: currentSlide === i ? 1 : 0 }}
+          >
             <picture>
               <source media="(max-width: 767px)" srcSet={slide.mobileSrc} />
-              <img src={slide.desktopSrc} alt="" className={`w-full h-full object-cover ${slide.position}`} />
+              <img
+                src={slide.desktopSrc}
+                alt=""
+                className={`w-full h-full object-cover ${slide.position} ${
+                  currentSlide === i ? "scale-110" : "scale-100"
+                } transition-transform duration-[8000ms] ease-out`}
+              />
             </picture>
+            <div className={`absolute inset-0 bg-gradient-to-r ${slide.overlay}`} />
           </div>
-        )}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
-        <div className="absolute top-28 md:top-36 right-4 md:right-8 z-50 flex flex-col items-center">
+        ))}
+
+        {/* Per-slide animated text */}
+        <div className="absolute inset-0 z-10 flex items-center">
+          <div className="container mx-auto px-5 md:px-10">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentSlide}
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -30 }}
+                transition={{ duration: 0.7, ease: "easeOut" }}
+                className="max-w-2xl"
+              >
+                {/* Badge */}
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.1, duration: 0.5 }}
+                  className="inline-flex items-center gap-2 mb-5"
+                >
+                  <span
+                    className="w-2 h-2 rounded-full animate-pulse"
+                    style={{ backgroundColor: heroSlides[currentSlide].accent }}
+                  />
+                  <span
+                    className="text-xs font-bold tracking-[0.3em] uppercase"
+                    style={{ color: heroSlides[currentSlide].accent }}
+                  >
+                    {heroSlides[currentSlide].badge}
+                  </span>
+                </motion.div>
+
+                {/* Heading */}
+                <motion.h1
+                  initial={{ opacity: 0, y: 25 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2, duration: 0.65 }}
+                  className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight whitespace-pre-line drop-shadow-xl"
+                >
+                  {heroSlides[currentSlide].heading}
+                </motion.h1>
+
+                {/* Accent underline */}
+                <motion.div
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ delay: 0.35, duration: 0.5 }}
+                  className="origin-left mt-4 mb-4 h-0.5 w-24 rounded-full"
+                  style={{ backgroundColor: heroSlides[currentSlide].accent }}
+                />
+
+                {/* Sub */}
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.4, duration: 0.6 }}
+                  className="text-base md:text-lg text-white/75 leading-relaxed max-w-lg"
+                >
+                  {heroSlides[currentSlide].sub}
+                </motion.p>
+
+                {/* CTA */}
+                <motion.div
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.55, duration: 0.5 }}
+                  className="mt-8"
+                >
+                  <Link
+                    to={heroSlides[currentSlide].ctaLink}
+                    className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm shadow-2xl transition-all hover:scale-105 active:scale-95"
+                    style={{ backgroundColor: heroSlides[currentSlide].accent, color: "#111" }}
+                  >
+                    {heroSlides[currentSlide].cta}
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </motion.div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
+
+        {/* ── Prev/Next arrows ── */}
+        <button
+          onClick={goPrev}
+          className="absolute left-4 md:left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/10 hover:bg-white/25 border border-white/25 backdrop-blur-sm flex items-center justify-center text-white transition-all hover:scale-110"
+        >
+          <ChevronLeft className="w-5 h-5" />
+        </button>
+        <button
+          onClick={goNext}
+          className="absolute right-4 md:right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/10 hover:bg-white/25 border border-white/25 backdrop-blur-sm flex items-center justify-center text-white transition-all hover:scale-110"
+        >
+          <ChevronRight className="w-5 h-5" />
+        </button>
+
+        {/* ── Floating Tooth Icon + Quick Menu (top-right) ── */}
+        <div className="absolute top-24 md:top-28 right-4 md:right-8 z-50 flex flex-col items-center">
+          <AnimatePresence>
+            {toothMenuOpen && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.85, y: 10 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.85, y: 10 }}
+                transition={{ duration: 0.3, type: "spring", stiffness: 280 }}
+                className="absolute bottom-[calc(100%+12px)] right-0 flex flex-col gap-2 items-end"
+              >
+                {quickMenuItems.map((item, idx) => (
+                  <Link
+                    key={idx}
+                    to={item.link}
+                    onClick={() => setToothMenuOpen(false)}
+                    className="text-xs font-semibold text-white bg-black/50 hover:bg-black/70 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full shadow-lg whitespace-nowrap transition-all hover:scale-105"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+
           <button
-            onClick={() => setShowHeroContent(!showHeroContent)}
-            className="w-14 h-14 md:w-16 md:h-16 rounded-full glass bg-white/10 hover:bg-white/20 border border-white/30 flex items-center justify-center text-primary-foreground shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] transition-all group"
+            onClick={() => setToothMenuOpen(!toothMenuOpen)}
+            className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white/15 hover:bg-white/30 border-2 border-white/35 flex items-center justify-center text-white shadow-[0_0_20px_rgba(255,255,255,0.25)] hover:shadow-[0_0_35px_rgba(255,255,255,0.45)] transition-all"
           >
-            <svg className={`w-7 h-7 md:w-8 md:h-8 transition-transform duration-500 ${showHeroContent ? 'scale-90 opacity-70' : 'group-hover:scale-110 animate-pulse'}`} viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2c-2.4 0-4.6 1.4-5.5 3.5C4 6.7 2 9.5 2 13c0 4.5 3 6.9 4 10.5.5 1.5 2.8 1.5 3.3 0C10.5 20 11.5 18 12 18s1.5 2 2.7 5.5c.5 1.5 2.8 1.5 3.3 0 1-3.6 4-6 4-10.5 0-3.5-2-6.3-4.5-7.5C16.6 3.4 14.4 2 12 2z" />
+            <svg
+              className={`w-7 h-7 md:w-8 md:h-8 transition-transform duration-500 ${toothMenuOpen ? "rotate-12 scale-90" : "animate-pulse"}`}
+              viewBox="0 0 64 64"
+              fill="currentColor"
+            >
+              <path d="M32 4c-5 0-9.5 2.5-12 6.5C17 16 12 18 10 26c-2 8 1 14 4 20 2 4.5 4 10 6.5 14 1.5 2.5 5.5 2.5 7 0 1.5-3 3-7 4.5-10.5 1-2.5 2-4 3-4s2 1.5 3 4c1.5 3.5 3 7.5 4.5 10.5 1.5 2.5 5.5 2.5 7 0 2.5-4 4.5-9.5 6.5-14 3-6 6-12 4-20-2-8-7-10-10-15.5C41.5 6.5 37 4 32 4z" />
             </svg>
           </button>
-          <span className="text-xs font-semibold text-primary-foreground tracking-wider uppercase drop-shadow-md opacity-90 mt-3 animate-bounce">
-            {showHeroContent ? "Hide" : "Click Here"}
+          <span className="text-[10px] font-bold text-white/80 tracking-widest uppercase mt-2 drop-shadow-md animate-bounce">
+            {toothMenuOpen ? "Close" : "Quick Menu"}
           </span>
         </div>
 
-        <AnimatePresence>
-          {showHeroContent && (
-            <div className="absolute inset-0 z-10 h-full flex items-center">
-              <div className="container mx-auto px-4">
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9, x: -20 }}
-                  animate={{ opacity: 1, scale: 1, x: 0 }}
-                  exit={{ opacity: 0, scale: 0.9, x: -20 }}
-                  transition={{ duration: 0.5, type: "spring" }}
-                  className="max-w-2xl bg-black/20 p-6 md:p-8 rounded-3xl backdrop-blur-sm border border-white/10 shadow-2xl"
-                >
-                  <span className="inline-block text-xs font-semibold tracking-[0.25em] uppercase text-primary-foreground/80 mb-4 drop-shadow-md">
-                    DENTCITY Superspeciality Dental & Implant Centre
-                  </span>
-                  <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight drop-shadow-lg">
-                    Advanced Dental Care with Precision & Comfort
-                  </h1>
-                  <p className="mt-5 text-lg text-primary-foreground/90 leading-relaxed max-w-lg drop-shadow-md">
-                    Experience world-class dental treatments in a modern, comfortable environment. Your smile is our speciality.
-                  </p>
-                  <div className="mt-8 flex flex-wrap gap-4">
-                    <Link
-                      to="/contact"
-                      className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-primary-foreground text-primary font-medium text-sm hover:opacity-90 transition-opacity shadow-lg">
-
-                      Book Appointment <ArrowRight className="w-4 h-4" />
-                    </Link>
-                  </div>
-                </motion.div>
-              </div>
-            </div>
-          )}
-        </AnimatePresence>
-
-        {/* Slide indicators */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex gap-2">
-          {heroSlides.map((_, i) =>
+        {/* ── Slide dots ── */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2 items-center">
+          {heroSlides.map((_, i) => (
             <button
               key={i}
               onClick={() => setCurrentSlide(i)}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${currentSlide === i ? "w-8 bg-primary-foreground" : "bg-primary-foreground/40"}`
-              } />
-
-          )}
+              className={`rounded-full transition-all duration-300 ${
+                currentSlide === i ? "w-8 h-2 bg-white" : "w-2 h-2 bg-white/40 hover:bg-white/70"
+              }`}
+            />
+          ))}
         </div>
       </section>
 
@@ -225,8 +378,6 @@ const Index = () => {
           <StaggerTestimonials />
         </div>
       </section>
-
-
     </>);
 
 };
