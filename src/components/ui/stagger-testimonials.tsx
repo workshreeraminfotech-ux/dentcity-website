@@ -245,7 +245,7 @@ export const StaggerTestimonials: React.FC = () => {
           <span className="ml-2 text-sm text-muted-foreground font-medium">5.0 — Google Reviews</span>
         </div>
         <a
-          href="https://g.page/r/CbRe5FpCkV1LEBM/review"
+          href="https://www.google.com/maps/place/DENTCITY+Superspeciality+Dental+%26+Implant+Centre+-+Dr.+Rathin+Bhindi/@22.2906396,70.8020582,17z/data=!4m8!3m7!1s0x3959cbcaffbf36cd:0xc9abe557cf2e1a96!8m2!3d22.2906396!4d70.8046331!9m1!1b1!16s%2Fg%2F11fr6p8200?entry=ttu"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white border border-gray-200 shadow-md hover:shadow-lg transition-all text-sm font-semibold text-gray-700 hover:scale-105 active:scale-95"
