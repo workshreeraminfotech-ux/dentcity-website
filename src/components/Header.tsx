@@ -5,16 +5,16 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
   { label: "Home", path: "/" },
-  { 
-    label: "About", 
+  {
+    label: "About",
     path: "/about",
     subLinks: [
-      { label: "Dentcity Implant", path: "/about#implant" },
-      { label: "Dr.Rathin Bhindi", path: "/about#dr-rathin" }
+      { label: "Dentcity Implant Center", path: "/about#implant" },
+      { label: "Dr. Rathin Bhindi", path: "/about#dr-rathin" }
     ]
   },
-  { 
-    label: "Services", 
+  {
+    label: "Services",
     path: "/services",
     subLinks: [
       { label: "Dental Implant", path: "/services#dental-implant" },
@@ -46,11 +46,10 @@ const Header = () => {
             <div key={link.path} className="relative group">
               <Link
                 to={link.path}
-                className={`flex items-center gap-1 text-sm font-medium tracking-wide transition-colors duration-300 hover:text-foreground py-6 ${
-                  location.pathname === link.path
+                className={`flex items-center gap-1 text-sm font-medium tracking-wide transition-colors duration-300 hover:text-foreground py-6 ${location.pathname === link.path
                     ? "text-foreground"
                     : "text-muted-foreground"
-                }`}
+                  }`}
               >
                 {link.label}
                 {link.subLinks && <ChevronDown className="w-3 h-3 opacity-70 group-hover:rotate-180 transition-transform" />}
@@ -122,11 +121,10 @@ const Header = () => {
                         setExpandedMenu(null);
                       }
                     }}
-                    className={`flex items-center justify-between text-sm font-medium py-3 px-4 rounded-lg transition-colors ${
-                      location.pathname === link.path && !link.subLinks
+                    className={`flex items-center justify-between text-sm font-medium py-3 px-4 rounded-lg transition-colors ${location.pathname === link.path && !link.subLinks
                         ? "bg-accent text-foreground"
                         : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
-                    }`}
+                      }`}
                   >
                     {link.label}
                     {link.subLinks && (
