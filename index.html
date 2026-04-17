@@ -18,8 +18,111 @@
   <meta name="twitter:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f7d45a3e-67c5-4595-b5ea-1d0850cce3d8/id-preview-c82241ff--8c3417d3-aa42-45d6-9b92-442c290b315a.lovable.app-1771734135653.png">
   <meta name="twitter:card" content="summary_large_image">
 </head>
-  <body>
+  <body style="margin: 0;">
+    <style>
+      /* Preloader Critical CSS */
+      #initial-loader {
+        position: fixed;
+        inset: 0;
+        background: linear-gradient(135deg, #ffffff 0%, #f0fbfc 100%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 999999;
+        transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      
+      .loader-tooth {
+        width: 64px;
+        height: 64px;
+        margin-bottom: 20px;
+        fill: none;
+        stroke: #00bcd4;
+        stroke-width: 1.5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        animation: glow 2s ease-in-out infinite alternate, float 3s ease-in-out infinite;
+        filter: drop-shadow(0 0 8px rgba(0,188,212,0.4));
+      }
+      
+      .loader-brand {
+        font-family: system-ui, -apple-system, sans-serif;
+        font-size: 26px;
+        font-weight: 800;
+        letter-spacing: 4px;
+        color: #111827;
+        display: flex;
+        align-items: center;
+      }
+      
+      .loader-brand span {
+        color: #00bcd4;
+      }
+
+      .loader-text {
+        margin-top: 24px;
+        font-family: system-ui, -apple-system, sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #6b7280;
+        animation: pulse 1.5s infinite;
+      }
+
+      /* Animations */
+      @keyframes glow {
+        0% { fill: rgba(0, 188, 212, 0.05); stroke: #00bcd4; }
+        100% { fill: rgba(0, 188, 212, 0.25); stroke: #0093a8; filter: drop-shadow(0 0 16px rgba(0,188,212,0.8)); }
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translateY(0) scale(1); }
+        50% { transform: translateY(-8px) scale(1.05); }
+      }
+
+      @keyframes pulse {
+        0%, 100% { opacity: 0.6; }
+        50% { opacity: 1; }
+      }
+
+      /* When body gets .loaded class, hide loader */
+      body.loaded #initial-loader {
+        opacity: 0;
+        visibility: hidden;
+      }
+    </style>
+
+    <!-- Instant Render Preloader -->
+    <div id="initial-loader">
+      <svg class="loader-tooth" viewBox="0 0 24 24">
+        <!-- Symmetric Tooth Path -->
+        <path d="M12 20.5c-1.5 0-2-.5-2-1.5v-3c0-1-.5-1.5-1.5-1.5s-1.5.5-1.5 1.5v3c0 1-.5 1.5-2 1.5S3 20 3 19c0-3 1-8 1-10 0-4 3-7 8-7s8 3 8 7c0 2 1 7 1 10 0 1-.5 1.5-2 1.5s-2-.5-2-1.5v-3c0-1-.5-1.5-1.5-1.5s-1.5.5-1.5 1.5v3c0 1-.5 1.5-2 1.5z"></path>
+      </svg>
+      <div class="loader-brand">DENT<span>CITY</span></div>
+      <div class="loader-text">Loading...</div>
+    </div>
+
+    <!-- Main React App Mount Point -->
     <div id="root"></div>
+
+    <script>
+      // Wait for window to load all resources (images, JS, etc.)
+      window.addEventListener('load', () => {
+        // Enforce a minimum display time of 1 second so users actually see the cool animation,
+        // but if the network is slow, it will stay until 'load' fires.
+        setTimeout(() => {
+          document.body.classList.add('loaded');
+          
+          // Cleanup from DOM after transition
+          setTimeout(() => {
+            const loader = document.getElementById('initial-loader');
+            if (loader) loader.remove();
+          }, 800);
+        }, 1000); 
+      });
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

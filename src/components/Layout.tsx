@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import WhatsAppButton from "./WhatsAppButton";
-import SplashLoader from "./SplashLoader";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const { pathname, hash } = useLocation();
@@ -24,7 +23,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <SplashLoader />
       <Header />
       <main className="flex-1">{children}</main>
       <Footer />
