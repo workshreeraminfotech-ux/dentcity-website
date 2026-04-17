@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { Shield, Award, Heart, Microscope } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Shield, Award, Heart, Microscope, ArrowRight } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import doctorImg from "@/assets/doctor.png";
 import dr6 from "@/assets/dr6.jpg";
@@ -118,27 +119,201 @@ const About = () => {
       </section>
 
       {/* Doctor Section */}
-      <section id="dr-rathin" className="section-padding">
+      <section id="dr-rathin" className="section-padding overflow-hidden" style={{ background: "linear-gradient(135deg, #f0f4ff 0%, #fafafa 50%, #fff5f0 100%)" }}>
         <div className="container mx-auto">
           <SectionHeading
             subtitle="Meet Our Expert"
             title="Our Lead Dentist"
+            description="Combining international expertise with compassionate care to deliver smiles that last a lifetime."
           />
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="max-w-md mx-auto glass rounded-2xl overflow-hidden hover-lift"
-          >
-            <img src={doctorImg} alt="Doctor" className="w-full h-auto object-cover object-top bg-muted" loading="lazy" />
-            <div className="p-6 text-center">
-              <h3 className="font-display text-xl font-bold text-foreground">Dr. Rathin Bhindi</h3>
-              <p className="text-sm text-muted-foreground mt-1">BDS, MDS – Prosthodontics & Implantology</p>
-              <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
-                With over 15 years of experience in advanced dental procedures, specializing in dental implants, smile design, and full mouth rehabilitation.
+
+          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16 mt-12">
+
+            {/* ── Left: Details ── */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+              className="flex-1 order-2 lg:order-1"
+            >
+              {/* Name & title */}
+              <div className="mb-6">
+                <span
+                  className="inline-block text-xs font-bold tracking-[0.3em] uppercase px-4 py-1.5 rounded-full mb-4"
+                  style={{ background: "linear-gradient(90deg,#1a73e8,#0d47a1)", color: "#fff" }}
+                >
+                  Lead Dentist &amp; Founder
+                </span>
+                <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-tight">
+                  Dr. Rathin Bhindi
+                </h2>
+                <p className="text-lg font-medium mt-1" style={{ color: "#1a73e8" }}>
+                  BDS, MDS &ndash; Prosthodontics &amp; Implantology
+                </p>
+              </div>
+
+              {/* Short bio */}
+              <p className="text-muted-foreground leading-relaxed mb-8 text-base md:text-[15px]">
+                With over <strong className="text-foreground">15 years of clinical experience</strong> and
+                international training under globally renowned implant specialists, Dr. Rathin brings world-class
+                dental solutions to every patient. His expertise spans corticobasal implants, full-arch
+                restorations, smile design, and advanced cosmetic procedures &mdash; all delivered with a gentle,
+                patient-first approach.
               </p>
-            </div>
-          </motion.div>
+
+              {/* Credential pills */}
+              <div className="flex flex-wrap gap-3 mb-8">
+                {[
+                  "🎓 BDS, MDS – Prosthodontics",
+                  "🌍 Internationally Trained",
+                  "🦷 5000+ Implants Placed",
+                  "🏆 Award-Winning Clinician",
+                  "💬 Multilingual Consultation",
+                  "✨ Smile Design Expert",
+                ].map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-xs font-semibold px-4 py-2 rounded-full border"
+                    style={{
+                      borderColor: "#1a73e820",
+                      background: "rgba(26,115,232,0.06)",
+                      color: "#1a3a6b",
+                    }}
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              {/* Stats row */}
+              <div className="grid grid-cols-3 gap-4 mb-8">
+                {[
+                  { value: "15+", label: "Years Experience" },
+                  { value: "5000+", label: "Implants Placed" },
+                  { value: "98%", label: "Patient Satisfaction" },
+                ].map((s, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.1 * i + 0.3 }}
+                    className="text-center rounded-2xl py-5 px-2"
+                    style={{
+                      background: "rgba(255,255,255,0.9)",
+                      boxShadow: "0 4px 24px rgba(26,115,232,0.08)",
+                      border: "1px solid rgba(26,115,232,0.12)",
+                    }}
+                  >
+                    <p className="font-display text-2xl font-bold" style={{ color: "#1a73e8" }}>{s.value}</p>
+                    <p className="text-xs text-muted-foreground mt-1 leading-tight">{s.label}</p>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* CTA */}
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm shadow-lg transition-all hover:scale-105 active:scale-95 text-white"
+                style={{ background: "linear-gradient(90deg,#1a73e8,#0d47a1)" }}
+              >
+                Book a Consultation with Dr. Rathin
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </motion.div>
+
+            {/* ── Right: Photo ── */}
+            <motion.div
+              initial={{ opacity: 0, x: 60 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.75, ease: "easeOut" }}
+              className="flex-1 order-1 lg:order-2 flex justify-center"
+            >
+              <div className="relative w-full max-w-sm md:max-w-md">
+                {/* Decorative glow */}
+                <div
+                  className="absolute -inset-4 rounded-[2.5rem] opacity-30"
+                  style={{
+                    background:
+                      "radial-gradient(ellipse at 50% 50%, rgba(26,115,232,0.35) 0%, transparent 70%)",
+                  }}
+                />
+
+                {/* Floating badge – experience */}
+                <motion.div
+                  animate={{ y: [0, -8, 0] }}
+                  transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+                  className="absolute -top-5 -left-5 z-10 rounded-2xl px-4 py-3 text-center shadow-xl hidden sm:block"
+                  style={{
+                    background: "linear-gradient(135deg,#1a73e8,#0d47a1)",
+                    color: "#fff",
+                    minWidth: "110px",
+                  }}
+                >
+                  <p className="text-xl font-bold font-display leading-none">15+</p>
+                  <p className="text-[10px] font-medium tracking-wide mt-0.5">Years Exp.</p>
+                </motion.div>
+
+                {/* Floating badge – award */}
+                <motion.div
+                  animate={{ y: [0, 8, 0] }}
+                  transition={{ repeat: Infinity, duration: 3.5, ease: "easeInOut", delay: 0.5 }}
+                  className="absolute -bottom-5 -right-5 z-10 rounded-2xl px-4 py-3 text-center shadow-xl hidden sm:block"
+                  style={{
+                    background: "linear-gradient(135deg,#D4AF37,#b8920f)",
+                    color: "#fff",
+                    minWidth: "110px",
+                  }}
+                >
+                  <p className="text-xl font-bold font-display leading-none">🏆</p>
+                  <p className="text-[10px] font-medium tracking-wide mt-0.5">Award Winner</p>
+                </motion.div>
+
+                {/* Photo card */}
+                <div
+                  className="relative rounded-[2rem] overflow-hidden"
+                  style={{
+                    boxShadow: "0 30px 80px rgba(26,115,232,0.18), 0 8px 32px rgba(0,0,0,0.1)",
+                    border: "3px solid rgba(26,115,232,0.15)",
+                  }}
+                >
+                  <img
+                    src={doctorImg}
+                    alt="Dr. Rathin Bhindi – Lead Dentist at Dentcity"
+                    className="w-full object-cover object-top"
+                    style={{ maxHeight: "520px", minHeight: "360px" }}
+                    loading="lazy"
+                  />
+                  {/* Gradient overlay */}
+                  <div
+                    className="absolute bottom-0 left-0 right-0 h-28"
+                    style={{
+                      background:
+                        "linear-gradient(to top, rgba(255,255,255,0.9) 0%, transparent 100%)",
+                    }}
+                  />
+                  {/* Name plate */}
+                  <div
+                    className="absolute bottom-4 left-4 right-4 rounded-xl px-4 py-3 backdrop-blur-sm"
+                    style={{
+                      background: "rgba(255,255,255,0.92)",
+                      boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
+                      border: "1px solid rgba(26,115,232,0.1)",
+                    }}
+                  >
+                    <p className="font-display font-bold text-foreground text-sm leading-snug">
+                      Dr. Rathin Bhindi
+                    </p>
+                    <p className="text-xs mt-0.5" style={{ color: "#1a73e8" }}>
+                      BDS, MDS · Lead Implantologist · Dentcity
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
     </>
