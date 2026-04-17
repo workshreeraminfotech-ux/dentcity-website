@@ -82,14 +82,33 @@ const heroSlides = [
 
 const stats = [
   { icon: Users, value: "5000+", label: "Happy Patients" },
-  { icon: Award, value: "15+", label: "Years Experience" },
+  { icon: Award, value: "10+", label: "Years Experience" },
   { icon: Shield, value: "100%", label: "Safe & Sterile" },
   { icon: Clock, value: "24/7", label: "Emergency Care" }];
 
 const featuredServices = [
-  { title: "Dental Implants", desc: "Permanent tooth replacement with precision-placed titanium implants.", img: serviceImplants },
-  { title: "Orthodontics", desc: "Straighten your smile with modern braces and clear aligners.", img: serviceOrthodontics },
-  { title: "Smile Design", desc: "Transform your smile with customized cosmetic treatments.", img: gallery1 }];
+  {
+    slug: "dental-implants",
+    title: "Dental Implants",
+    desc: "Permanent tooth replacement with precision-placed titanium implants — our flagship speciality.",
+    img: serviceImplants,
+    isSpeciality: true,
+  },
+  {
+    slug: "smile-makeover",
+    title: "Smile Makeover",
+    desc: "A personalised cosmetic transformation — veneers, whitening & digital smile design in one plan.",
+    img: serviceOrthodontics,
+    isSpeciality: false,
+  },
+  {
+    slug: "invisible-aligners",
+    title: "Invisible Aligners",
+    desc: "Crystal-clear, removable aligners to straighten your teeth discreetly and comfortably.",
+    img: gallery1,
+    isSpeciality: false,
+  },
+];
 
 
 
@@ -303,7 +322,7 @@ const Index = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
             {featuredServices.map((service, i) => {
-              const isImplant = service.title === "Dental Implants";
+              const isImplant = service.isSpeciality;
               return (
               <motion.div
                 key={i}
@@ -312,8 +331,8 @@ const Index = () => {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.15 }}
                 className={`group rounded-2xl overflow-hidden hover-lift relative bg-card ${
-                  isImplant 
-                    ? "border-2 border-primary shadow-[0_0_25px_rgba(0,0,0,0.1)] lg:-translate-y-2" 
+                  isImplant
+                    ? "border-2 border-primary shadow-[0_0_25px_rgba(0,0,0,0.1)] lg:-translate-y-2"
                     : "border border-border"
                 }`}>
 
@@ -323,7 +342,7 @@ const Index = () => {
                     alt={service.title}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     loading="lazy" />
-                  
+
                   {isImplant && (
                     <div className="absolute top-4 right-4 bg-primary text-primary-foreground text-xs font-bold px-4 py-1.5 rounded-full shadow-lg z-10">
                       Our Speciality
@@ -336,15 +355,13 @@ const Index = () => {
                   </h3>
                   <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{service.desc}</p>
                   <Link
-                    to={isImplant ? "/services#dental-implant" : "/services"}
+                    to={`/services/${service.slug}`}
                     className="inline-flex items-center gap-1 text-sm font-medium text-foreground mt-4 hover:gap-2 transition-all">
-
                     Learn more <ChevronRight className="w-4 h-4" />
                   </Link>
                 </div>
               </motion.div>
-            )})}
-          </div>
+            )})}          </div>
           <div className="text-center mt-10">
             <Link
               to="/services"
