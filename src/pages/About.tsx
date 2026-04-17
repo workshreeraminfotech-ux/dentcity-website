@@ -149,27 +149,27 @@ const About = () => {
                   Dr. Rathin Bhindi
                 </h2>
                 <p className="text-lg font-medium mt-1" style={{ color: "#1a73e8" }}>
-                  BDS, MDS &ndash; Prosthodontics &amp; Implantology
+                  BDS &middot; Master Corticobasal Implants, IF Germany
                 </p>
               </div>
 
               {/* Short bio */}
               <p className="text-muted-foreground leading-relaxed mb-8 text-base md:text-[15px]">
-                With over <strong className="text-foreground">15 years of clinical experience</strong> and
-                international training under globally renowned implant specialists, Dr. Rathin brings world-class
-                dental solutions to every patient. His expertise spans corticobasal implants, full-arch
-                restorations, smile design, and advanced cosmetic procedures &mdash; all delivered with a gentle,
-                patient-first approach.
+                With over <strong className="text-foreground">10 years of clinical experience</strong> and
+                advanced training as a <strong className="text-foreground">Master in Corticobasal Implants from IF Germany</strong>,
+                Dr. Rathin brings internationally certified expertise to every patient. His speciality spans
+                corticobasal implants, full-arch restorations, smile design, and complex cosmetic procedures
+                &mdash; all delivered with a gentle, patient-first approach.
               </p>
 
               {/* Credential pills */}
               <div className="flex flex-wrap gap-3 mb-8">
                 {[
-                  "🎓 BDS, MDS – Prosthodontics",
-                  "🌍 Internationally Trained",
+                  "🎓 BDS – Dental Surgery",
+                  "🏅 Master Corticobasal Implants",
+                  "🌍 IF Germany Certified",
                   "🦷 5000+ Implants Placed",
                   "🏆 Award-Winning Clinician",
-                  "💬 Multilingual Consultation",
                   "✨ Smile Design Expert",
                 ].map((tag) => (
                   <span
@@ -189,7 +189,7 @@ const About = () => {
               {/* Stats row */}
               <div className="grid grid-cols-3 gap-4 mb-8">
                 {[
-                  { value: "15+", label: "Years Experience" },
+                  { value: "10+", label: "Years Experience" },
                   { value: "5000+", label: "Implants Placed" },
                   { value: "98%", label: "Patient Satisfaction" },
                 ].map((s, i) => (
@@ -252,7 +252,7 @@ const About = () => {
                     minWidth: "110px",
                   }}
                 >
-                  <p className="text-xl font-bold font-display leading-none">15+</p>
+                  <p className="text-xl font-bold font-display leading-none">10+</p>
                   <p className="text-[10px] font-medium tracking-wide mt-0.5">Years Exp.</p>
                 </motion.div>
 
@@ -307,7 +307,7 @@ const About = () => {
                       Dr. Rathin Bhindi
                     </p>
                     <p className="text-xs mt-0.5" style={{ color: "#1a73e8" }}>
-                      BDS, MDS · Lead Implantologist · Dentcity
+                      BDS · Master Corticobasal Implants · IF Germany
                     </p>
                   </div>
                 </div>
