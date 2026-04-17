@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Shield, Award, Heart, Microscope, ArrowRight } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import doctorImg from "@/assets/doctor.png";
-import dr6 from "@/assets/dr6.jpg";
+import buildingImg from "@/assets/gallery/building.webp";
 
 const whyUs = [
   { icon: Shield, title: "Advanced Technology", desc: "State-of-the-art digital X-rays, 3D imaging, and laser dentistry." },
@@ -45,7 +45,7 @@ const About = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <img src={dr6} alt="Award ceremony" className="rounded-2xl w-full h-auto object-cover shadow-md" loading="lazy" />
+              <img src={buildingImg} alt="Dentcity Implant Centre Building" className="rounded-2xl w-full h-auto object-cover shadow-md" loading="lazy" />
             </motion.div>
             <motion.div
               initial={{ opacity: 0, x: 30 }}
