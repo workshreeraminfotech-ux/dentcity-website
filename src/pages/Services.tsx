@@ -9,7 +9,6 @@ import hero1 from "@/assets/hero-1.jpg";
 import hero2 from "@/assets/hero-2.jpg";
 import gallery3 from "@/assets/gallery-3.jpg";
 import gallery4 from "@/assets/gallery-4.jpg";
-import doctor from "@/assets/doctor.png";
 
 const dentalImplants = [
   { title: "Dental Implants", desc: "Permanent tooth replacement with precision-placed titanium implants for a natural look and feel.", img: serviceImplants },
@@ -17,14 +16,15 @@ const dentalImplants = [
 ];
 
 const generalDentistry = [
-  { title: "Root Canal Treatment", desc: "Pain-free root canal therapy using advanced rotary instruments and microscope-guided precision.", img: gallery2 },
-  { title: "Smile Design", desc: "Custom smile makeovers with veneers, bonding, and digital smile design technology.", img: hero2 },
+  { title: "Invisible Aligners", desc: "Clear, removable aligners for discreet and comfortable teeth straightening with no metal brackets.", img: serviceOrthodontics },
+  { title: "Smile Makeover", desc: "Comprehensive cosmetic transformation combining veneers, whitening, and digital smile design for a stunning result.", img: hero2 },
+  { title: "Crowns And Bridges", desc: "Custom-crafted dental crowns and bridges to restore damaged or missing teeth with a natural appearance.", img: gallery2 },
   { title: "Teeth Whitening", desc: "Professional whitening treatments for a brighter, more confident smile in just one visit.", img: hero1 },
-  { title: "Orthodontics", desc: "Traditional braces and modern aligner systems for perfectly aligned teeth.", img: serviceOrthodontics },
-  { title: "Braces & Aligners", desc: "Invisible aligners and ceramic braces for discreet teeth straightening.", img: gallery4 },
-  { title: "Pediatric Dentistry", desc: "Gentle, child-friendly dental care in a fun and comforting environment.", img: gallery3 },
-  { title: "Gum Treatment", desc: "Advanced periodontal treatments to restore and maintain healthy gums.", img: doctor },
-  { title: "Emergency Dental Care", desc: "Immediate treatment for dental emergencies including trauma, infections, and severe pain.", img: hero1 },
+  { title: "Braces Treatment", desc: "Modern orthodontic braces including ceramic and metal options for precise teeth alignment.", img: gallery4 },
+  { title: "Pediatric Dentistry", desc: "Gentle, child-friendly dental care in a fun and comforting environment built for young smiles.", img: gallery3 },
+  { title: "Tooth-Colored Filling", desc: "Aesthetic composite resin fillings that blend seamlessly with your natural tooth colour for an invisible repair.", img: gallery1 },
+  { title: "Wisdom Tooth Extraction", desc: "Safe and comfortable removal of impacted or problematic wisdom teeth using minimally invasive techniques.", img: hero1 },
+  { title: "Root Canal Treatment", desc: "Pain-free root canal therapy using advanced rotary instruments and microscope-guided precision.", img: gallery2 },
 ];
 
 const Services = () => {
