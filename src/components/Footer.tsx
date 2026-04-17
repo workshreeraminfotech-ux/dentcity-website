@@ -42,19 +42,19 @@ const Footer = () => {
             <h4 className="font-display text-lg font-semibold mb-4">Services</h4>
             <ul className="space-y-2">
               {[
-                "Dental Implants",
-                "Root Canal",
-                "Smile Design",
-                "Teeth Whitening",
-                "Orthodontics",
-                "Pediatric Dentistry",
+                { label: "Dental Implants", slug: "dental-implants" },
+                { label: "Smile Makeover", slug: "smile-makeover" },
+                { label: "Invisible Aligners", slug: "invisible-aligners" },
+                { label: "Crowns And Bridges", slug: "crowns-and-bridges" },
+                { label: "Pediatric Dentistry", slug: "pediatric-dentistry" },
+                { label: "Root Canal Treatment", slug: "root-canal-treatment" },
               ].map((s) => (
-                <li key={s}>
+                <li key={s.slug}>
                   <Link
-                    to="/services"
+                    to={`/services/${s.slug}`}
                     className="text-sm opacity-70 hover:opacity-100 transition-opacity"
                   >
-                    {s}
+                    {s.label}
                   </Link>
                 </li>
               ))}
@@ -71,16 +71,16 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href="tel:+917990416940"
+                  href="tel:+919825078955"
                   className="flex items-center gap-3 text-sm opacity-70 hover:opacity-100 transition-opacity"
                 >
                   <Phone className="w-4 h-4 shrink-0" />
-                  +91 79904 16940
+                  +91 98250 78955
                 </a>
               </li>
               <li>
                 <a
-                  href="https://wa.me/917990416940"
+                  href="https://wa.me/919825078955"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 text-sm opacity-70 hover:opacity-100 transition-opacity"

@@ -6,7 +6,7 @@ const WhatsAppButton = () => {
       {/* Blinking border effect */}
       <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-75"></span>
       <a
-        href="https://wa.me/917990416940?text=Hello%2C%20I%20would%20like%20to%20book%20an%20appointment"
+        href="https://wa.me/919825078955?text=Hello%2C%20I%20would%20like%20to%20book%20an%20appointment"
         target="_blank"
         rel="noopener noreferrer"
         className="relative flex w-14 h-14 rounded-full bg-[#25D366] items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300"

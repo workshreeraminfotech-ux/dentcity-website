@@ -33,7 +33,7 @@ const AppointmentForm = () => {
     const encodedText = encodeURIComponent(text);
 
     // Redirect to WhatsApp
-    const whatsappUrl = `https://wa.me/917990416940?text=${encodedText}`;
+    const whatsappUrl = `https://wa.me/919825078955?text=${encodedText}`;
     window.open(whatsappUrl, "_blank");
   };
 
