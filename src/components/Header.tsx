@@ -4,31 +4,44 @@ import { Phone, Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
-  { label: "Home", path: "/" },
+  { label: "Home", path: "/#home" },
   {
     label: "About",
-    path: "/about",
+    path: "/#about",
     subLinks: [
-      { label: "Dentcity Implant Center", path: "/about#implant" },
-      { label: "Dr. Rathin Bhindi", path: "/about#dr-rathin" }
+      { label: "Dentcity Implant Center", path: "/#implant" },
+      { label: "Dr. Rathin Bhindi", path: "/#dr-rathin" }
     ]
   },
   {
     label: "Services",
-    path: "/services",
+    path: "/#services",
     subLinks: [
-      { label: "Dental Implant", path: "/services#dental-implant" },
-      { label: "General Dentistry", path: "/services#general-dentistry" }
+      { label: "Dental Implant", path: "/#dental-implant" },
+      { label: "General Dentistry", path: "/#general-dentistry" }
     ]
   },
-  { label: "Gallery", path: "/gallery" },
-  { label: "Contact", path: "/contact" },
+  { label: "Gallery", path: "/#gallery" },
+  { label: "Contact", path: "/#contact" },
 ];
 
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
   const location = useLocation();
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, path: string) => {
+    if (path.startsWith("/#")) {
+      const hash = path.substring(2);
+      const element = document.getElementById(hash);
+      if (element) {
+        e.preventDefault();
+        element.scrollIntoView({ behavior: "smooth" });
+        // Update URL hash directly
+        window.history.pushState(null, "", path);
+      }
+    }
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 glass">
@@ -44,28 +57,31 @@ const Header = () => {
         <nav className="hidden lg:flex items-center gap-8">
           {navLinks.map((link) => (
             <div key={link.path} className="relative group">
-              <Link
-                to={link.path}
-                className={`flex items-center gap-1 text-sm font-medium tracking-wide transition-colors duration-300 hover:text-foreground py-6 ${location.pathname === link.path
+              <a
+                href={link.path}
+                onClick={(e) => link.subLinks ? e.preventDefault() : handleNavClick(e, link.path)}
+                className={`flex items-center gap-1 text-sm font-medium tracking-wide transition-colors duration-300 hover:text-foreground py-6 ${
+                  location.hash === link.path.substring(1) || (location.pathname === '/' && location.hash === '' && link.path === '/#home')
                     ? "text-foreground"
                     : "text-muted-foreground"
-                  }`}
+                }`}
               >
                 {link.label}
                 {link.subLinks && <ChevronDown className="w-3 h-3 opacity-70 group-hover:rotate-180 transition-transform" />}
-              </Link>
+              </a>
 
               {link.subLinks && (
                 <div className="absolute top-full left-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-left -translate-y-2 group-hover:translate-y-0">
                   <div className="flex flex-col bg-card/95 backdrop-blur-md border border-border rounded-xl shadow-lg overflow-hidden min-w-[200px] p-2 mt-[-10px]">
                     {link.subLinks.map((subLink, idx) => (
-                      <Link
+                      <a
                         key={idx}
-                        to={subLink.path}
+                        href={subLink.path}
+                        onClick={(e) => handleNavClick(e, subLink.path)}
                         className="px-4 py-2.5 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg transition-colors"
                       >
                         {subLink.label}
-                      </Link>
+                      </a>
                     ))}
                   </div>
                 </div>
@@ -110,27 +126,29 @@ const Header = () => {
             <nav className="flex flex-col p-4 gap-2">
               {navLinks.map((link) => (
                 <div key={link.path} className="flex flex-col">
-                  <Link
-                    to={link.path}
+                  <a
+                    href={link.path}
                     onClick={(e) => {
                       if (link.subLinks) {
                         e.preventDefault();
                         setExpandedMenu(expandedMenu === link.path ? null : link.path);
                       } else {
+                        handleNavClick(e, link.path);
                         setMobileOpen(false);
                         setExpandedMenu(null);
                       }
                     }}
-                    className={`flex items-center justify-between text-sm font-medium py-3 px-4 rounded-lg transition-colors ${location.pathname === link.path && !link.subLinks
+                    className={`flex items-center justify-between text-sm font-medium py-3 px-4 rounded-lg transition-colors ${
+                      (location.hash === link.path.substring(1) && !link.subLinks) || (location.pathname === '/' && location.hash === '' && link.path === '/#home')
                         ? "bg-accent text-foreground"
                         : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
-                      }`}
+                    }`}
                   >
                     {link.label}
                     {link.subLinks && (
                       <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${expandedMenu === link.path ? "rotate-180" : ""}`} />
                     )}
-                  </Link>
+                  </a>
                   <AnimatePresence>
                     {link.subLinks && expandedMenu === link.path && (
                       <motion.div
@@ -141,17 +159,18 @@ const Header = () => {
                       >
                         <div className="pl-6 flex flex-col gap-1 mt-1 mb-2 border-l border-border/40 ml-4">
                           {link.subLinks.map((sub, idx) => (
-                            <Link
+                            <a
                               key={idx}
-                              to={sub.path}
-                              onClick={() => {
+                              href={sub.path}
+                              onClick={(e) => {
+                                handleNavClick(e, sub.path);
                                 setMobileOpen(false);
                                 setExpandedMenu(null);
                               }}
                               className="text-sm py-2 px-4 text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-accent/50"
                             >
                               {sub.label}
-                            </Link>
+                            </a>
                           ))}
                         </div>
                       </motion.div>

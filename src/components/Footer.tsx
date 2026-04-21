@@ -25,12 +25,21 @@ const Footer = () => {
               {["Home", "About", "Services", "Gallery", "Contact"].map(
                 (item) => (
                   <li key={item}>
-                    <Link
-                      to={item === "Home" ? "/" : `/${item.toLowerCase()}`}
+                    <a
+                      href={item === "Home" ? "/#home" : `/#${item.toLowerCase()}`}
                       className="text-sm opacity-70 hover:opacity-100 transition-opacity"
+                      onClick={(e) => {
+                        const hash = item === "Home" ? "home" : item.toLowerCase();
+                        const el = document.getElementById(hash);
+                        if (el) {
+                          e.preventDefault();
+                          el.scrollIntoView({ behavior: 'smooth' });
+                          window.history.pushState(null, "", `/#${hash}`);
+                        }
+                      }}
                     >
                       {item}
-                    </Link>
+                    </a>
                   </li>
                 )
               )}

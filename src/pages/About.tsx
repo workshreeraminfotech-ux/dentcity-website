@@ -213,14 +213,21 @@ const About = () => {
               </div>
 
               {/* CTA */}
-              <Link
-                to="/contact"
+              <a
+                href="#contact"
+                onClick={(e) => {
+                  const el = document.getElementById('contact');
+                  if (el) {
+                    e.preventDefault();
+                    el.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
                 className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm shadow-lg transition-all hover:scale-105 active:scale-95 text-white"
                 style={{ background: "linear-gradient(90deg,#1a73e8,#0d47a1)" }}
               >
                 Book a Consultation with Dr. Rathin
                 <ArrowRight className="w-4 h-4" />
-              </Link>
+              </a>
             </motion.div>
 
             {/* ── Right: Photo ── */}

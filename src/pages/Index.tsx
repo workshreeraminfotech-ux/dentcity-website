@@ -4,6 +4,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Shield, Award, Clock, Users, ChevronRight, ChevronLeft } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import { StaggerTestimonials } from "@/components/ui/stagger-testimonials";
+import AboutPage from "./About";
+import ServicesPage from "./Services";
+import GalleryPage from "./Gallery";
+import ContactPage from "./Contact";
 
 import heroVideo from "@/assets/hero section photos/dental implant video hero section 1.mp4";
 import fatherIhde from "@/assets/hero section photos/father of corticobasal implant - pro. dr. stefan ihde.jpg";
@@ -27,7 +31,7 @@ const heroSlides = [
     heading: "Your Smile.\nOur Precision.",
     sub: "Experience life-changing dental implants at Dentcity — where science meets artistry",
     cta: "Book a Consultation",
-    ctaLink: "/contact",
+    ctaLink: "#contact",
     accent: "#D4AF37",
   },
   {
@@ -39,7 +43,7 @@ const heroSlides = [
     heading: "Internationally Trained.\nGlobally Trusted.",
     sub: "Advanced implant techniques & world-class dental care",
     cta: "Explore Treatments",
-    ctaLink: "/services#dental-implant",
+    ctaLink: "#dental-implant",
     accent: "#D4AF37",
   },
   {
@@ -51,7 +55,7 @@ const heroSlides = [
     heading: "Award-Winning\nDental Excellence.",
     sub: "Recognized for precision, care, and advanced dentistry",
     cta: "Book Appointment",
-    ctaLink: "/contact",
+    ctaLink: "#contact",
     accent: "#60B8F0",
   },
   {
@@ -63,7 +67,7 @@ const heroSlides = [
     heading: "Advanced Technology.\nGentle Treatment.",
     sub: "Equipped with the latest dental innovations for precise care",
     cta: "View Services",
-    ctaLink: "/services",
+    ctaLink: "#services",
     accent: "#A8D5BA",
   },
   {
@@ -75,7 +79,7 @@ const heroSlides = [
     heading: "Step Into Comfort\n& Care.",
     sub: "Modern clinic designed for a stress-free dental experience",
     cta: "Visit Our Clinic",
-    ctaLink: "/contact",
+    ctaLink: "#contact",
     accent: "#F0C060",
   },
 ];
@@ -142,6 +146,7 @@ const Index = () => {
     <>
       {/* ─── Hero ─── */}
       <section
+        id="home"
         className="relative h-screen overflow-hidden"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
@@ -246,14 +251,24 @@ const Index = () => {
                   transition={{ delay: 0.55, duration: 0.5 }}
                   className="mt-8"
                 >
-                  <Link
-                    to={heroSlides[currentSlide].ctaLink}
+                  <a
+                    href={heroSlides[currentSlide].ctaLink}
+                    onClick={(e) => {
+                      if (heroSlides[currentSlide].ctaLink.startsWith('#')) {
+                        const id = heroSlides[currentSlide].ctaLink.substring(1);
+                        const el = document.getElementById(id);
+                        if (el) {
+                          e.preventDefault();
+                          el.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      }
+                    }}
                     className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm shadow-2xl transition-all hover:scale-105 active:scale-95"
                     style={{ backgroundColor: heroSlides[currentSlide].accent, color: "#111" }}
                   >
                     {heroSlides[currentSlide].cta}
                     <ArrowRight className="w-4 h-4" />
-                  </Link>
+                  </a>
                 </motion.div>
               </motion.div>
             </AnimatePresence>
@@ -363,12 +378,19 @@ const Index = () => {
               </motion.div>
             )})}          </div>
           <div className="text-center mt-10">
-            <Link
-              to="/services"
+            <a
+              href="#services"
+              onClick={(e) => {
+                const el = document.getElementById('services');
+                if(el) {
+                  e.preventDefault();
+                  el.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border text-sm font-medium text-foreground hover:bg-accent transition-colors">
 
               View All Services <ArrowRight className="w-4 h-4" />
-            </Link>
+            </a>
           </div>
         </div>
       </section>
@@ -384,6 +406,22 @@ const Index = () => {
           <StaggerTestimonials />
         </div>
       </section>
+
+      <div id="about">
+        <AboutPage />
+      </div>
+      
+      <div id="services">
+        <ServicesPage />
+      </div>
+      
+      <div id="gallery">
+        <GalleryPage />
+      </div>
+      
+      <div id="contact">
+        <ContactPage />
+      </div>
     </>);
 
 };
