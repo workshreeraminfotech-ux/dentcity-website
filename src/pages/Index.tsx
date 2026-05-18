@@ -115,9 +115,7 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/40 to-black/10 transition-all duration-700" />
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/25" />
 
-      {/* Accent bar */}
-      <div className="absolute left-0 top-0 bottom-0 w-1 z-20 transition-colors duration-700"
-        style={{ backgroundColor: slide.color }} />
+
 
       {/* Text */}
       <div className="absolute inset-0 z-10 flex items-center">
