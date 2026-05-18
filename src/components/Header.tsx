@@ -1,4 +1,5 @@
 import { useState } from "react";
+import dentcityLogo from "@/assets/dentcity logo.png";
 import { Link, useLocation } from "react-router-dom";
 import { Phone, Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -17,7 +18,7 @@ const navLinks = [
     label: "Services",
     path: "/#services",
     subLinks: [
-      { label: "Dental Implant", path: "/#dental-implant" },
+      { label: "Dental Implant", path: "/#services" },
       { label: "General Dentistry", path: "/#general-dentistry" }
     ]
   },
@@ -32,13 +33,32 @@ const Header = () => {
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, path: string) => {
     if (path.startsWith("/#")) {
+      // Special case: General Dentistry → scroll to services + expand all
+      if (path === "/#general-dentistry") {
+        e.preventDefault();
+        const servicesEl = document.getElementById("services");
+        if (servicesEl) {
+          servicesEl.scrollIntoView({ behavior: "smooth" });
+          window.history.pushState(null, "", path);
+          window.dispatchEvent(new CustomEvent("show-all-services"));
+        } else {
+          // Cross-page navigation
+          window.location.href = path;
+        }
+        return;
+      }
+
       const hash = path.substring(2);
       const element = document.getElementById(hash);
       if (element) {
+        // We're on the home page — smooth scroll in place
         e.preventDefault();
         element.scrollIntoView({ behavior: "smooth" });
-        // Update URL hash directly
         window.history.pushState(null, "", path);
+      } else {
+        // We're on a different page — navigate to home with hash; browser will jump there
+        e.preventDefault();
+        window.location.href = path;
       }
     }
   };
@@ -47,10 +67,8 @@ const Header = () => {
     <header className="fixed top-0 left-0 right-0 z-50 glass">
       <div className="container mx-auto flex items-center justify-between h-16 md:h-20 px-4">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2">
-          <span className="font-display text-xl md:text-2xl font-bold tracking-tight text-foreground">
-            DENT<span className="text-muted-foreground">CITY</span>
-          </span>
+        <Link to="/" className="flex items-center gap-2 py-2">
+          <img src={dentcityLogo} alt="Dentcity Logo" className="h-10 md:h-12 w-auto object-contain" />
         </Link>
 
         {/* Desktop Nav */}

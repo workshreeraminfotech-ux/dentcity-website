@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import dentcityLogo from "@/assets/dentcity logo.png";
 import { Phone, Mail, MapPin } from "lucide-react";
 import { WhatsAppIcon } from "./WhatsAppIcon";
 
@@ -9,9 +10,9 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
           <div>
-            <h3 className="font-display text-2xl font-bold mb-4">
-              DENT<span className="opacity-60">CITY</span>
-            </h3>
+            <Link to="/" className="inline-block mb-6 bg-white p-3 md:p-4 rounded-xl shadow-sm">
+              <img src={dentcityLogo} alt="Dentcity Logo" className="h-10 md:h-12 lg:h-14 w-auto object-contain" />
+            </Link>
             <p className="text-sm opacity-70 leading-relaxed">
               Superspeciality Dental & Implant Centre delivering advanced dental care
               with precision, comfort, and a commitment to your perfect smile.
@@ -51,20 +52,20 @@ const Footer = () => {
             <h4 className="font-display text-lg font-semibold mb-4">Services</h4>
             <ul className="space-y-2">
               {[
-                { label: "Dental Implants", slug: "dental-implants" },
+                { label: "Dental Implants", slug: "implant-dentistry" },
                 { label: "Smile Makeover", slug: "smile-makeover" },
-                { label: "Invisible Aligners", slug: "invisible-aligners" },
-                { label: "Crowns And Bridges", slug: "crowns-and-bridges" },
-                { label: "Pediatric Dentistry", slug: "pediatric-dentistry" },
+                { label: "Orthodontics", slug: "orthodontics" },
+                { label: "Crown and Bridges", slug: "crowns-and-bridges" },
+                { label: "Child Dentistry", slug: "child-dentistry" },
                 { label: "Root Canal Treatment", slug: "root-canal-treatment" },
               ].map((s) => (
                 <li key={s.slug}>
-                  <Link
-                    to={`/services/${s.slug}`}
+                  <a
+                    href="/#services"
                     className="text-sm opacity-70 hover:opacity-100 transition-opacity"
                   >
                     {s.label}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>

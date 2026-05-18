@@ -91,53 +91,15 @@ const allImages: GalleryImage[] = [
   { src: pic48, alt: "Achievement Diploma",                   category: "achievements" },
   { src: pic49, alt: "Excellence in Dentistry",               category: "achievements" },
 ];
-
-const rawServiceImages = import.meta.glob('/src/assets/our services/**/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}', { eager: true, import: 'default' });
-
-interface ServiceCase {
-  serviceName: string;
-  caseName: string;
-  images: { url: string; filename: string }[];
-}
-
-const serviceCasesObj: Record<string, ServiceCase> = {};
-
-Object.entries(rawServiceImages).forEach(([path, url]) => {
-  const parts = path.split('/our services/')[1].split('/');
-  let serviceName = parts[0];
-  let caseName = "Case / Outcome";
-  let filename = parts[parts.length - 1];
-
-  if (parts.length > 2) {
-    caseName = parts[1];
-  }
-
-  const key = `${serviceName}-${caseName}`;
-  if (!serviceCasesObj[key]) {
-    serviceCasesObj[key] = { serviceName, caseName, images: [] };
-  }
-  serviceCasesObj[key].images.push({ url: url as string, filename });
-});
-
-// Sort to group identical services together
-const serviceCases = Object.values(serviceCasesObj)
-  .sort((a, b) => a.serviceName.localeCompare(b.serviceName))
-  .map(c => ({
-    ...c,
-    images: c.images.sort((a, b) => a.filename.localeCompare(b.filename))
-  }));
-
 const FILTERS = [
-  { key: "all",          label: "All Photos",          icon: ImageIcon },
   { key: "clinic",       label: "Clinic & Facilities", icon: Building2 },
-  { key: "treatments",   label: "Treatment Processes", icon: Stethoscope },
   { key: "achievements", label: "Doctor Achievements", icon: Award },
 ] as const;
 
 type FilterKey = (typeof FILTERS)[number]["key"];
 
 const Gallery = () => {
-  const [activeFilter, setActiveFilter] = useState<FilterKey>("all");
+  const [activeFilter, setActiveFilter] = useState<FilterKey>("clinic");
   
   // Custom Lightbox State decoupled from active tab
   const [lightboxData, setLightboxData] = useState<{
@@ -145,9 +107,7 @@ const Gallery = () => {
     index: number;
   } | null>(null);
 
-  const filtered = activeFilter === "all"
-    ? allImages
-    : allImages.filter((img) => img.category === activeFilter);
+  const filtered = allImages.filter((img) => img.category === activeFilter);
 
   const openLightbox = (images: { src: string; alt: string; category: string }[], index: number) => {
     setLightboxData({ images, index });
@@ -187,45 +147,34 @@ const Gallery = () => {
   return (
     <>
       {/* ── HERO ─────────────────────────────────────────── */}
-      <section className="gallery-hero">
-        <div className="gallery-hero-bg" />
-        <div className="gallery-hero-overlay" />
-        <div className="gallery-hero-content">
+      <section className="relative bg-[#FAFAFA] pt-32 pb-16 overflow-hidden">
+        {/* Background Soft Accents */}
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#D4AF37]/5 rounded-full blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/3" />
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#D4AF37]/5 rounded-full blur-[100px] pointer-events-none translate-y-1/2 -translate-x-1/3" />
+
+        <div className="container mx-auto px-4 lg:px-8 relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center max-w-3xl mx-auto"
           >
-            <span className="gallery-hero-eyebrow">Our Gallery</span>
-            <h1 className="gallery-hero-title">Clinic, Facilities &amp; Achievements</h1>
-            <p className="gallery-hero-subtitle">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="w-8 h-[2px] bg-[#D4AF37]" />
+              <span className="text-xs font-bold tracking-[0.25em] uppercase text-[#D4AF37]">
+                Our Gallery
+              </span>
+              <span className="w-8 h-[2px] bg-[#D4AF37]" />
+            </div>
+            <h1 className="font-display text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold text-[#1A1A1A] leading-tight mb-4">
+              Clinic, Facilities & <span className="text-[#D4AF37]">Achievements</span>
+            </h1>
+            <p className="text-gray-500 text-lg md:text-xl max-w-2xl mx-auto mt-4 leading-relaxed">
               Step inside DENTCITY — explore our world-class infrastructure and the milestones that define our legacy.
             </p>
           </motion.div>
-
-          {/* Stat pills */}
-          <motion.div
-            className="gallery-hero-stats"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35, duration: 0.6 }}
-          >
-            {[
-              { value: "13+", label: "Clinic Spaces" },
-              { value: "27+", label: "Awards & Certs" },
-              { value: "15+", label: "Years of Excellence" },
-            ].map((s) => (
-              <div key={s.label} className="gallery-stat-pill">
-                <span className="gallery-stat-value">{s.value}</span>
-                <span className="gallery-stat-label">{s.label}</span>
-              </div>
-            ))}
-          </motion.div>
         </div>
-
-        {/* Decorative floating circles */}
-        <div className="gallery-hero-deco deco-1" />
-        <div className="gallery-hero-deco deco-2" />
       </section>
 
       {/* ── FILTER TABS ──────────────────────────────────── */}
@@ -233,9 +182,7 @@ const Gallery = () => {
         <div className="gallery-container">
           <div className="gallery-filter-bar">
             {FILTERS.map(({ key, label, icon: Icon }) => {
-              const count = key === "all"
-                ? allImages.length
-                : allImages.filter((i) => i.category === key).length;
+              const count = allImages.filter((i) => i.category === key).length;
               return (
                 <button
                   key={key}
@@ -260,77 +207,15 @@ const Gallery = () => {
       <section className="gallery-grid-section">
         <div className="gallery-container">
           
-          {/* Treatments View */}
-          {activeFilter === "treatments" ? (
-            <motion.div
-              key="treatments-view"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.4 }}
-              className="gallery-treatments-wrapper"
-            >
-              {serviceCases.length > 0 ? (
-                serviceCases.map((c, i) => {
-                  // Format service name
-                  const displayName = c.serviceName.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-                  const formattedImages = c.images.map((img, j) => ({
-                    src: img.url,
-                    alt: `${displayName} - Step ${j + 1}`,
-                    category: "treatment-step",
-                  }));
-
-                  return (
-                    <motion.div 
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: i * 0.1 }}
-                      className="treatment-case-card"
-                      key={`${c.serviceName}-${c.caseName}`}
-                    >
-                      <div className="treatment-case-header">
-                        <h3>{displayName}</h3>
-                        <span className="case-badge">{c.caseName}</span>
-                      </div>
-                      
-                      <div className="treatment-process-flow">
-                        {c.images.map((img, j) => (
-                          <div key={img.url} className="process-step-container">
-                            <div 
-                              className="process-step" 
-                              onClick={() => openLightbox(formattedImages, j)}
-                            >
-                              <img src={img.url} alt={`Step ${j+1}`} loading="lazy" className="process-step-img" />
-                              <div className="step-overlay">
-                                <ZoomIn size={24} className="step-zoom" />
-                              </div>
-                              <div className="step-number">{j + 1}</div>
-                            </div>
-                            {j < c.images.length - 1 && (
-                              <ArrowRight className="process-arrow hidden md:block" />
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                    </motion.div>
-                  );
-                })
-              ) : (
-                <div className="gallery-empty">
-                  <Stethoscope size={48} />
-                  <p>No treatment cases found.</p>
-                </div>
-              )}
-            </motion.div>
-          ) : (
-            /* Masonry View */
-            <motion.div
-              key={activeFilter}
-              className="gallery-masonry"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.4 }}
-            >
-              <AnimatePresence mode="popLayout">
+          {/* Masonry View */}
+          <motion.div
+            key={activeFilter}
+            className="gallery-masonry"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4 }}
+          >
+            <AnimatePresence mode="popLayout">
                 {filtered.map((img, i) => (
                   <motion.div
                     key={img.src}
@@ -364,9 +249,8 @@ const Gallery = () => {
                 ))}
               </AnimatePresence>
             </motion.div>
-          )}
 
-          {activeFilter !== "treatments" && filtered.length === 0 && (
+          {filtered.length === 0 && (
             <div className="gallery-empty">
               <ImageIcon size={48} />
               <p>No photos here yet — check back soon!</p>
@@ -421,8 +305,8 @@ const Gallery = () => {
                 className="gallery-lb-img"
               />
               <div className="gallery-lb-caption">
-                <span className={`gallery-lb-badge badge-${selectedImage.category.replace('treatment-step', 'treatments')}`}>
-                  {selectedImage.category === "clinic" ? "Clinic" : selectedImage.category === "achievements" ? "Achievement" : "Process Step"}
+                <span className={`gallery-lb-badge badge-${selectedImage.category}`}>
+                  {selectedImage.category === "clinic" ? "Clinic" : "Achievement"}
                 </span>
                 <p className="gallery-lb-alt">{selectedImage.alt}</p>
                 <span className="gallery-lb-counter">
@@ -446,55 +330,6 @@ const Gallery = () => {
 
       {/* ── INLINE STYLES ────────────────────────────────── */}
       <style>{`
-        /* ── HERO ── */
-        .gallery-hero {
-          position: relative;
-          min-height: 480px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          overflow: hidden;
-          padding: 120px 1rem 80px;
-        }
-        .gallery-hero-bg {
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(135deg, #0f172a 0%, #1e293b 40%, #0c1a30 100%);
-        }
-        .gallery-hero-overlay {
-          position: absolute;
-          inset: 0;
-          background: radial-gradient(ellipse at 70% 40%, rgba(14,165,233,0.18) 0%, transparent 60%),
-                      radial-gradient(ellipse at 20% 80%, rgba(99,102,241,0.14) 0%, transparent 55%);
-        }
-        .gallery-hero-content {
-          position: relative;
-          z-index: 2;
-          text-align: center;
-          max-width: 760px;
-          margin: 0 auto;
-        }
-        .gallery-hero-eyebrow {
-          display: inline-block;
-          font-size: 0.7rem;
-          font-weight: 700;
-          letter-spacing: 0.25em;
-          text-transform: uppercase;
-          color: #38bdf8;
-          background: rgba(56,189,248,0.12);
-          border: 1px solid rgba(56,189,248,0.28);
-          border-radius: 999px;
-          padding: 0.3rem 1rem;
-          margin-bottom: 1.2rem;
-        }
-        .gallery-hero-title {
-          font-size: clamp(2rem, 5vw, 3.4rem);
-          font-weight: 800;
-          color: #f8fafc;
-          line-height: 1.15;
-          margin: 0 0 1rem;
-          letter-spacing: -0.02em;
-        }
         .gallery-hero-subtitle {
           font-size: 1.05rem;
           color: #94a3b8;
@@ -512,9 +347,9 @@ const Gallery = () => {
           display: flex;
           flex-direction: column;
           align-items: center;
-          background: rgba(255,255,255,0.06);
+          background: rgba(255,255,255,0.04);
           backdrop-filter: blur(12px);
-          border: 1px solid rgba(255,255,255,0.12);
+          border: 1px solid rgba(212,175,55,0.15);
           border-radius: 1rem;
           padding: 0.8rem 1.6rem;
           min-width: 110px;
@@ -522,7 +357,7 @@ const Gallery = () => {
         .gallery-stat-value {
           font-size: 1.6rem;
           font-weight: 800;
-          color: #38bdf8;
+          color: #D4AF37;
           line-height: 1;
         }
         .gallery-stat-label {
@@ -532,29 +367,12 @@ const Gallery = () => {
           letter-spacing: 0.05em;
           text-transform: uppercase;
         }
-        .gallery-hero-deco {
-          position: absolute;
-          border-radius: 50%;
-          pointer-events: none;
-          filter: blur(60px);
-          opacity: 0.18;
-        }
-        .deco-1 {
-          width: 420px; height: 420px;
-          background: #0ea5e9;
-          top: -120px; right: -100px;
-        }
-        .deco-2 {
-          width: 300px; height: 300px;
-          background: #6366f1;
-          bottom: -80px; left: -60px;
-        }
 
         /* ── FILTER BAR ── */
         .gallery-filter-section {
-          background: #f8fafc;
+          background: #FAFAFA;
           padding: 1.5rem 1rem;
-          border-bottom: 1px solid #e2e8f0;
+          border-bottom: 1px solid #eaeaea;
           position: sticky;
           top: 72px;
           z-index: 40;
@@ -579,22 +397,22 @@ const Gallery = () => {
           border-radius: 999px;
           font-size: 0.88rem;
           font-weight: 600;
-          border: 1.5px solid #e2e8f0;
+          border: 1.5px solid #eaeaea;
           background: #fff;
-          color: #475569;
+          color: #6b7280;
           cursor: pointer;
           transition: all 0.22s ease;
           overflow: hidden;
         }
         .gallery-filter-btn:hover {
-          border-color: #0ea5e9;
-          color: #0ea5e9;
-          background: #f0f9ff;
+          border-color: #D4AF37;
+          color: #D4AF37;
+          background: rgba(212,175,55,0.05);
         }
         .gallery-filter-btn.active {
-          background: #0c1a30;
-          border-color: #0c1a30;
-          color: #f8fafc;
+          background: #D4AF37;
+          border-color: #D4AF37;
+          color: #fff;
         }
         .gallery-filter-count {
           display: inline-flex;
@@ -606,34 +424,34 @@ const Gallery = () => {
           border-radius: 999px;
           font-size: 0.72rem;
           font-weight: 700;
-          background: rgba(14,165,233,0.12);
-          color: #0ea5e9;
+          background: rgba(0,0,0,0.05);
+          color: #6b7280;
         }
         .gallery-filter-btn.active .gallery-filter-count {
-          background: rgba(255,255,255,0.18);
-          color: #f0f9ff;
+          background: rgba(255,255,255,0.25);
+          color: #fff;
         }
         .gallery-filter-underline {
           position: absolute;
           bottom: 0; left: 0; right: 0;
           height: 3px;
-          background: #38bdf8;
+          background: #fff;
           border-radius: 999px;
         }
 
         /* ── GRID ── */
         .gallery-grid-section {
-          background: #f1f5f9;
+          background: #FAFAFA;
           padding: 3rem 1rem 5rem;
         }
         .gallery-masonry {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
           grid-auto-flow: dense;
-          gap: 1rem;
+          gap: 1.5rem;
         }
         @media (max-width: 900px) {
-          .gallery-masonry { grid-template-columns: repeat(2, 1fr); }
+          .gallery-masonry { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
         }
         @media (max-width: 560px) {
           .gallery-masonry { grid-template-columns: 1fr; }
@@ -645,15 +463,16 @@ const Gallery = () => {
           border-radius: 1rem;
           overflow: hidden;
           cursor: pointer;
-          background: #e2e8f0;
-          box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+          background: #fff;
+          box-shadow: 0 4px 15px rgba(0,0,0,0.05);
           transition: transform 0.3s ease, box-shadow 0.3s ease;
           outline: none;
+          border: 1px solid #f0f0f0;
         }
         .gallery-card:hover,
         .gallery-card:focus-visible {
-          transform: translateY(-4px) scale(1.012);
-          box-shadow: 0 16px 40px rgba(0,0,0,0.16);
+          transform: translateY(-6px);
+          box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
         .gallery-card-img {
           width: 100%;
@@ -668,7 +487,7 @@ const Gallery = () => {
         .gallery-card-overlay {
           position: absolute;
           inset: 0;
-          background: linear-gradient(to top, rgba(12,26,48,0.82) 0%, rgba(12,26,48,0.3) 55%, transparent 100%);
+          background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 55%, transparent 100%);
           opacity: 0;
           transition: opacity 0.35s ease;
           display: flex;
@@ -685,7 +504,7 @@ const Gallery = () => {
           width: 100%;
         }
         .gallery-card-zoom-icon {
-          color: #38bdf8;
+          color: #D4AF37;
           margin-bottom: 0.2rem;
         }
         .gallery-card-label {
@@ -709,16 +528,17 @@ const Gallery = () => {
           backdrop-filter: blur(8px);
         }
         .badge-clinic {
-          background: rgba(14,165,233,0.85);
-          color: #fff;
+          background: rgba(212,175,55,0.85);
+          color: #000;
         }
         .badge-achievements {
-          background: rgba(168,85,247,0.85);
-          color: #fff;
+          background: rgba(255,255,255,0.85);
+          color: #000;
         }
         .badge-treatments {
-          background: rgba(16, 185, 129, 0.85);
-          color: #fff;
+          background: rgba(34,34,34,0.85);
+          color: #D4AF37;
+          border: 1px solid #D4AF37;
         }
 
         /* ── TREATMENT PROCESS UI ── */
@@ -728,11 +548,11 @@ const Gallery = () => {
           gap: 2.5rem;
         }
         .treatment-case-card {
-          background: #fff;
+          background: #0a0a0a;
           border-radius: 1.25rem;
           padding: 2rem;
-          box-shadow: 0 4px 20px rgba(0,0,0,0.03);
-          border: 1px solid #e2e8f0;
+          box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+          border: 1px solid #222;
           overflow: hidden;
         }
         .treatment-case-header {
@@ -741,23 +561,23 @@ const Gallery = () => {
           gap: 1rem;
           margin-bottom: 2rem;
           flex-wrap: wrap;
-          border-bottom: 2px solid #f1f5f9;
+          border-bottom: 2px solid #222;
           padding-bottom: 1rem;
         }
         .treatment-case-header h3 {
           font-size: 1.5rem;
           font-weight: 700;
-          color: #0f172a;
+          color: #fff;
           margin: 0;
         }
         .case-badge {
-          background: #f1f5f9;
-          color: #475569;
+          background: #111;
+          color: #D4AF37;
           padding: 0.35rem 0.85rem;
           border-radius: 999px;
           font-size: 0.8rem;
           font-weight: 600;
-          border: 1px solid #cbd5e1;
+          border: 1px solid #333;
         }
         .treatment-process-flow {
           display: flex;
@@ -777,15 +597,15 @@ const Gallery = () => {
           border-radius: 1rem;
           overflow: hidden;
           cursor: pointer;
-          background: #f8fafc;
-          border: 2px solid #e2e8f0;
+          background: #111;
+          border: 2px solid #222;
           transition: all 0.3s ease;
           flex-shrink: 0;
         }
         .process-step:hover {
-          border-color: #38bdf8;
+          border-color: #D4AF37;
           transform: translateY(-4px);
-          box-shadow: 0 12px 28px rgba(14,165,233,0.15);
+          box-shadow: 0 12px 28px rgba(212,175,55,0.15);
         }
         .process-step-img {
           width: 100%;
@@ -796,8 +616,8 @@ const Gallery = () => {
           position: absolute;
           top: 0.5rem;
           left: 0.5rem;
-          background: #0f172a;
-          color: #fff;
+          background: #000;
+          color: #D4AF37;
           width: 28px;
           height: 28px;
           border-radius: 50%;
@@ -811,7 +631,7 @@ const Gallery = () => {
         .step-overlay {
           position: absolute;
           inset: 0;
-          background: rgba(15,23,42,0.4);
+          background: rgba(0,0,0,0.6);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -822,10 +642,10 @@ const Gallery = () => {
           opacity: 1;
         }
         .step-zoom {
-          color: #fff;
+          color: #D4AF37;
         }
         .process-arrow {
-          color: #94a3b8;
+          color: #333;
           width: 2rem;
           height: 2rem;
         }
@@ -848,7 +668,7 @@ const Gallery = () => {
           align-items: center;
           gap: 1rem;
           padding: 5rem 1rem;
-          color: #94a3b8;
+          color: #666;
           font-size: 1rem;
         }
 
@@ -857,8 +677,8 @@ const Gallery = () => {
           position: fixed;
           inset: 0;
           z-index: 200;
-          background: rgba(2, 8, 20, 0.96);
-          backdrop-filter: blur(12px);
+          background: rgba(0, 0, 0, 0.98);
+          backdrop-filter: blur(16px);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -878,7 +698,7 @@ const Gallery = () => {
           width: auto;
           border-radius: 1rem;
           object-fit: contain;
-          box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+          box-shadow: 0 32px 80px rgba(212,175,55,0.15);
         }
         .gallery-lb-caption {
           display: flex;
@@ -888,12 +708,12 @@ const Gallery = () => {
           justify-content: center;
         }
         .gallery-lb-alt {
-          color: #e2e8f0;
+          color: #D4AF37;
           font-size: 0.92rem;
           font-weight: 500;
         }
         .gallery-lb-counter {
-          color: #64748b;
+          color: #666;
           font-size: 0.8rem;
           margin-left: auto;
         }
@@ -904,31 +724,31 @@ const Gallery = () => {
           justify-content: center;
           width: 48px; height: 48px;
           border-radius: 50%;
-          border: none;
+          border: 1px solid rgba(212,175,55,0.3);
           cursor: pointer;
-          transition: background 0.2s ease, transform 0.2s ease;
+          transition: all 0.2s ease;
           z-index: 201;
         }
         .gallery-lb-close {
           top: 1.2rem; right: 1.2rem;
-          background: rgba(255,255,255,0.1);
-          color: #f8fafc;
+          background: rgba(0,0,0,0.5);
+          color: #D4AF37;
         }
-        .gallery-lb-close:hover { background: rgba(255,255,255,0.22); transform: rotate(90deg); }
+        .gallery-lb-close:hover { background: rgba(212,175,55,0.2); transform: rotate(90deg); border-color: #D4AF37; }
         .gallery-lb-prev {
           left: 1rem;
           top: 50%; transform: translateY(-50%);
-          background: rgba(255,255,255,0.1);
-          color: #f8fafc;
+          background: rgba(0,0,0,0.5);
+          color: #D4AF37;
         }
-        .gallery-lb-prev:hover { background: rgba(255,255,255,0.22); transform: translateY(-50%) scale(1.1); }
+        .gallery-lb-prev:hover { background: rgba(212,175,55,0.2); transform: translateY(-50%) scale(1.1); border-color: #D4AF37; }
         .gallery-lb-next {
           right: 1rem;
           top: 50%; transform: translateY(-50%);
-          background: rgba(255,255,255,0.1);
-          color: #f8fafc;
+          background: rgba(0,0,0,0.5);
+          color: #D4AF37;
         }
-        .gallery-lb-next:hover { background: rgba(255,255,255,0.22); transform: translateY(-50%) scale(1.1); }
+        .gallery-lb-next:hover { background: rgba(212,175,55,0.2); transform: translateY(-50%) scale(1.1); border-color: #D4AF37; }
 
         @media (max-width: 640px) {
           .gallery-lb-prev { left: 0.4rem; width: 40px; height: 40px; }

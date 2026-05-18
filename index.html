@@ -30,19 +30,11 @@
         transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
       }
       
-      .loader-brand {
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        font-size: 32px;
-        font-weight: 800;
-        letter-spacing: -0.025em; /* tracking-tight */
-        color: #0d0d0d; /* text-foreground */
-        display: flex;
-        align-items: center;
-        margin-bottom: 25px; /* space between logo & bar */
-      }
-      
-      .loader-brand span {
-        color: #666666; /* text-muted-foreground */
+      .loader-logo {
+        height: 64px;
+        width: auto;
+        margin-bottom: 30px;
+        object-fit: contain;
       }
 
       /* Bar Container */
@@ -78,7 +70,7 @@
 
     <!-- Instant Render Preloader -->
     <div id="initial-loader">
-      <div class="loader-brand">DENT<span>CITY</span></div>
+      <img src="/src/assets/dentcity%20logo.png" class="loader-logo" alt="Dentcity Logo" />
       <div class="loader-bar-container">
         <div class="loader-bar-fill"></div>
       </div>

@@ -87,59 +87,45 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
     <div
       onClick={() => handleMove(position)}
       className={cn(
-        "absolute left-1/2 top-1/2 cursor-pointer border-2 p-8 transition-all duration-500 ease-in-out",
+        "absolute left-1/2 top-1/2 cursor-pointer p-8 transition-all duration-500 ease-in-out rounded-3xl",
         isCenter 
-          ? "z-10 bg-primary text-primary-foreground border-primary" 
-          : "z-0 bg-card text-card-foreground border-border hover:border-primary/50"
+          ? "z-10 bg-white border-2 border-[#D4AF37] shadow-[0_20px_50px_rgba(0,0,0,0.08)] scale-100" 
+          : "z-0 bg-white border border-gray-100 opacity-60 hover:opacity-100 hover:border-[#D4AF37]/30 shadow-sm scale-95"
       )}
       style={{
         width: cardSize,
         height: cardSize,
-        clipPath: `polygon(50px 0%, calc(100% - 50px) 0%, 100% 50px, 100% 100%, calc(100% - 50px) 100%, 50px 100%, 0 100%, 0 0)`,
         transform: `
           translate(-50%, -50%) 
           translateX(${(cardSize / 1.5) * position}px)
-          translateY(${isCenter ? -65 : position % 2 ? 15 : -15}px)
+          translateY(${isCenter ? -30 : position % 2 ? 15 : -15}px)
           rotate(${isCenter ? 0 : position % 2 ? 2.5 : -2.5}deg)
         `,
-        boxShadow: isCenter ? "0px 8px 0px 4px hsl(var(--border))" : "0px 0px 0px 0px transparent"
       }}
     >
-      <span
-        className="absolute block origin-top-right rotate-45 bg-border"
-        style={{
-          right: -2,
-          top: 48,
-          width: SQRT_5000,
-          height: 2
-        }}
-      />
       <img
         src={testimonial.imgSrc}
         alt={`${testimonial.by}`}
-        className="mb-3 h-12 w-12 rounded-full bg-muted object-cover"
-        style={{
-          boxShadow: "3px 3px 0px hsl(var(--background))"
-        }}
+        className="mb-4 h-14 w-14 rounded-xl object-cover shadow-sm border border-gray-100"
       />
       {/* Star rating */}
-      <div className="flex gap-0.5 mb-3">
+      <div className="flex gap-1 mb-4">
         {Array.from({ length: testimonial.rating }).map((_, i) => (
           <Star
             key={i}
-            className={cn("w-3.5 h-3.5 fill-current", isCenter ? "text-yellow-300" : "text-yellow-500")}
+            className="w-4 h-4 fill-[#D4AF37] text-[#D4AF37]"
           />
         ))}
       </div>
       <h3 className={cn(
-        "text-sm sm:text-base font-medium leading-snug line-clamp-5",
-        isCenter ? "text-primary-foreground" : "text-foreground"
+        "text-sm sm:text-base font-medium leading-relaxed line-clamp-4",
+        isCenter ? "text-[#1A1A1A]" : "text-gray-500"
       )}>
         "{testimonial.testimonial}"
       </h3>
       <p className={cn(
-        "absolute bottom-8 left-8 right-8 mt-2 text-sm font-semibold",
-        isCenter ? "text-primary-foreground/80" : "text-muted-foreground"
+        "absolute bottom-8 left-8 right-8 mt-2 text-sm font-bold",
+        isCenter ? "text-[#D4AF37]" : "text-gray-400"
       )}>
         — {testimonial.by}
       </p>
@@ -210,28 +196,20 @@ export const StaggerTestimonials: React.FC = () => {
             />
           );
         })}
-        <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2 z-20">
+        <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-4 z-20">
           <button
             onClick={() => handleMove(-1)}
-            className={cn(
-              "flex h-14 w-14 items-center justify-center text-2xl transition-colors rounded-full",
-              "bg-background border-2 border-border hover:bg-primary hover:text-primary-foreground",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-            )}
+            className="flex h-12 w-12 items-center justify-center text-[#1A1A1A] transition-all rounded-full bg-white border border-gray-200 shadow-sm hover:border-[#D4AF37] hover:text-[#D4AF37] hover:scale-105 hover:shadow-md"
             aria-label="Previous testimonial"
           >
-            <ChevronLeft />
+            <ChevronLeft size={24} />
           </button>
           <button
             onClick={() => handleMove(1)}
-            className={cn(
-              "flex h-14 w-14 items-center justify-center text-2xl transition-colors rounded-full",
-              "bg-background border-2 border-border hover:bg-primary hover:text-primary-foreground",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-            )}
+            className="flex h-12 w-12 items-center justify-center text-[#1A1A1A] transition-all rounded-full bg-white border border-gray-200 shadow-sm hover:border-[#D4AF37] hover:text-[#D4AF37] hover:scale-105 hover:shadow-md"
             aria-label="Next testimonial"
           >
-            <ChevronRight />
+            <ChevronRight size={24} />
           </button>
         </div>
       </div>

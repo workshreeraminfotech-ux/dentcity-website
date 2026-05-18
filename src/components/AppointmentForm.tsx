@@ -78,7 +78,7 @@ const AppointmentForm = () => {
         <Textarea id="message" name="message" value={formData.message} onChange={handleChange} placeholder="Please describe any specific issues or questions..." className="min-h-[100px]" />
       </div>
 
-      <Button type="submit" className="w-full h-12 text-base font-medium">
+      <Button type="submit" className="w-full h-12 text-base font-bold text-black border-0 hover:scale-[1.02] active:scale-[0.98] transition-all" style={{ background: "linear-gradient(135deg,#D4AF37,#f0cc6a)" }}>
         Request via WhatsApp
       </Button>
     </form>

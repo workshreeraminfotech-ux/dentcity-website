@@ -6,8 +6,7 @@ import serviceImplants from "@/assets/service-implants.jpg";
 import serviceOrthodontics from "@/assets/service-orthodontics.jpg";
 import gallery1 from "@/assets/gallery-1.jpg";
 import gallery2 from "@/assets/gallery-2.jpg";
-import hero1 from "@/assets/hero-1.jpg";
-import hero2 from "@/assets/hero-2.jpg";
+
 import gallery3 from "@/assets/gallery-3.jpg";
 import gallery4 from "@/assets/gallery-4.jpg";
 
@@ -17,15 +16,12 @@ const dentalImplants = [
 ];
 
 const generalDentistry = [
-  { slug: "invisible-aligners", title: "Invisible Aligners", desc: "Clear, removable aligners for discreet and comfortable teeth straightening with no metal brackets.", img: serviceOrthodontics },
-  { slug: "smile-makeover", title: "Smile Makeover", desc: "Comprehensive cosmetic transformation combining veneers, whitening, and digital smile design for a stunning result.", img: hero2 },
-  { slug: "crowns-and-bridges", title: "Crowns And Bridges", desc: "Custom-crafted dental crowns and bridges to restore damaged or missing teeth with a natural appearance.", img: gallery2 },
-  { slug: "teeth-whitening", title: "Teeth Whitening", desc: "Professional whitening treatments for a brighter, more confident smile in just one visit.", img: hero1 },
-  { slug: "braces-treatment", title: "Braces Treatment", desc: "Modern orthodontic braces including ceramic and metal options for precise teeth alignment.", img: gallery4 },
-  { slug: "pediatric-dentistry", title: "Pediatric Dentistry", desc: "Gentle, child-friendly dental care in a fun and comforting environment built for young smiles.", img: gallery3 },
-  { slug: "tooth-colored-filling", title: "Tooth-Colored Filling", desc: "Aesthetic composite resin fillings that blend seamlessly with your natural tooth colour for an invisible repair.", img: gallery1 },
-  { slug: "wisdom-tooth-extraction", title: "Wisdom Tooth Extraction", desc: "Safe and comfortable removal of impacted or problematic wisdom teeth using minimally invasive techniques.", img: hero1 },
-  { slug: "root-canal-treatment", title: "Root Canal Treatment", desc: "Pain-free root canal therapy using advanced rotary instruments and microscope-guided precision.", img: gallery2 },
+  { slug: "root-canal-treatment", title: "Root Canal Treatment", desc: "Pain-free, microscope-guided treatment that saves your natural tooth.", img: gallery2 },
+  { slug: "child-dentistry", title: "Child Dentistry", desc: "Gentle, fun, and fear-free dental care designed just for little smiles.", img: gallery3 },
+  { slug: "composite-resin-filling", title: "Composite Resin Filling", desc: "Aesthetic composite resin fillings that blend seamlessly with your natural tooth colour.", img: gallery1 },
+  { slug: "crowns-and-bridges", title: "Crown and Bridges", desc: "Custom-crafted dental crowns and bridges to restore damaged or missing teeth.", img: gallery4 },
+  { slug: "oral-surgery", title: "Oral Surgery", desc: "Safe, precision extractions and impacted wisdom tooth removal.", img: serviceImplants },
+  { slug: "orthodontics", title: "Orthodontics", desc: "Metal, ceramic or clear aligners — straight teeth for every lifestyle.", img: serviceOrthodontics },
 ];
 
 /* ─── Reusable Service Card ─── */
@@ -41,7 +37,8 @@ const ServiceCard = ({
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ delay: (index % 3) * 0.1 }}
-    className="group rounded-2xl overflow-hidden bg-card border border-border hover-lift flex flex-col"
+    onClick={() => window.location.href = `/services/${service.slug}`}
+    className="group rounded-2xl overflow-hidden bg-card border border-border hover-lift flex flex-col cursor-pointer"
   >
     {/* Image */}
     <div className="h-48 overflow-hidden relative">
@@ -60,13 +57,12 @@ const ServiceCard = ({
       <h3 className="font-display text-xl font-bold text-foreground">{service.title}</h3>
       <p className="text-sm text-muted-foreground mt-2 leading-relaxed flex-1">{service.desc}</p>
 
-      {/* Learn More */}
       <Link
         to={`/services/${service.slug}`}
-        className="inline-flex items-center gap-1 text-sm font-semibold mt-4 transition-all hover:gap-2"
-        style={{ color: "#1a73e8" }}
+        onClick={e => e.stopPropagation()}
+        className="inline-flex items-center gap-1 text-sm font-semibold mt-4 transition-all hover:gap-2 text-[#D4AF37]"
       >
-        Learn More <ChevronRight className="w-4 h-4" />
+        View Details <ChevronRight className="w-4 h-4" />
       </Link>
     </div>
   </motion.div>
