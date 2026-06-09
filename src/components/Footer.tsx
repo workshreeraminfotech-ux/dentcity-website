@@ -10,8 +10,8 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
           <div>
-            <Link to="/" className="inline-block mb-6 bg-white p-3 md:p-4 rounded-xl shadow-sm">
-              <img src={dentcityLogo} alt="Dentcity Logo" className="h-10 md:h-12 lg:h-14 w-auto object-contain" />
+            <Link to="/" className="inline-block mb-6">
+              <img src={dentcityLogo} alt="Dentcity Logo" className="h-10 md:h-12 lg:h-14 w-auto object-contain brightness-0 invert" />
             </Link>
             <p className="text-sm opacity-70 leading-relaxed">
               Superspeciality Dental & Implant Centre delivering advanced dental care

@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, Phone, CheckCircle2, ChevronDown, Calendar, ArrowLeft } from "lucide-react";
+import { ChevronRight, Phone, CheckCircle2, ChevronDown, Calendar, ArrowLeft, ZoomIn, X, ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-import serviceImplants from "@/assets/service-implants.jpg";
-import gallery1 from "@/assets/gallery-1.jpg";
 import fmrImage from "@/assets/premium_services/full_mouth.png";
 import smileImage from "@/assets/premium_services/smile_design.png";
 
@@ -13,7 +11,7 @@ import imgImplant from "@/assets/premium_services/implant_dentistry.png";
 import imgFmr from "@/assets/premium_services/full_mouth.png";
 import imgSmile from "@/assets/premium_services/smile_design.png";
 import imgRct from "@/assets/premium_services/root_canal.png";
-import imgChild from "@/assets/our service/7.child dentistry/20260516_142012.jpg";
+import imgChild from "@/assets/drwithchild.jpg";
 import imgFilling from "@/assets/premium_services/composite_filling.png";
 import imgCrown from "@/assets/premium_services/crown_bridges.png";
 import imgSurgery from "@/assets/premium_services/oral_surgery.png";
@@ -75,38 +73,40 @@ for (const path in orthoModules) {
 }
 
 const getCasesFromModules = (modulesDict: Record<string, string>, filterKeyword?: string) => {
-  const casesMap: Record<string, string[]> = {};
+  const casesMap: Record<string, { path: string; url: string }[]> = {};
   
   for (const [path, url] of Object.entries(modulesDict)) {
     if (filterKeyword && !path.toLowerCase().includes(filterKeyword.toLowerCase())) {
       continue;
     }
     const match = path.match(/case \d+/i);
-    if (match) {
-      const caseName = match[0].toLowerCase();
-      if (!casesMap[caseName]) casesMap[caseName] = [];
-      casesMap[caseName].push(url);
-    } else {
-      const caseName = "featured clinical cases";
-      if (!casesMap[caseName]) casesMap[caseName] = [];
-      casesMap[caseName].push(url);
-    }
+    const caseName = match ? match[0].toLowerCase() : "featured clinical cases";
+    
+    if (!casesMap[caseName]) casesMap[caseName] = [];
+    casesMap[caseName].push({ path, url });
   }
   
   for (const key in casesMap) {
-    if (key !== "featured clinical cases") {
-      casesMap[key].sort((a, b) => {
-        const numA = parseInt(a.match(/(\d+)\.[^.]+$/)?.[1] || "0");
-        const numB = parseInt(b.match(/(\d+)\.[^.]+$/)?.[1] || "0");
-        return numA - numB;
-      });
-    }
+    casesMap[key].sort((a, b) => {
+      const filenameA = a.path.split("/").pop() || "";
+      const filenameB = b.path.split("/").pop() || "";
+      const numA = parseInt(filenameA.match(/(\d+)\.[^.]+$/)?.[1] || "0");
+      const numB = parseInt(filenameB.match(/(\d+)\.[^.]+$/)?.[1] || "0");
+      return numA - numB;
+    });
   }
 
-  return Object.entries(casesMap).sort((a, b) => {
+  const sortedEntries = Object.entries(casesMap).sort((a, b) => {
     if (a[0] === "featured clinical cases") return -1;
     if (b[0] === "featured clinical cases") return 1;
-    return a[0].localeCompare(b[0]);
+    
+    const numA = parseInt(a[0].match(/\d+/)?.[0] || "0");
+    const numB = parseInt(b[0].match(/\d+/)?.[0] || "0");
+    return numA - numB;
+  });
+
+  return sortedEntries.map(([caseName, items]) => {
+    return [caseName, items.map((item) => item.url)] as [string, string[]];
   });
 };
 
@@ -487,6 +487,47 @@ const servicesData: Record<string, ServiceConfig> = {
 };
 
 const CasesGallerySection = ({ gallerySections }: { gallerySections: GallerySection[] }) => {
+  const [lightbox, setLightbox] = useState<{
+    isOpen: boolean;
+    images: string[];
+    index: number;
+    caseName: string;
+  }>({
+    isOpen: false,
+    images: [],
+    index: 0,
+    caseName: "",
+  });
+
+  const openLightbox = (images: string[], index: number, caseName: string) => {
+    setLightbox({
+      isOpen: true,
+      images,
+      index,
+      caseName,
+    });
+  };
+
+  const closeLightbox = () => {
+    setLightbox(prev => ({ ...prev, isOpen: false }));
+  };
+
+  const nextImage = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    setLightbox(prev => ({
+      ...prev,
+      index: (prev.index + 1) % prev.images.length,
+    }));
+  };
+
+  const prevImage = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    setLightbox(prev => ({
+      ...prev,
+      index: (prev.index - 1 + prev.images.length) % prev.images.length,
+    }));
+  };
+
   const renderGallery = (title: string, desc: string, cases: [string, string[]][]) => {
     if (cases.length === 0) return null;
     return (
@@ -499,31 +540,38 @@ const CasesGallerySection = ({ gallerySections }: { gallerySections: GallerySect
         <div className="space-y-12">
           {cases.map(([caseName, images]) => (
             <div key={caseName} className="relative">
-              <h4 className="text-lg font-bold capitalize mb-4 flex items-center gap-2">
-                <span className="w-6 h-[2px] bg-[#D4AF37]" />
+              <h4 className="text-lg font-bold capitalize mb-5 flex items-center gap-2">
+                <span className="w-6 h-[2px] bg-[#54391E]" />
                 {caseName}
               </h4>
               
-              <div className="flex gap-4 overflow-x-auto pb-4 snap-x [&::-webkit-scrollbar]:hidden" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-4">
                 {images.map((img, idx) => (
-                  <div key={idx} className="flex-shrink-0 w-[260px] sm:w-[320px] aspect-[4/3] rounded-xl overflow-hidden shadow-sm border border-border/50 snap-start group bg-muted/20 relative cursor-pointer">
-                    <img src={img} alt={`${caseName} photo ${idx + 1}`} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
-                    
-                    {/* Default badge */}
-                    <div className="absolute bottom-3 left-3 bg-black/60 backdrop-blur-sm text-white text-xs font-semibold px-2.5 py-1 rounded-md transition-opacity duration-300 group-hover:opacity-0">
-                      Image {idx + 1}
-                    </div>
-
-                    {/* Hover Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-5">
-                      <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">
-                        <span className="text-[#D4AF37] text-[10px] font-bold tracking-[0.2em] uppercase mb-1.5 block">
-                          {caseName === "featured clinical cases" ? "Clinical Case" : `Phase ${idx + 1} of ${images.length}`}
-                        </span>
-                        <h5 className="text-white font-semibold text-sm md:text-base leading-snug">
-                          {caseName === "featured clinical cases" ? "Featured Outcome" : getProcessName(idx, images.length)}
-                        </h5>
+                  <div 
+                    key={idx} 
+                    onClick={() => openLightbox(images, idx, caseName)}
+                    className="flex flex-col rounded-xl overflow-hidden shadow-sm border border-border/60 bg-white group hover:shadow-md transition-all duration-300 cursor-pointer"
+                  >
+                    <div className="aspect-[4/3] overflow-hidden relative bg-muted/20">
+                      <img 
+                        src={img} 
+                        alt={`${caseName} photo ${idx + 1}`} 
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                        loading="lazy" 
+                      />
+                      {/* Zoom Indicator */}
+                      <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-sm text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <ZoomIn className="w-4 h-4" />
                       </div>
+                    </div>
+                    
+                    <div className="p-3 bg-white flex-1 flex flex-col justify-center border-t border-border/30">
+                      <span className="text-[#D4A373] text-[10px] font-bold tracking-[0.2em] uppercase mb-1 block">
+                        {caseName === "featured clinical cases" ? "Clinical Case" : `Phase ${idx + 1} of ${images.length}`}
+                      </span>
+                      <h5 className="text-foreground font-bold text-xs md:text-sm leading-snug">
+                        {caseName === "featured clinical cases" ? "Featured Outcome" : getProcessName(idx, images.length)}
+                      </h5>
                     </div>
                   </div>
                 ))}
@@ -550,6 +598,79 @@ const CasesGallerySection = ({ gallerySections }: { gallerySections: GallerySect
       </p>
 
       {gallerySections.map((section) => renderGallery(section.title, section.desc, section.cases))}
+
+      {/* Lightbox Modal */}
+      <AnimatePresence>
+        {lightbox.isOpen && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closeLightbox}
+            className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/95 backdrop-blur-sm p-4 sm:p-6"
+          >
+            {/* Close Button */}
+            <button 
+              onClick={closeLightbox}
+              className="absolute top-6 right-6 z-50 p-2.5 rounded-full bg-white/10 hover:bg-white/25 text-white transition-colors border border-white/10"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            {/* Content Container */}
+            <div className="relative w-full max-w-4xl aspect-[4/3] md:aspect-video flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
+              
+              {/* Previous Button */}
+              {lightbox.images.length > 1 && (
+                <button 
+                  onClick={prevImage}
+                  className="absolute left-2 sm:left-4 z-40 p-3 rounded-full bg-black/50 hover:bg-black/75 text-white border border-white/10 transition-all hover:scale-105"
+                >
+                  <ChevronLeft className="w-6 h-6" />
+                </button>
+              )}
+
+              {/* Active Image */}
+              <AnimatePresence mode="wait">
+                <motion.img 
+                  key={lightbox.index}
+                  src={lightbox.images[lightbox.index]}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.25 }}
+                  className="max-w-full max-h-[80vh] object-contain rounded-xl shadow-2xl"
+                />
+              </AnimatePresence>
+
+              {/* Next Button */}
+              {lightbox.images.length > 1 && (
+                <button 
+                  onClick={nextImage}
+                  className="absolute right-2 sm:right-4 z-40 p-3 rounded-full bg-black/50 hover:bg-black/75 text-white border border-white/10 transition-all hover:scale-105"
+                >
+                  <ChevronRight className="w-6 h-6" />
+                </button>
+              )}
+            </div>
+
+            {/* Details Panel */}
+            <div className="mt-6 text-center max-w-lg px-4" onClick={(e) => e.stopPropagation()}>
+              <span className="text-[#D4A373] text-xs font-bold tracking-[0.2em] uppercase mb-1 block">
+                {lightbox.caseName === "featured clinical cases" ? "Clinical Case" : `Phase ${lightbox.index + 1} of ${lightbox.images.length}`}
+              </span>
+              <h4 className="text-white font-display text-lg md:text-xl font-bold mb-2">
+                {lightbox.caseName === "featured clinical cases" ? "Featured Outcome" : getProcessName(lightbox.index, lightbox.images.length)}
+              </h4>
+              {lightbox.images.length > 1 && (
+                <p className="text-white/40 text-xs">
+                  Use arrows or tap side buttons to navigate ({lightbox.index + 1} / {lightbox.images.length})
+                </p>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 };
@@ -600,18 +721,18 @@ const ServiceDetail = () => {
               <ArrowLeft className="w-4 h-4" /> Back to Home
             </button>
             <div className="inline-flex items-center gap-3 mb-6 mt-2">
-              <span className="w-8 h-[2px] bg-[#D4AF37]" />
-              <span className="text-xs font-bold tracking-[0.2em] uppercase text-[#D4AF37]">Dentcity Speciality</span>
-              <span className="w-8 h-[2px] bg-[#D4AF37]" />
+              <span className="w-8 h-[2px] bg-[#D4A373]" />
+              <span className="text-xs font-bold tracking-[0.2em] uppercase text-[#D4A373]">Dentcity Speciality</span>
+              <span className="w-8 h-[2px] bg-[#D4A373]" />
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-extrabold leading-tight mb-6">
-              {service.title1} <span className="text-[#D4AF37]">{service.title2}</span>
+              {service.title1} <span className="text-[#D4A373]">{service.title2}</span>
             </h1>
             <p className="text-lg text-white/80 leading-relaxed mb-8">
               {service.heroDesc}
             </p>
             <div className="flex flex-wrap gap-4">
-              <a href="#contact" className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-bold text-sm text-black transition-all hover:scale-105" style={{ background: "linear-gradient(135deg,#D4AF37,#f0cc6a)" }}>
+              <a href="#contact" className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-bold text-sm text-white transition-all hover:scale-105" style={{ background: "linear-gradient(135deg,#54391E,#825B34)" }}>
                 Book Consultation <Calendar className="w-4 h-4" />
               </a>
               <a href="tel:+919898989898" className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-bold text-sm text-white border border-white/20 hover:bg-white/10 transition-all hover:scale-105">
@@ -659,8 +780,8 @@ const ServiceDetail = () => {
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {service.features.map((item, i) => (
                     <div key={i} className="bg-card p-6 rounded-2xl border border-border shadow-sm hover:shadow-md transition-shadow">
-                      <div className="w-10 h-10 rounded-full bg-[#D4AF37]/10 flex items-center justify-center mb-4">
-                        <CheckCircle2 className="w-5 h-5 text-[#D4AF37]" />
+                      <div className="w-10 h-10 rounded-full bg-[#54391E]/10 flex items-center justify-center mb-4">
+                        <CheckCircle2 className="w-5 h-5 text-[#54391E]" />
                       </div>
                       <h3 className="font-bold text-lg mb-2">{item.title}</h3>
                       <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
@@ -682,14 +803,14 @@ const ServiceDetail = () => {
                   {service.faqs.map((faq, index) => (
                     <div 
                       key={index} 
-                      className={`border rounded-xl overflow-hidden transition-colors ${openFaq === index ? 'border-[#D4AF37] bg-white' : 'border-border bg-card'}`}
+                      className={`border rounded-xl overflow-hidden transition-colors ${openFaq === index ? 'border-[#54391E] bg-white' : 'border-border bg-card'}`}
                     >
                       <button 
                         onClick={() => setOpenFaq(openFaq === index ? null : index)}
                         className="w-full px-6 py-4 flex items-center justify-between text-left focus:outline-none"
                       >
                         <span className="font-semibold text-foreground pr-4">{faq.question}</span>
-                        <ChevronDown className={`w-5 h-5 flex-shrink-0 transition-transform ${openFaq === index ? 'rotate-180 text-[#D4AF37]' : 'text-muted-foreground'}`} />
+                        <ChevronDown className={`w-5 h-5 flex-shrink-0 transition-transform ${openFaq === index ? 'rotate-180 text-[#54391E]' : 'text-muted-foreground'}`} />
                       </button>
                       <AnimatePresence>
                         {openFaq === index && (
@@ -714,12 +835,12 @@ const ServiceDetail = () => {
             {/* Bottom Info Boxes */}
             <div className="grid md:grid-cols-2 gap-8 mt-16 pb-12">
               <div className="bg-[#1A1A1A] rounded-3xl p-8 text-white shadow-xl relative overflow-hidden h-full flex flex-col justify-center">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-[#D4AF37]/10 rounded-full blur-3xl" />
+                <div className="absolute top-0 right-0 w-32 h-32 bg-[#D4A373]/10 rounded-full blur-3xl" />
                 <h3 className="font-display text-2xl font-bold mb-6 relative z-10">Why Trust Dentcity?</h3>
                 <ul className="space-y-5 relative z-10">
                   {service.whyTrustList.map((point, i) => (
                     <li key={i} className="flex gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-[#D4AF37] flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-[#D4A373] flex-shrink-0 mt-0.5" />
                       <span className="text-white/80 text-sm leading-relaxed">{point}</span>
                     </li>
                   ))}

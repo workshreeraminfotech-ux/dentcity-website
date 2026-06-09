@@ -28,8 +28,8 @@ const App = () => (
             <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />
             <Route path="/services/:id" element={<ServiceDetail />} />
-            <Route path="/gallery" element={<Gallery />} />
-            <Route path="/contact" element={<Contact />} />
+            <Route path="/gallery" element={<Gallery isStandalone={true} />} />
+            <Route path="/contact" element={<Contact isStandalone={true} />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Layout>

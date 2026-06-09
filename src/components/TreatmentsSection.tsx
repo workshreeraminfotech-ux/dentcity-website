@@ -13,9 +13,9 @@ const treatments = [
     label: "Specialized",
     title: "Implant Dentistry",
     desc: "Permanent, natural-looking tooth replacement with titanium precision.",
-    color: "#D4AF37",
-    bg: "from-amber-500/15 to-yellow-400/5",
-    border: "border-amber-400/25",
+    color: "#54391E",
+    bg: "from-[#54391E]/15 to-[#825B34]/5",
+    border: "border-[#54391E]/25",
   },
   {
     slug: "full-mouth-rehabilitation",
@@ -121,7 +121,7 @@ export const TreatmentsSection = () => {
     <section className="relative section-padding overflow-hidden bg-muted/20" ref={ref}>
       {/* Blobs */}
       <div aria-hidden className="pointer-events-none absolute -top-24 -left-24 w-96 h-96 rounded-full blur-[130px] opacity-20"
-        style={{ background: "radial-gradient(circle,#D4AF37,transparent 70%)" }} />
+        style={{ background: "radial-gradient(circle,#54391E,transparent 70%)" }} />
       <div aria-hidden className="pointer-events-none absolute -bottom-24 -right-24 w-80 h-80 rounded-full blur-[120px] opacity-15"
         style={{ background: "radial-gradient(circle,#60B8F0,transparent 70%)" }} />
 
@@ -152,7 +152,7 @@ export const TreatmentsSection = () => {
             <span className="relative inline-block">
               <span className="relative z-10 text-primary">Dental Treatments</span>
               <span aria-hidden className="absolute left-0 bottom-1 w-full h-2 rounded-full opacity-30 -z-0"
-                style={{ background: "linear-gradient(90deg,#D4AF37,#60B8F0)" }} />
+                style={{ background: "linear-gradient(90deg,#54391E,#60B8F0)" }} />
             </span>
           </motion.h2>
           <motion.p

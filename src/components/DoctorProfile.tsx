@@ -58,7 +58,7 @@ const achievements = [
 ];
 
 const statsData = [
-  { raw: 8,   suffix: "+", label: "Years Exp.",     dur: 2.5 },
+  { raw: 10,  suffix: "+", label: "Years Exp.",     dur: 2.5 },
   { raw: 30,  suffix: "+", label: "Global Programs",dur: 3.5 },
   { raw: 3,   suffix: "+", label: "Accreditations", dur: 2.0 },
   { raw: 100, suffix: "%", label: "Comprehensive",  dur: 4.0 },
@@ -79,7 +79,7 @@ export const DoctorProfile = () => {
   const typedQuote = useTypewriter(quote, inView, 30);
 
   return (
-    <section className="relative w-full bg-[#030712] text-white py-24 lg:py-32 overflow-hidden" ref={ref}>
+    <section className="relative w-full bg-[#030712] text-white py-12 lg:py-16 overflow-hidden" ref={ref}>
       {/* Background massive text */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full overflow-hidden pointer-events-none flex items-center justify-center opacity-[0.03] select-none z-0">
         <h2 className="text-[120px] md:text-[200px] lg:text-[280px] font-black tracking-tighter text-white whitespace-nowrap">
@@ -100,20 +100,20 @@ export const DoctorProfile = () => {
             transition={{ duration: 0.8 }}
           >
             <div className="flex items-center gap-4 mb-6">
-              <span className="h-[2px] w-12 bg-amber-400"></span>
-              <span className="text-amber-400 font-bold tracking-[0.25em] uppercase text-xs md:text-sm">Lead Specialist</span>
-              <span className="h-[2px] w-12 bg-amber-400"></span>
+              <span className="h-[2px] w-12 bg-[#D4A373]"></span>
+              <span className="text-[#D4A373] font-bold tracking-[0.25em] uppercase text-xs md:text-sm">Lead Specialist</span>
+              <span className="h-[2px] w-12 bg-[#D4A373]"></span>
             </div>
             
             <h2 className="text-5xl md:text-7xl font-bold font-display leading-[1.05] mb-6">
               Dr. Rathin <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-600">Bhindi</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-100 via-[#D4A373] to-[#825B34]">Bhindi</span>
             </h2>
 
             <p className="text-base md:text-lg text-gray-400 max-w-xl leading-relaxed italic relative">
-              <span className="text-6xl text-amber-500/20 absolute -top-4 -left-6 font-serif">"</span>
+              <span className="text-6xl text-[#D4A373]/20 absolute -top-4 -left-6 font-serif">"</span>
               <span className="relative z-10">{typedQuote}</span>
-              <span className="inline-block w-[2px] h-[1em] bg-amber-400 ml-1 align-middle animate-pulse" />
+              <span className="inline-block w-[2px] h-[1em] bg-[#D4A373] ml-1 align-middle animate-pulse" />
             </p>
           </motion.div>
         </div>
@@ -130,26 +130,26 @@ export const DoctorProfile = () => {
           >
             {/* Desktop Header (Hidden on Mobile) */}
             <div className="hidden lg:flex items-center gap-4 mb-6">
-              <span className="h-[2px] w-12 bg-amber-400"></span>
-              <span className="text-amber-400 font-bold tracking-[0.25em] uppercase text-xs md:text-sm">Lead Specialist</span>
-              <span className="h-[2px] w-12 bg-amber-400"></span>
+              <span className="h-[2px] w-12 bg-[#D4A373]"></span>
+              <span className="text-[#D4A373] font-bold tracking-[0.25em] uppercase text-xs md:text-sm">Lead Specialist</span>
+              <span className="h-[2px] w-12 bg-[#D4A373]"></span>
             </div>
             
             <h2 className="hidden lg:block text-5xl md:text-7xl lg:text-8xl font-bold font-display leading-[1.05] mb-6">
               Dr. Rathin <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-600">Bhindi</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-100 via-[#D4A373] to-[#825B34]">Bhindi</span>
             </h2>
 
             <p className="hidden lg:block text-base md:text-lg text-gray-400 mb-10 max-w-xl leading-relaxed italic relative">
-              <span className="text-6xl text-amber-500/20 absolute -top-4 -left-6 font-serif">"</span>
+              <span className="text-6xl text-[#D4A373]/20 absolute -top-4 -left-6 font-serif">"</span>
               <span className="relative z-10">{typedQuote}</span>
-              <span className="inline-block w-[2px] h-[1em] bg-amber-400 ml-1 align-middle animate-pulse" />
+              <span className="inline-block w-[2px] h-[1em] bg-[#D4A373] ml-1 align-middle animate-pulse" />
             </p>
 
             {/* Doctor Bio Paragraphs */}
             <div className="flex flex-col gap-5 mb-10 max-w-xl">
                <p className="text-gray-300 text-[0.95rem] md:text-base leading-relaxed">
-                 Dr. Rathin Bhindi has been practicing dentistry in Rajkot for over 8 years. His educational background and additional training have fostered a meticulous approach in his clinical work. He has attended over 30+ specialized dental treatment programmes across the world and holds accreditation from over 3+ international prestigious dental bodies.
+                 Dr. Rathin Bhindi has been practicing dentistry in Rajkot for over 10 years. His educational background and additional training have fostered a meticulous approach in his clinical work. He has attended over 30+ specialized dental treatment programmes across the world and holds accreditation from over 3+ international prestigious dental bodies.
                </p>
                <p className="text-gray-300 text-[0.95rem] md:text-base leading-relaxed">
                  Specialized in Dental Implantology science, he serves full-mouth dental implant reconstructions using various implant systems and methods. He is a master of full-mouth reconstructions for patients facing chewing inefficiency, muscular disharmony, and generalized dental sensitivity. He also provides treatments like root canals, orthodontics (aligners), children's dentistry, and gum treatments—addressing everything related to the oral cavity for any person of any age or medical condition, all under one roof.
@@ -162,7 +162,7 @@ export const DoctorProfile = () => {
                 <div key={i} className="flex flex-col gap-1">
                    <span className="text-3xl md:text-4xl font-bold text-white tabular-nums tracking-tight">
                       <Counter target={s.raw} inView={statsInView} duration={s.dur} />
-                      <span className="text-amber-400">{s.suffix}</span>
+                      <span className="text-[#D4A373]">{s.suffix}</span>
                    </span>
                    <span className="text-[10px] md:text-xs text-gray-500 uppercase tracking-widest font-semibold">{s.label}</span>
                 </div>
@@ -175,7 +175,7 @@ export const DoctorProfile = () => {
                   const el = document.getElementById("contact");
                   if (el) { e.preventDefault(); el.scrollIntoView({ behavior: "smooth" }); }
                 }}
-                className="px-8 py-4 bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-black font-bold rounded-full transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2 shadow-[0_0_30px_rgba(245,158,11,0.25)]">
+                className="px-8 py-4 bg-gradient-to-r from-[#D4A373] to-[#825B34] hover:from-[#c59263] hover:to-[#714f2a] text-black font-bold rounded-full transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2 shadow-[0_0_30px_rgba(212,163,115,0.25)]">
                 Book Consultation
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -208,8 +208,8 @@ export const DoctorProfile = () => {
               animate={inView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.6 }}
             >
-               <div className="p-2 bg-amber-500/20 rounded-full">
-                  <BadgeCheck className="w-5 h-5 text-amber-500" />
+               <div className="p-2 bg-[#D4A373]/20 rounded-full">
+                  <BadgeCheck className="w-5 h-5 text-[#D4A373]" />
                </div>
                <div>
                   <p className="text-white font-bold text-sm leading-tight">Verified</p>
@@ -225,18 +225,18 @@ export const DoctorProfile = () => {
               transition={{ duration: 0.8, delay: 0.8 }}
             >
               <div className="flex items-center gap-4 mb-4">
-                 <div className="p-3 bg-gradient-to-br from-amber-500 to-amber-700 rounded-xl shadow-inner">
+                 <div className="p-3 bg-gradient-to-br from-[#D4A373] to-[#825B34] rounded-xl shadow-inner">
                     <Award className="w-6 h-6 text-white" />
                  </div>
                  <div>
                     <p className="text-white font-bold text-base">Clinical Excellence</p>
-                    <p className="text-amber-400 text-xs font-semibold uppercase tracking-wider">Implantology</p>
+                    <p className="text-[#D4A373] text-xs font-semibold uppercase tracking-wider">Implantology</p>
                  </div>
               </div>
               <ul className="space-y-3">
                  {achievements.slice(0, 3).map((item, i) => (
                    <li key={i} className="flex items-start gap-3 text-sm text-gray-300">
-                      <CheckCircle2 className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-4 h-4 text-[#D4A373] flex-shrink-0 mt-0.5" />
                       {item}
                    </li>
                  ))}

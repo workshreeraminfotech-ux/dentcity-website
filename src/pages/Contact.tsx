@@ -3,13 +3,13 @@ import { Phone, MapPin, Clock } from "lucide-react";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 import AppointmentForm from "@/components/AppointmentForm";
 
-const Contact = () => {
+const Contact = ({ isStandalone = false }: { isStandalone?: boolean }) => {
   return (
     <div className="bg-[#FAFAFA]">
-      <section className="relative pt-32 pb-16 overflow-hidden">
+      <section className={`relative pb-16 overflow-hidden ${isStandalone ? "pt-20 md:pt-24" : "pt-16 md:pt-20"}`}>
         {/* Background Soft Accents */}
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#D4AF37]/5 rounded-full blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/3" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#D4AF37]/5 rounded-full blur-[100px] pointer-events-none translate-y-1/2 -translate-x-1/3" />
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#54391E]/5 rounded-full blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/3" />
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#54391E]/5 rounded-full blur-[100px] pointer-events-none translate-y-1/2 -translate-x-1/3" />
 
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
           <motion.div
@@ -20,14 +20,14 @@ const Contact = () => {
             className="text-center max-w-3xl mx-auto"
           >
             <div className="flex items-center justify-center gap-3 mb-4">
-              <span className="w-8 h-[2px] bg-[#D4AF37]" />
-              <span className="text-xs font-bold tracking-[0.25em] uppercase text-[#D4AF37]">
+              <span className="w-8 h-[2px] bg-[#54391E]" />
+              <span className="text-xs font-bold tracking-[0.25em] uppercase text-[#54391E]">
                 Contact Us
               </span>
-              <span className="w-8 h-[2px] bg-[#D4AF37]" />
+              <span className="w-8 h-[2px] bg-[#54391E]" />
             </div>
             <h1 className="font-display text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold text-[#1A1A1A] leading-tight mb-4">
-              Get In <span className="text-[#D4AF37]">Touch</span>
+              Get In <span className="text-[#54391E]">Touch</span>
             </h1>
             <p className="text-gray-500 text-lg md:text-xl max-w-2xl mx-auto mt-4 leading-relaxed">
               We'd love to hear from you. Reach out to schedule an appointment or ask any questions.
@@ -47,9 +47,9 @@ const Contact = () => {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:border-[#D4AF37]/30 transition-all flex items-start gap-4"
+                  className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:border-[#54391E]/30 transition-all flex items-start gap-4"
                 >
-                  <Phone className="w-5 h-5 text-[#D4AF37] mt-0.5 shrink-0" />
+                  <Phone className="w-5 h-5 text-[#54391E] mt-0.5 shrink-0" />
                   <div>
                     <h4 className="font-display font-bold text-[#1A1A1A] text-sm">Call Us</h4>
                     <p className="text-sm text-gray-500 mt-1">+91 98250 78955</p>
@@ -64,9 +64,9 @@ const Contact = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.1 }}
-                  className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:border-[#D4AF37]/30 transition-all flex items-start gap-4"
+                  className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:border-[#54391E]/30 transition-all flex items-start gap-4"
                 >
-                  <WhatsAppIcon className="w-5 h-5 text-[#D4AF37] mt-0.5 shrink-0" />
+                  <WhatsAppIcon className="w-5 h-5 text-[#54391E] mt-0.5 shrink-0" />
                   <div>
                     <h4 className="font-display font-bold text-[#1A1A1A] text-sm">WhatsApp</h4>
                     <p className="text-sm text-gray-500 mt-1">+91 98250 78955</p>
@@ -78,9 +78,9 @@ const Contact = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.2 }}
-                  className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:border-[#D4AF37]/30 transition-all flex items-start gap-4"
+                  className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:border-[#54391E]/30 transition-all flex items-start gap-4"
                 >
-                  <MapPin className="w-5 h-5 text-[#D4AF37] mt-0.5 shrink-0" />
+                  <MapPin className="w-5 h-5 text-[#54391E] mt-0.5 shrink-0" />
                   <div>
                     <h4 className="font-display font-bold text-[#1A1A1A] text-sm">Address</h4>
                     <p className="text-sm text-gray-500 mt-1">Kishorsinhji Main Road, near Keshariya Vadi, Karanpara, Rajkot 360001</p>
@@ -92,12 +92,12 @@ const Contact = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.3 }}
-                  className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:border-[#D4AF37]/30 transition-all flex items-start gap-4"
+                  className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:border-[#54391E]/30 transition-all flex items-start gap-4"
                 >
-                  <Clock className="w-5 h-5 text-[#D4AF37] mt-0.5 shrink-0" />
+                  <Clock className="w-5 h-5 text-[#54391E] mt-0.5 shrink-0" />
                   <div>
                     <h4 className="font-display font-bold text-[#1A1A1A] text-sm">Hours</h4>
-                    <p className="text-sm text-gray-500 mt-1">Mon–Sat: 9 AM – 8 PM<br />Sun: By Appointment</p>
+                    <p className="text-sm text-gray-500 mt-1">Mon–Sat: 10 AM – 8 PM<br />Sun: By Appointment</p>
                   </div>
                 </motion.div>
               </div>

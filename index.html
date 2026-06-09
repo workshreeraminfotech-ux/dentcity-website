@@ -17,62 +17,127 @@
   <meta property="og:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f7d45a3e-67c5-4595-b5ea-1d0850cce3d8/id-preview-c82241ff--8c3417d3-aa42-45d6-9b92-442c290b315a.lovable.app-1771734135653.png">
   <body style="margin: 0;">
     <style>
-      /* Instant Critical CSS for New Loader */
       #initial-loader {
         position: fixed;
         inset: 0;
-        background: #ffffff;
+        background: #FCFAF7; /* Warm premium pearl white */
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        gap: 32px;
         z-index: 999999;
-        transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
-      }
-      
-      .loader-logo {
-        height: 64px;
-        width: auto;
-        margin-bottom: 30px;
-        object-fit: contain;
+        transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
       }
 
-      /* Bar Container */
-      .loader-bar-container {
+      /* Logo container with breathing effect */
+      .loader-logo-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: logoEntrance 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards, logoPulse 3s ease-in-out infinite 1s;
+      }
+      .loader-logo {
+        height: 140px;
+        width: auto;
+        max-width: 240px;
+        object-fit: contain;
+        z-index: 2;
+        filter: drop-shadow(0 10px 25px rgba(84, 57, 30, 0.08));
+      }
+
+      /* Text and progress wrapper */
+      .loader-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        z-index: 2;
+      }
+
+      /* Tagline */
+      .loader-tagline {
+        font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.35em;
+        color: #54391E;
+        text-transform: uppercase;
+        opacity: 0;
+        transform: translateY(10px);
+        animation: contentFadeIn 0.8s cubic-bezier(0.25, 1, 0.5, 1) 0.4s forwards;
+      }
+
+      /* Premium Linear Progress Bar */
+      .loader-progress-bar {
         width: 200px;
         height: 3px;
-        background-color: #e5e7eb; /* light gray track */
-        border-radius: 4px;
+        background: rgba(84, 57, 30, 0.08);
+        border-radius: 10px;
         overflow: hidden;
+        position: relative;
+        opacity: 0;
+        transform: translateY(10px);
+        animation: contentFadeIn 0.8s cubic-bezier(0.25, 1, 0.5, 1) 0.6s forwards;
       }
-
-      /* Filling Bar */
-      .loader-bar-fill {
+      .loader-progress-fill {
         height: 100%;
         width: 0%;
-        background-color: #0d0d0d; /* dark progress bar to match vibe */
-        border-radius: 4px;
-        /* Animation: exactly 3 seconds filling up */
-        animation: fillBar 3s cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+        background: linear-gradient(90deg, #54391E, #825B34);
+        border-radius: 10px;
+        animation: progressLoad 5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
       }
 
-      @keyframes fillBar {
-        0% { width: 0%; }
-        100% { width: 100%; }
+      /* Particle or glow effects for a high-end feel */
+      .loader-glow {
+        position: absolute;
+        width: 260px;
+        height: 260px;
+        background: radial-gradient(circle, rgba(212, 163, 115, 0.15) 0%, transparent 70%);
+        border-radius: 50%;
+        z-index: 1;
+        animation: glowPulse 3s ease-in-out infinite;
       }
 
-      /* When body gets .loaded class, hide loader */
+      @keyframes logoEntrance {
+        from { opacity: 0; transform: scale(0.85) translateY(20px); }
+        to { opacity: 1; transform: scale(1) translateY(0); }
+      }
+      @keyframes logoPulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.04); }
+      }
+      @keyframes glowPulse {
+        0%, 100% { transform: scale(1); opacity: 0.8; }
+        50% { transform: scale(1.2); opacity: 1; }
+      }
+      @keyframes contentFadeIn {
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes progressLoad {
+        to { width: 100%; }
+      }
+
+      /* Loader Exit Transition */
       body.loaded #initial-loader {
         opacity: 0;
+        transform: scale(1.05);
         visibility: hidden;
       }
     </style>
 
-    <!-- Instant Render Preloader -->
+    <!-- Clean White Premium Preloader -->
     <div id="initial-loader">
-      <img src="/src/assets/dentcity%20logo.png" class="loader-logo" alt="Dentcity Logo" />
-      <div class="loader-bar-container">
-        <div class="loader-bar-fill"></div>
+      <div class="loader-logo-container">
+        <div class="loader-glow"></div>
+        <img src="/src/assets/dentcity%20logo.png" class="loader-logo" alt="Dentcity" />
+      </div>
+      <div class="loader-content">
+        <div class="loader-tagline">Crafting Your Perfect Smile</div>
+        <div class="loader-progress-bar">
+          <div class="loader-progress-fill"></div>
+        </div>
       </div>
     </div>
 
@@ -90,7 +155,7 @@
           const loader = document.getElementById('initial-loader');
           if (loader) loader.remove();
         }, 600); // Wait for transition to finish
-      }, 3000); // 3 seconds total wait time
+      }, 5000); // 5 seconds total wait time
     </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>

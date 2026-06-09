@@ -2,26 +2,27 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
-import serviceImplants from "@/assets/service-implants.jpg";
-import serviceOrthodontics from "@/assets/service-orthodontics.jpg";
-import gallery1 from "@/assets/gallery-1.jpg";
-import gallery2 from "@/assets/gallery-2.jpg";
-
-import gallery3 from "@/assets/gallery-3.jpg";
-import gallery4 from "@/assets/gallery-4.jpg";
+import imgImplant from "@/assets/premium_services/implant_dentistry.png";
+import imgFmr from "@/assets/premium_services/full_mouth.png";
+import imgRct from "@/assets/premium_services/root_canal.png";
+import imgChild from "@/assets/drwithchild.jpg";
+import imgFilling from "@/assets/premium_services/composite_filling.png";
+import imgCrown from "@/assets/premium_services/crown_bridges.png";
+import imgSurgery from "@/assets/premium_services/oral_surgery.png";
+import imgOrtho from "@/assets/premium_services/orthodontics.png";
 
 const dentalImplants = [
-  { slug: "dental-implants", title: "Dental Implants", desc: "Permanent tooth replacement with precision-placed titanium implants for a natural look and feel.", img: serviceImplants },
-  { slug: "full-mouth-rehabilitation", title: "Full Mouth Rehabilitation", desc: "Complete oral restoration combining multiple treatments for optimal function and aesthetics.", img: gallery1 },
+  { slug: "dental-implants", title: "Dental Implants", desc: "Permanent tooth replacement with precision-placed titanium implants for a natural look and feel.", img: imgImplant },
+  { slug: "full-mouth-rehabilitation", title: "Full Mouth Rehabilitation", desc: "Complete oral restoration combining multiple treatments for optimal function and aesthetics.", img: imgFmr },
 ];
 
 const generalDentistry = [
-  { slug: "root-canal-treatment", title: "Root Canal Treatment", desc: "Pain-free, microscope-guided treatment that saves your natural tooth.", img: gallery2 },
-  { slug: "child-dentistry", title: "Child Dentistry", desc: "Gentle, fun, and fear-free dental care designed just for little smiles.", img: gallery3 },
-  { slug: "composite-resin-filling", title: "Composite Resin Filling", desc: "Aesthetic composite resin fillings that blend seamlessly with your natural tooth colour.", img: gallery1 },
-  { slug: "crowns-and-bridges", title: "Crown and Bridges", desc: "Custom-crafted dental crowns and bridges to restore damaged or missing teeth.", img: gallery4 },
-  { slug: "oral-surgery", title: "Oral Surgery", desc: "Safe, precision extractions and impacted wisdom tooth removal.", img: serviceImplants },
-  { slug: "orthodontics", title: "Orthodontics", desc: "Metal, ceramic or clear aligners — straight teeth for every lifestyle.", img: serviceOrthodontics },
+  { slug: "root-canal-treatment", title: "Root Canal Treatment", desc: "Pain-free, microscope-guided treatment that saves your natural tooth.", img: imgRct },
+  { slug: "child-dentistry", title: "Child Dentistry", desc: "Gentle, fun, and fear-free dental care designed just for little smiles.", img: imgChild },
+  { slug: "composite-resin-filling", title: "Composite Resin Filling", desc: "Aesthetic composite resin fillings that blend seamlessly with your natural tooth colour.", img: imgFilling },
+  { slug: "crowns-and-bridges", title: "Crown and Bridges", desc: "Custom-crafted dental crowns and bridges to restore damaged or missing teeth.", img: imgCrown },
+  { slug: "oral-surgery", title: "Oral Surgery", desc: "Safe, precision extractions and impacted wisdom tooth removal.", img: imgSurgery },
+  { slug: "orthodontics", title: "Orthodontics", desc: "Metal, ceramic or clear aligners — straight teeth for every lifestyle.", img: imgOrtho },
 ];
 
 /* ─── Reusable Service Card ─── */
@@ -60,7 +61,7 @@ const ServiceCard = ({
       <Link
         to={`/services/${service.slug}`}
         onClick={e => e.stopPropagation()}
-        className="inline-flex items-center gap-1 text-sm font-semibold mt-4 transition-all hover:gap-2 text-[#D4AF37]"
+        className="inline-flex items-center gap-1 text-sm font-semibold mt-4 transition-all hover:gap-2 text-[#54391E]"
       >
         View Details <ChevronRight className="w-4 h-4" />
       </Link>

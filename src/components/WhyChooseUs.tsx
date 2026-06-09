@@ -6,11 +6,13 @@ import {
   HeartHandshake,
   CalendarDays,
   Smile,
+  HeartPulse,
 } from "lucide-react";
 
 import imgBuilding from "@/assets/gallery/building.webp";
 import imgReception from "@/assets/gallery/reception.webp";
-import imgTreatment from "@/assets/gallery/checkup-room.webp";
+import imgTreatment from "@/assets/gallery/treatment-room.webp";
+import imgChildren from "@/assets/gallery/children-room.webp";
 
 const reasons = [
   {
@@ -19,9 +21,14 @@ const reasons = [
     desc: "We have more than 25 years of experience in dentistry which leads to better judgment, especially in tough instances when hurrying can cause issues later.",
   },
   {
+    icon: HeartPulse,
+    title: "Specialized in Critical Dental Care",
+    desc: "Our doctors are specialized to treat complex, high-impact cases like full mouth implant reconstruction, full mouth rehabilitation, and restoring the masticatory system to give a fully functional smile to our patients.",
+  },
+  {
     icon: Microscope,
     title: "Advanced Digital Technology In House",
-    desc: "Our clinic combines advanced imaging, CBCT, and PrimeScan to make diagnostic and treatment planning more accurate and less painful.",
+    desc: "Our clinic combines digital impressions, CBCT, and advanced imaging options to make diagnostic and treatment planning more accurate and less painful.",
   },
   {
     icon: HeartHandshake,
@@ -45,11 +52,11 @@ export const WhyChooseUs = () => {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section className="relative bg-[#FAFAFA] py-24 overflow-hidden">
+    <section className="relative bg-[#FAFAFA] pt-12 pb-24 md:pt-16 md:pb-32 overflow-hidden">
       
       {/* Background Soft Accents */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#D4AF37]/5 rounded-full blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/3" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#D4AF37]/5 rounded-full blur-[100px] pointer-events-none translate-y-1/2 -translate-x-1/3" />
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#54391E]/5 rounded-full blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/3" />
+      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#54391E]/5 rounded-full blur-[100px] pointer-events-none translate-y-1/2 -translate-x-1/3" />
 
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
         
@@ -59,17 +66,17 @@ export const WhyChooseUs = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-8 lg:mb-16"
+          className="text-center mb-6 lg:mb-10"
         >
           <div className="flex items-center justify-center gap-3 mb-4">
-            <span className="w-8 h-[2px] bg-[#D4AF37]" />
-            <span className="text-xs font-bold tracking-[0.25em] uppercase text-[#D4AF37]">
+            <span className="w-8 h-[2px] bg-[#54391E]" />
+            <span className="text-xs font-bold tracking-[0.25em] uppercase text-[#54391E]">
               The Dentcity Difference
             </span>
-            <span className="w-8 h-[2px] bg-[#D4AF37]" />
+            <span className="w-8 h-[2px] bg-[#54391E]" />
           </div>
           <h2 className="font-display text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold text-[#1A1A1A] leading-tight">
-            Why Patients Choose <span className="text-[#D4AF37]">Dentcity</span>
+            Why Patients Choose <span className="text-[#54391E]">Dentcity</span>
           </h2>
         </motion.div>
 
@@ -84,16 +91,16 @@ export const WhyChooseUs = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 key={i} 
-                className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:border-[#D4AF37]/30 transition-all duration-300 group cursor-default relative overflow-hidden"
+                className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:border-[#54391E]/30 transition-all duration-300 group cursor-default relative overflow-hidden"
               >
-                <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-[#D4AF37] to-[#f0cc6a] opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-[#54391E] to-[#825B34] opacity-0 group-hover:opacity-100 transition-opacity" />
                 
                 <div className="flex gap-5 items-start">
-                  <div className="w-14 h-14 shrink-0 rounded-xl bg-[#FAFAFA] flex items-center justify-center text-[#1A1A1A] group-hover:bg-[#D4AF37]/10 group-hover:text-[#D4AF37] transition-colors border border-gray-100">
+                  <div className="w-14 h-14 shrink-0 rounded-xl bg-[#FAFAFA] flex items-center justify-center text-[#1A1A1A] group-hover:bg-[#54391E]/10 group-hover:text-[#54391E] transition-colors border border-gray-100">
                     <item.icon className="w-6 h-6" strokeWidth={1.5} />
                   </div>
                   <div>
-                    <h3 className="font-display font-bold text-lg text-[#1A1A1A] mb-1.5 group-hover:text-[#D4AF37] transition-colors">
+                    <h3 className="font-display font-bold text-lg text-[#1A1A1A] mb-1.5 group-hover:text-[#54391E] transition-colors">
                       {item.title}
                     </h3>
                     <p className="text-gray-500 text-sm leading-relaxed">
@@ -105,41 +112,51 @@ export const WhyChooseUs = () => {
             ))}
           </div>
 
-          {/* ── Right Side: 3 Photos Collage ── */}
-          <div ref={ref} className="w-full lg:w-7/12 relative min-h-[400px] lg:min-h-[500px]">
-            {/* Main large image (Back Right) */}
+          {/* ── Right Side: 4 Photos Overlapping Collage ── */}
+          <div ref={ref} className="w-full lg:w-7/12 relative min-h-[480px] lg:min-h-[580px]">
+            
+            {/* Photo 1: Building (Top Right - Z-index 10) */}
             <motion.div 
               initial={{ opacity: 0, x: 40, y: -20 }}
               animate={inView ? { opacity: 1, x: 0, y: 0 } : {}}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="absolute top-0 right-0 w-[65%] h-[65%] lg:h-[70%] rounded-3xl overflow-hidden shadow-2xl z-10 border-[6px] border-white"
+              className="absolute top-0 right-0 w-[58%] h-[55%] rounded-3xl overflow-hidden shadow-xl z-10 border-[6px] border-white"
             >
-              <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors z-10" />
-              <img src={imgBuilding} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="Dentcity Hospital Building" loading="lazy" />
+              <img src={imgBuilding} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="Dentcity Exterior" loading="lazy" />
             </motion.div>
 
-            {/* Bottom left overlapping image */}
+            {/* Photo 2: Reception Area (Top Left - Z-index 20) */}
             <motion.div 
-              initial={{ opacity: 0, x: -40, y: 40 }}
+              initial={{ opacity: 0, x: -40, y: -10 }}
+              animate={inView ? { opacity: 1, x: 0, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
+              className="absolute top-12 left-0 w-[48%] h-[48%] rounded-3xl overflow-hidden shadow-xl z-20 border-[6px] border-white"
+            >
+              <img src={imgReception} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="Reception Area" loading="lazy" />
+            </motion.div>
+
+            {/* Photo 3: Main Treatment Room (Bottom Right - Z-index 30) */}
+            <motion.div 
+              initial={{ opacity: 0, x: 40, y: 20 }}
               animate={inView ? { opacity: 1, x: 0, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-              className="absolute bottom-8 left-0 w-[55%] h-[55%] rounded-3xl overflow-hidden shadow-2xl z-20 border-[6px] border-white"
+              className="absolute bottom-6 right-4 w-[48%] h-[48%] rounded-3xl overflow-hidden shadow-xl z-30 border-[6px] border-white"
             >
-              <img src={imgReception} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="Dentcity Reception Area" loading="lazy" />
+              <img src={imgTreatment} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="Treatment Room" loading="lazy" />
             </motion.div>
 
-            {/* Bottom right smaller overlapping image */}
+            {/* Photo 4: Children Treatment Room (Bottom Left - Z-index 40) */}
             <motion.div 
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={inView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-              className="absolute -bottom-6 right-8 w-[45%] lg:w-[40%] h-[40%] rounded-3xl overflow-hidden shadow-2xl z-30 border-[6px] border-white"
+              initial={{ opacity: 0, x: -40, y: 30 }}
+              animate={inView ? { opacity: 1, x: 0, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+              className="absolute -bottom-6 left-8 w-[44%] h-[44%] rounded-3xl overflow-hidden shadow-xl z-40 border-[6px] border-white"
             >
-              <img src={imgTreatment} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="Dentcity Advanced Treatment Room" loading="lazy" />
+              <img src={imgChildren} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="Children Room" loading="lazy" />
             </motion.div>
             
             {/* Decorative dots pattern */}
-            <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-[radial-gradient(#D4AF37_2px,transparent_2px)] [background-size:12px_12px] opacity-30 -z-10" />
+            <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-[radial-gradient(#825B34_2px,transparent_2px)] [background-size:12px_12px] opacity-30 -z-10" />
           </div>
           
         </div>

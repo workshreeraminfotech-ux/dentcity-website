@@ -38,15 +38,15 @@ export const FAQSection = () => {
   const inView = useInView(ref, { once: true, margin: "-60px" });
   const [open, setOpen] = useState<number | null>(null);
 
-  const accentColor = "#D4AF37";
+  const accentColor = "#D4A373";
 
   return (
-    <section ref={ref} className="relative overflow-hidden py-20 md:py-28"
+    <section ref={ref} className="relative overflow-hidden py-12 md:py-16"
       style={{ background: "linear-gradient(160deg,#0a0f1e 0%,#0d1a2e 50%,#080d18 100%)" }}>
 
       {/* ── Ambient blobs ── */}
       <div aria-hidden className="pointer-events-none absolute top-0 left-1/4 w-96 h-96 rounded-full blur-[140px] opacity-20"
-        style={{ background: "radial-gradient(circle,#D4AF37,transparent 70%)" }} />
+        style={{ background: "radial-gradient(circle,#54391E,transparent 70%)" }} />
       <div aria-hidden className="pointer-events-none absolute bottom-0 right-1/4 w-80 h-80 rounded-full blur-[120px] opacity-15"
         style={{ background: "radial-gradient(circle,#60B8F0,transparent 70%)" }} />
 
@@ -63,10 +63,10 @@ export const FAQSection = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={inView ? { opacity: 1, scale: 1 } : {}}
             transition={{ delay: 0.1 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-amber-400/25 bg-amber-400/10 mb-4"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#D4A373]/25 bg-[#D4A373]/10 mb-4"
           >
-            <MessageCircle className="w-3.5 h-3.5 text-amber-400" />
-            <span className="text-xs font-bold tracking-[0.25em] uppercase text-amber-400">
+            <MessageCircle className="w-3.5 h-3.5 text-[#D4A373]" />
+            <span className="text-xs font-bold tracking-[0.25em] uppercase text-[#D4A373]">
               Got Questions?
             </span>
           </motion.div>
@@ -79,8 +79,7 @@ export const FAQSection = () => {
           >
             Frequently Asked{" "}
             <span className="relative inline-block">
-              <span className="relative z-10"
-                style={{ background: "linear-gradient(90deg,#D4AF37,#f0cc6a)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+              <span className="relative z-10 bg-clip-text text-transparent bg-gradient-to-r from-[#D4A373] to-[#F5E2C9]">
                 Questions
               </span>
             </span>
@@ -150,7 +149,7 @@ export const FAQSection = () => {
                         }}
                       >
                         {isOpen
-                          ? <Minus className="w-3.5 h-3.5 text-black" />
+                          ? <Minus className="w-3.5 h-3.5 text-white" />
                           : <Plus className="w-3.5 h-3.5 text-white/60" />}
                       </div>
                     </div>
@@ -194,8 +193,8 @@ export const FAQSection = () => {
               const el = document.getElementById("contact");
               if (el) { e.preventDefault(); el.scrollIntoView({ behavior: "smooth" }); }
             }}
-            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-bold text-sm text-black transition-all hover:scale-105 active:scale-95 shadow-lg"
-            style={{ background: "linear-gradient(135deg,#D4AF37,#f0cc6a)" }}
+            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-bold text-sm text-white transition-all hover:scale-105 active:scale-95 shadow-lg"
+            style={{ background: "linear-gradient(135deg,#54391E,#825B34)" }}
           >
             Ask Us Anything
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">

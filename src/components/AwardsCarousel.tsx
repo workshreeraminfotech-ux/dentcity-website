@@ -8,9 +8,56 @@ const rawAwardImages = import.meta.glob(
 );
 const awardImages = Object.values(rawAwardImages) as string[];
 
+interface ImageInfo {
+  src: string;
+  isHorizontal: boolean;
+}
+
 export const AwardsCarousel = () => {
   const [paused, setPaused] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [sortedImages, setSortedImages] = useState<ImageInfo[]>([]);
+
+  // Dynamically group horizontal first, then vertical
+  useEffect(() => {
+    let active = true;
+    const loadAndSort = async () => {
+      const imagePromises = awardImages.map((src) => {
+        return new Promise<ImageInfo>((resolve) => {
+          const img = new window.Image();
+          img.onload = () => {
+            resolve({
+              src,
+              isHorizontal: img.naturalWidth >= img.naturalHeight,
+            });
+          };
+          img.onerror = () => {
+            resolve({ src, isHorizontal: true });
+          };
+          img.src = src;
+        });
+      });
+
+      const results = await Promise.all(imagePromises);
+      if (!active) return;
+
+      const horizontals = results.filter((r) => r.isHorizontal);
+      const verticals = results.filter((r) => !r.isHorizontal);
+
+      setSortedImages([...horizontals, ...verticals]);
+    };
+
+    loadAndSort();
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const displayImages = sortedImages.length > 0
+    ? sortedImages
+    : awardImages.map((src) => ({ src, isHorizontal: true }));
+
+  const totalItems = displayImages.length;
 
   // Lightbox Navigation
   const closeLightbox = () => setLightboxIndex(null);
@@ -18,14 +65,14 @@ export const AwardsCarousel = () => {
   const goPrev = useCallback((e?: React.MouseEvent) => {
     e?.stopPropagation();
     if (lightboxIndex !== null)
-      setLightboxIndex((p) => (p! - 1 + awardImages.length) % awardImages.length);
-  }, [lightboxIndex]);
+      setLightboxIndex((p) => (p! - 1 + displayImages.length) % displayImages.length);
+  }, [lightboxIndex, displayImages]);
 
   const goNext = useCallback((e?: React.MouseEvent) => {
     e?.stopPropagation();
     if (lightboxIndex !== null)
-      setLightboxIndex((p) => (p! + 1) % awardImages.length);
-  }, [lightboxIndex]);
+      setLightboxIndex((p) => (p! + 1) % displayImages.length);
+  }, [lightboxIndex, displayImages]);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -42,10 +89,10 @@ export const AwardsCarousel = () => {
   useEffect(() => {
     if (lightboxIndex === null) return;
     const id = setInterval(() => {
-      setLightboxIndex((p) => p !== null ? (p + 1) % awardImages.length : null);
+      setLightboxIndex((p) => p !== null ? (p + 1) % displayImages.length : null);
     }, 3000);
     return () => clearInterval(id);
-  }, [lightboxIndex]);
+  }, [lightboxIndex, displayImages]);
 
   if (awardImages.length === 0) {
     return (
@@ -57,14 +104,15 @@ export const AwardsCarousel = () => {
     );
   }
 
-  // Card dimensions
-  const CARD_W = 220;   // px per card
-  const CARD_H = 270;   // px height
+  // Card gap and copies
   const GAP = 20;       // px gap between cards
   const COPIES = 4;     // enough copies so strip always overflows any screen
-  const totalItems = awardImages.length;
-  // Animate exactly ONE set width so the loop is seamless
-  const loopWidth = (CARD_W + GAP) * totalItems;
+
+  // Sum of widths of one full loop of cards plus gaps
+  const loopWidth = displayImages.reduce((sum, img) => {
+    const cardWidth = img.isHorizontal ? 290 : 220;
+    return sum + cardWidth + GAP;
+  }, 0);
 
   return (
     <>
@@ -77,6 +125,7 @@ export const AwardsCarousel = () => {
         .awards-track {
           display: flex;
           gap: ${GAP}px;
+          align-items: center;
           width: max-content;
           animation: awards-scroll 35s linear infinite;
           will-change: transform;
@@ -96,14 +145,14 @@ export const AwardsCarousel = () => {
             className="text-center max-w-3xl mx-auto"
           >
             <div className="flex items-center justify-center gap-3 mb-4">
-              <span className="w-8 h-[2px] bg-[#D4AF37]" />
-              <span className="text-xs font-bold tracking-[0.25em] uppercase text-[#D4AF37]">
+              <span className="w-8 h-[2px] bg-[#54391E]" />
+              <span className="text-xs font-bold tracking-[0.25em] uppercase text-[#54391E]">
                 Excellence Recognised
               </span>
-              <span className="w-8 h-[2px] bg-[#D4AF37]" />
+              <span className="w-8 h-[2px] bg-[#54391E]" />
             </div>
             <h2 className="font-display text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold text-[#1A1A1A] leading-tight mb-4">
-              Our Awards & <span className="text-[#D4AF37]">Achievements</span>
+              Our Awards & <span className="text-[#54391E]">Achievements</span>
             </h2>
             <p className="mt-4 text-base md:text-lg text-gray-500 leading-relaxed">
               A testament to our commitment to delivering world-class dental care and our dedication to continuous innovation and excellence in dentistry.
@@ -122,27 +171,31 @@ export const AwardsCarousel = () => {
           {/* pt/pb via wrapper div — NOT on track — so gap calc stays correct */}
           <div className={`awards-track py-4 ${paused || lightboxIndex !== null ? "paused" : ""}`}>
             {/* 4 copies → strip always wider than any screen */}
-            {Array.from({ length: COPIES }, () => awardImages).flat().map((img, idx) => (
-              <div
-                key={idx}
-                onClick={() => setLightboxIndex(idx % totalItems)}
-                className="flex-shrink-0 rounded-2xl overflow-hidden bg-white/70 border border-border/60 shadow-sm group cursor-pointer transition-all duration-300 hover:-translate-y-1.5 hover:scale-105"
-                style={{ width: CARD_W, height: CARD_H }}
-              >
-                <div className="w-full h-full relative rounded-xl overflow-hidden">
-                  <img
-                    src={img}
-                    alt={`Dentcity Award ${(idx % totalItems) + 1}`}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    loading="lazy"
-                    draggable={false}
-                  />
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <ZoomIn className="text-white w-8 h-8 opacity-80" />
+            {Array.from({ length: COPIES }, () => displayImages).flat().map((img, idx) => {
+              const cardW = img.isHorizontal ? 290 : 220;
+              const cardH = img.isHorizontal ? 220 : 290;
+              return (
+                <div
+                  key={idx}
+                  onClick={() => setLightboxIndex(idx % totalItems)}
+                  className="flex-shrink-0 rounded-[4px] bg-[#3D3D3D] border-[6px] border-[#2A2A2A] shadow-md group cursor-pointer transition-all duration-300 hover:-translate-y-1.5 hover:scale-105 p-2.5"
+                  style={{ width: cardW, height: cardH }}
+                >
+                  <div className="w-full h-full relative border border-white/10 overflow-hidden bg-[#1E1E1E]">
+                    <img
+                      src={img.src}
+                      alt={`Dentcity Award ${(idx % totalItems) + 1}`}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      loading="lazy"
+                      draggable={false}
+                    />
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                      <ZoomIn className="text-white w-8 h-8 opacity-80" />
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           {/* Edge fades */}
@@ -191,12 +244,12 @@ export const AwardsCarousel = () => {
               onClick={(e) => e.stopPropagation()}
             >
               <img
-                src={awardImages[lightboxIndex]}
+                src={displayImages[lightboxIndex].src}
                 alt={`Award Image ${lightboxIndex + 1}`}
                 className="max-w-full max-h-[85vh] object-contain rounded-xl shadow-2xl"
               />
               <div className="absolute bottom-[-30px] md:bottom-[-40px] left-1/2 -translate-x-1/2 text-white/50 text-sm tracking-widest font-mono">
-                {lightboxIndex + 1} / {awardImages.length}
+                {lightboxIndex + 1} / {displayImages.length}
               </div>
             </motion.div>
           </motion.div>

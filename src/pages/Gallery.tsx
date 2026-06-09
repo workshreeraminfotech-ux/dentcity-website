@@ -98,7 +98,7 @@ const FILTERS = [
 
 type FilterKey = (typeof FILTERS)[number]["key"];
 
-const Gallery = () => {
+const Gallery = ({ isStandalone = false }: { isStandalone?: boolean }) => {
   const [activeFilter, setActiveFilter] = useState<FilterKey>("clinic");
   
   // Custom Lightbox State decoupled from active tab
@@ -147,10 +147,10 @@ const Gallery = () => {
   return (
     <>
       {/* ── HERO ─────────────────────────────────────────── */}
-      <section className="relative bg-[#FAFAFA] pt-32 pb-16 overflow-hidden">
+      <section className={`relative bg-[#FAFAFA] pb-6 overflow-hidden ${isStandalone ? "pt-20 md:pt-24" : "pt-6 md:pt-8"}`}>
         {/* Background Soft Accents */}
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#D4AF37]/5 rounded-full blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/3" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#D4AF37]/5 rounded-full blur-[100px] pointer-events-none translate-y-1/2 -translate-x-1/3" />
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#54391E]/5 rounded-full blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/3" />
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#54391E]/5 rounded-full blur-[100px] pointer-events-none translate-y-1/2 -translate-x-1/3" />
 
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
           <motion.div
@@ -161,14 +161,14 @@ const Gallery = () => {
             className="text-center max-w-3xl mx-auto"
           >
             <div className="flex items-center justify-center gap-3 mb-4">
-              <span className="w-8 h-[2px] bg-[#D4AF37]" />
-              <span className="text-xs font-bold tracking-[0.25em] uppercase text-[#D4AF37]">
+              <span className="w-8 h-[2px] bg-[#54391E]" />
+              <span className="text-xs font-bold tracking-[0.25em] uppercase text-[#54391E]">
                 Our Gallery
               </span>
-              <span className="w-8 h-[2px] bg-[#D4AF37]" />
+              <span className="w-8 h-[2px] bg-[#54391E]" />
             </div>
             <h1 className="font-display text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold text-[#1A1A1A] leading-tight mb-4">
-              Clinic, Facilities & <span className="text-[#D4AF37]">Achievements</span>
+              Clinic, Facilities & <span className="text-[#54391E]">Achievements</span>
             </h1>
             <p className="text-gray-500 text-lg md:text-xl max-w-2xl mx-auto mt-4 leading-relaxed">
               Step inside DENTCITY — explore our world-class infrastructure and the milestones that define our legacy.
@@ -349,7 +349,7 @@ const Gallery = () => {
           align-items: center;
           background: rgba(255,255,255,0.04);
           backdrop-filter: blur(12px);
-          border: 1px solid rgba(212,175,55,0.15);
+          border: 1px solid rgba(84,57,30,0.15);
           border-radius: 1rem;
           padding: 0.8rem 1.6rem;
           min-width: 110px;
@@ -357,7 +357,7 @@ const Gallery = () => {
         .gallery-stat-value {
           font-size: 1.6rem;
           font-weight: 800;
-          color: #D4AF37;
+          color: #54391E;
           line-height: 1;
         }
         .gallery-stat-label {
@@ -405,13 +405,13 @@ const Gallery = () => {
           overflow: hidden;
         }
         .gallery-filter-btn:hover {
-          border-color: #D4AF37;
-          color: #D4AF37;
-          background: rgba(212,175,55,0.05);
+          border-color: #54391E;
+          color: #54391E;
+          background: rgba(84,57,30,0.05);
         }
         .gallery-filter-btn.active {
-          background: #D4AF37;
-          border-color: #D4AF37;
+          background: #54391E;
+          border-color: #54391E;
           color: #fff;
         }
         .gallery-filter-count {
@@ -504,7 +504,7 @@ const Gallery = () => {
           width: 100%;
         }
         .gallery-card-zoom-icon {
-          color: #D4AF37;
+          color: #54391E;
           margin-bottom: 0.2rem;
         }
         .gallery-card-label {
@@ -528,8 +528,8 @@ const Gallery = () => {
           backdrop-filter: blur(8px);
         }
         .badge-clinic {
-          background: rgba(212,175,55,0.85);
-          color: #000;
+          background: rgba(84,57,30,0.85);
+          color: #fff;
         }
         .badge-achievements {
           background: rgba(255,255,255,0.85);
@@ -537,8 +537,8 @@ const Gallery = () => {
         }
         .badge-treatments {
           background: rgba(34,34,34,0.85);
-          color: #D4AF37;
-          border: 1px solid #D4AF37;
+          color: #54391E;
+          border: 1px solid #54391E;
         }
 
         /* ── TREATMENT PROCESS UI ── */
@@ -572,7 +572,7 @@ const Gallery = () => {
         }
         .case-badge {
           background: #111;
-          color: #D4AF37;
+          color: #54391E;
           padding: 0.35rem 0.85rem;
           border-radius: 999px;
           font-size: 0.8rem;
@@ -603,9 +603,9 @@ const Gallery = () => {
           flex-shrink: 0;
         }
         .process-step:hover {
-          border-color: #D4AF37;
+          border-color: #54391E;
           transform: translateY(-4px);
-          box-shadow: 0 12px 28px rgba(212,175,55,0.15);
+          box-shadow: 0 12px 28px rgba(84,57,30,0.15);
         }
         .process-step-img {
           width: 100%;
@@ -617,7 +617,7 @@ const Gallery = () => {
           top: 0.5rem;
           left: 0.5rem;
           background: #000;
-          color: #D4AF37;
+          color: #54391E;
           width: 28px;
           height: 28px;
           border-radius: 50%;
@@ -642,7 +642,7 @@ const Gallery = () => {
           opacity: 1;
         }
         .step-zoom {
-          color: #D4AF37;
+          color: #54391E;
         }
         .process-arrow {
           color: #333;
@@ -698,7 +698,7 @@ const Gallery = () => {
           width: auto;
           border-radius: 1rem;
           object-fit: contain;
-          box-shadow: 0 32px 80px rgba(212,175,55,0.15);
+          box-shadow: 0 32px 80px rgba(84,57,30,0.15);
         }
         .gallery-lb-caption {
           display: flex;
@@ -708,7 +708,7 @@ const Gallery = () => {
           justify-content: center;
         }
         .gallery-lb-alt {
-          color: #D4AF37;
+          color: #54391E;
           font-size: 0.92rem;
           font-weight: 500;
         }
@@ -724,7 +724,7 @@ const Gallery = () => {
           justify-content: center;
           width: 48px; height: 48px;
           border-radius: 50%;
-          border: 1px solid rgba(212,175,55,0.3);
+          border: 1px solid rgba(84,57,30,0.3);
           cursor: pointer;
           transition: all 0.2s ease;
           z-index: 201;
@@ -732,23 +732,23 @@ const Gallery = () => {
         .gallery-lb-close {
           top: 1.2rem; right: 1.2rem;
           background: rgba(0,0,0,0.5);
-          color: #D4AF37;
+          color: #54391E;
         }
-        .gallery-lb-close:hover { background: rgba(212,175,55,0.2); transform: rotate(90deg); border-color: #D4AF37; }
+        .gallery-lb-close:hover { background: rgba(84,57,30,0.2); transform: rotate(90deg); border-color: #54391E; }
         .gallery-lb-prev {
           left: 1rem;
           top: 50%; transform: translateY(-50%);
           background: rgba(0,0,0,0.5);
-          color: #D4AF37;
+          color: #54391E;
         }
-        .gallery-lb-prev:hover { background: rgba(212,175,55,0.2); transform: translateY(-50%) scale(1.1); border-color: #D4AF37; }
+        .gallery-lb-prev:hover { background: rgba(84,57,30,0.2); transform: translateY(-50%) scale(1.1); border-color: #54391E; }
         .gallery-lb-next {
           right: 1rem;
           top: 50%; transform: translateY(-50%);
           background: rgba(0,0,0,0.5);
-          color: #D4AF37;
+          color: #54391E;
         }
-        .gallery-lb-next:hover { background: rgba(212,175,55,0.2); transform: translateY(-50%) scale(1.1); border-color: #D4AF37; }
+        .gallery-lb-next:hover { background: rgba(84,57,30,0.2); transform: translateY(-50%) scale(1.1); border-color: #54391E; }
 
         @media (max-width: 640px) {
           .gallery-lb-prev { left: 0.4rem; width: 40px; height: 40px; }

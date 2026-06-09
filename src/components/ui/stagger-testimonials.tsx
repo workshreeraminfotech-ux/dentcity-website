@@ -89,8 +89,8 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
       className={cn(
         "absolute left-1/2 top-1/2 cursor-pointer p-8 transition-all duration-500 ease-in-out rounded-3xl",
         isCenter 
-          ? "z-10 bg-white border-2 border-[#D4AF37] shadow-[0_20px_50px_rgba(0,0,0,0.08)] scale-100" 
-          : "z-0 bg-white border border-gray-100 opacity-60 hover:opacity-100 hover:border-[#D4AF37]/30 shadow-sm scale-95"
+          ? "z-10 bg-white border-2 border-[#54391E] shadow-[0_20px_50px_rgba(0,0,0,0.08)] scale-100" 
+          : "z-0 bg-white border border-gray-100 opacity-60 hover:opacity-100 hover:border-[#54391E]/30 shadow-sm scale-95"
       )}
       style={{
         width: cardSize,
@@ -113,7 +113,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
         {Array.from({ length: testimonial.rating }).map((_, i) => (
           <Star
             key={i}
-            className="w-4 h-4 fill-[#D4AF37] text-[#D4AF37]"
+            className="w-4 h-4 fill-[#54391E] text-[#54391E]"
           />
         ))}
       </div>
@@ -125,7 +125,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
       </h3>
       <p className={cn(
         "absolute bottom-8 left-8 right-8 mt-2 text-sm font-bold",
-        isCenter ? "text-[#D4AF37]" : "text-gray-400"
+        isCenter ? "text-[#54391E]" : "text-gray-400"
       )}>
         — {testimonial.by}
       </p>
@@ -135,7 +135,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
 
 export const StaggerTestimonials: React.FC = () => {
   const [cardSize, setCardSize] = useState(365);
-  const [containerHeight, setContainerHeight] = useState(600);
+  const [containerHeight, setContainerHeight] = useState(450);
   const [testimonialsList, setTestimonialsList] = useState(testimonials);
 
   const handleMove = (steps: number) => {
@@ -160,7 +160,7 @@ export const StaggerTestimonials: React.FC = () => {
     const updateSize = () => {
       const { matches } = window.matchMedia("(min-width: 640px)");
       setCardSize(matches ? 365 : 290);
-      setContainerHeight(matches ? 600 : 460);
+      setContainerHeight(matches ? 450 : 360);
     };
 
     updateSize();
@@ -199,14 +199,14 @@ export const StaggerTestimonials: React.FC = () => {
         <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-4 z-20">
           <button
             onClick={() => handleMove(-1)}
-            className="flex h-12 w-12 items-center justify-center text-[#1A1A1A] transition-all rounded-full bg-white border border-gray-200 shadow-sm hover:border-[#D4AF37] hover:text-[#D4AF37] hover:scale-105 hover:shadow-md"
+            className="flex h-12 w-12 items-center justify-center text-[#1A1A1A] transition-all rounded-full bg-white border border-gray-200 shadow-sm hover:border-[#54391E] hover:text-[#54391E] hover:scale-105 hover:shadow-md"
             aria-label="Previous testimonial"
           >
             <ChevronLeft size={24} />
           </button>
           <button
             onClick={() => handleMove(1)}
-            className="flex h-12 w-12 items-center justify-center text-[#1A1A1A] transition-all rounded-full bg-white border border-gray-200 shadow-sm hover:border-[#D4AF37] hover:text-[#D4AF37] hover:scale-105 hover:shadow-md"
+            className="flex h-12 w-12 items-center justify-center text-[#1A1A1A] transition-all rounded-full bg-white border border-gray-200 shadow-sm hover:border-[#54391E] hover:text-[#54391E] hover:scale-105 hover:shadow-md"
             aria-label="Next testimonial"
           >
             <ChevronRight size={24} />

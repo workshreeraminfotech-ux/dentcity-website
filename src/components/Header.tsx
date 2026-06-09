@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import dentcityLogo from "@/assets/dentcity logo.png";
 import { Link, useLocation } from "react-router-dom";
 import { Phone, Menu, X, ChevronDown } from "lucide-react";
@@ -29,7 +29,20 @@ const navLinks = [
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, path: string) => {
     if (path.startsWith("/#")) {
@@ -64,15 +77,48 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 glass">
-      <div className="container mx-auto flex items-center justify-between h-16 md:h-20 px-4">
+    <header className="fixed top-0 left-0 right-0 z-50">
+      {/* Announcement Bar */}
+      <div className={`bg-[#54391E] text-white px-4 transition-all duration-300 ease-in-out ${scrolled ? 'max-h-0 py-0 opacity-0 overflow-hidden pointer-events-none' : 'max-h-[80px] py-1.5 opacity-100'}`}>
+        <div className="container mx-auto flex items-center justify-between gap-x-6 gap-y-0 flex-wrap">
+
+          {/* Address — hidden on mobile */}
+          <span className="hidden sm:flex items-center gap-1.5 text-[11px] opacity-90 flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-3 h-3 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+            <span>Kishorsinhji Main Rd, near Keshariya Vadi, Karanpara, Rajkot 360001</span>
+          </span>
+
+          {/* Right group: timing + phone — responsive layout */}
+          <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-end gap-x-4 gap-y-1 w-full sm:w-auto sm:ml-auto text-[10.5px] sm:text-[11px] text-center sm:text-right">
+            <span className="flex items-center gap-1.5 opacity-90 flex-shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-3 h-3 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm.5 11H11V7h1.5v4.79l3.08 1.85-.75 1.25-2.33-1.4V13z"/>
+              </svg>
+              <span>Mon–Sat: 10 AM – 8 PM &nbsp;|&nbsp; Sun: By Appt</span>
+            </span>
+            <a href="tel:+919825078955" className="flex items-center gap-1.5 font-semibold hover:opacity-80 transition-opacity flex-shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-3 h-3 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C9.61 21 3 14.39 3 6a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.24 1.01l-2.21 2.2z"/>
+              </svg>
+              +91 98250 78955
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+      {/* Navbar */}
+      <div className="bg-[#F2F4F3]/90 backdrop-blur-md border-b border-border shadow-sm">
+      <div className="container mx-auto flex items-center justify-between h-[70px] md:h-[76px] px-4 relative">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 py-2">
-          <img src={dentcityLogo} alt="Dentcity Logo" className="h-10 md:h-12 w-auto object-contain" />
+        <Link to="/" className="flex items-center gap-2 py-2 z-10">
+          <img src={dentcityLogo} alt="Dentcity Logo" className="h-[45px] md:h-14 w-auto object-contain" />
         </Link>
 
-        {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-8">
+        {/* Desktop Nav — absolutely centered */}
+        <nav className="hidden lg:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
           {navLinks.map((link) => (
             <div key={link.path} className="relative group">
               <a
@@ -90,7 +136,7 @@ const Header = () => {
 
               {link.subLinks && (
                 <div className="absolute top-full left-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top-left -translate-y-2 group-hover:translate-y-0">
-                  <div className="flex flex-col bg-card/95 backdrop-blur-md border border-border rounded-xl shadow-lg overflow-hidden min-w-[200px] p-2 mt-[-10px]">
+                  <div className="flex flex-col bg-[#F2F4F3]/95 backdrop-blur-md border border-border rounded-xl shadow-lg overflow-hidden min-w-[200px] p-2 mt-[-10px]">
                     {link.subLinks.map((subLink, idx) => (
                       <a
                         key={idx}
@@ -108,16 +154,14 @@ const Header = () => {
           ))}
         </nav>
 
-        {/* CTA Buttons */}
-        <div className="hidden md:flex items-center gap-3">
-          <a
-            href="tel:+919825078955"
-            className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-full border border-border text-foreground hover:bg-accent transition-colors"
-          >
-            <Phone className="w-4 h-4" />
-            +91 98250 78955
-          </a>
-        </div>
+        {/* Book Appointment CTA */}
+        <a
+          href="/#contact"
+          onClick={(e) => handleNavClick(e, "/#contact")}
+          className="hidden lg:inline-flex items-center gap-2 px-5 py-2 text-sm font-semibold rounded-full bg-[#54391E] text-white hover:bg-[#3d2a15] transition-all duration-300 shadow-sm hover:shadow-md z-10"
+        >
+          Book Appointment
+        </a>
 
         {/* Mobile Toggle */}
         <button
@@ -139,7 +183,7 @@ const Header = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden glass border-t border-border overflow-hidden"
+            className="lg:hidden bg-[#F2F4F3]/95 backdrop-blur-md border-t border-border overflow-hidden"
           >
             <nav className="flex flex-col p-4 gap-2">
               {navLinks.map((link) => (
@@ -196,19 +240,12 @@ const Header = () => {
                   </AnimatePresence>
                 </div>
               ))}
-              <div className="flex flex-col gap-2 mt-2 pt-4 border-t border-border/50">
-                <a
-                  href="tel:+919825078955"
-                  className="flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium rounded-xl border border-border text-foreground hover:bg-accent transition-colors"
-                >
-                  <Phone className="w-4 h-4" />
-                  +91 98250 78955
-                </a>
-              </div>
+
             </nav>
           </motion.div>
         )}
       </AnimatePresence>
+      </div>{/* end navbar wrapper */}
     </header>
   );
 };
