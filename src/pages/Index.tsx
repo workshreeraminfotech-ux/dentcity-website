@@ -12,7 +12,7 @@ import GalleryPage from "./Gallery";
 import ContactPage from "./Contact";
 
 import hero01 from "@/assets/hero section/01.jpg";
-import hero02 from "@/assets/hero section/NJ_04441.png";
+import hero02 from "@/assets/hero section/NJ_04441.jpg";
 import hero03 from "@/assets/hero section/NJ_04491.jpg";
 import hero04 from "@/assets/hero section/NJ_0451.jpg";
 import hero05 from "@/assets/hero section/NJ_0454.jpg";
@@ -37,7 +37,7 @@ import smileImage from "@/assets/our service/3.smiling designing/case 1/1.jpg";
 // ─── Slide data ───────────────────────────────────────────────────────────────
 const heroSlides = [
   // 1. Building Exterior — no change
-  { src: hero02, badge: "Doctor's Consultation", heading: "Expert Hands.", accent: "Personalised Care.", sub: "Every diagnosis starts with a conversation. Thorough, precise, and always patient-first.", cta: "Meet Our Doctor", ctaLink: "#doctor", ctaIcon: ArrowRight, color: "#D4A373", showCta: true, hideContent: true },
+  { src: hero02, badge: "Doctor's Consultation", heading: "Expert Hands.", accent: "Personalised Care.", sub: "Every diagnosis starts with a conversation. Thorough, precise, and always patient-first.", cta: "Meet Our Doctor", ctaLink: "#doctor", ctaIcon: ArrowRight, color: "#D4A373", showCta: true },
   // 2. Waiting Area — Ground Floor Lounge
   { src: hero01, badge: "Premium Patient Lounge", heading: "Relaxing Ambience.", accent: "Comfort-First Care.", sub: "A warm, world-class waiting lounge designed for comfort. Peaceful atmosphere for you and your family.", cta: "Book a Visit", ctaLink: "#contact", ctaIcon: Calendar, color: "#D4A373", showCta: true },
   // 3. Waiting Area — Reception & Lobby

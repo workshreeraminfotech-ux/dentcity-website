@@ -17,6 +17,10 @@ import imgCrown from "@/assets/premium_services/crown_bridges.png";
 import imgSurgery from "@/assets/premium_services/oral_surgery.png";
 import imgOrtho from "@/assets/premium_services/orthodontics.png";
 
+import childRoom1 from "@/assets/child room/IMG_3399.JPG";
+import childRoom2 from "@/assets/child room/NJ_04488.jpg";
+import childRoom3 from "@/assets/child room/NJ_04656.jpg";
+
 // --- Image Imports ---
 const implantModules = import.meta.glob('@/assets/our service/1.dental implant/**/*.{png,jpg,JPG,jpeg,webp}', { eager: true });
 const allImplantImages: Record<string, string> = {};
@@ -145,6 +149,7 @@ type ServiceConfig = {
   whyTrustList: string[];
   facilitiesText: string;
   gallerySections: GallerySection[];
+  childRoomImages?: string[];
 };
 
 const servicesData: Record<string, ServiceConfig> = {
@@ -309,6 +314,7 @@ const servicesData: Record<string, ServiceConfig> = {
     section1Text2: "We don't just treat teeth; we educate kids and parents on proper brushing techniques and dietary habits to prevent future dental problems. Let us make your child's dental visit a fun adventure instead of a scary chore.",
     section1Img: imgChild,
     section2Title: "Comprehensive Pediatric Dental Care",
+    childRoomImages: [childRoom1, childRoom2, childRoom3],
     features: [
       { title: "Pain-Free Cavity Fillings", desc: "Using minimally invasive techniques and child-friendly materials to restore decayed baby teeth comfortably." },
       { title: "Fluoride Treatments & Sealants", desc: "Applying protective coatings and essential minerals to strengthen enamel and prevent future cavities." },
@@ -675,6 +681,165 @@ const CasesGallerySection = ({ gallerySections }: { gallerySections: GallerySect
   );
 };
 
+const ChildRoomGallery = ({ images }: { images: string[] }) => {
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
+  const closeLightbox = () => setLightboxIndex(null);
+  
+  const goPrev = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    if (lightboxIndex !== null) {
+      setLightboxIndex((prev) => (prev! - 1 + images.length) % images.length);
+    }
+  };
+
+  const goNext = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    if (lightboxIndex !== null) {
+      setLightboxIndex((prev) => (prev! + 1) % images.length);
+    }
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (lightboxIndex === null) return;
+      if (e.key === "ArrowLeft") goPrev();
+      if (e.key === "ArrowRight") goNext();
+      if (e.key === "Escape") closeLightbox();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [lightboxIndex]);
+
+  return (
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="mb-16"
+    >
+      <div className="flex items-center gap-3 mb-4">
+        <span className="w-8 h-[2px] bg-[#54391E]" />
+        <span className="text-xs font-bold tracking-[0.25em] uppercase text-[#54391E]">
+          Our Pediatric Zone
+        </span>
+        <span className="w-8 h-[2px] bg-[#54391E]" />
+      </div>
+      <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-4">
+        Our Special Child-Friendly Clinic Zone
+      </h2>
+      <p className="text-muted-foreground leading-relaxed mb-10 text-lg max-w-3xl">
+        Take a virtual tour of our specially designed child rooms. Created to make dental visits an exciting, colorful, and completely fear-free experience for your children.
+      </p>
+
+      {/* Image Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {images.map((img, idx) => (
+          <div 
+            key={idx}
+            onClick={() => setLightboxIndex(idx)}
+            className="group flex flex-col rounded-2xl overflow-hidden shadow-md hover:shadow-xl border border-border/60 bg-white cursor-pointer transition-all duration-300"
+          >
+            <div className="aspect-[4/3] overflow-hidden relative bg-muted/20">
+              <img 
+                src={img} 
+                alt={`Child Room Photo ${idx + 1}`} 
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                loading="lazy" 
+              />
+              {/* Overlay with Zoom Icon */}
+              <div className="absolute inset-0 bg-black/45 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <ZoomIn className="text-white w-8 h-8 opacity-90 transition-transform duration-300 group-hover:scale-110" />
+              </div>
+            </div>
+            <div className="p-4 bg-white border-t border-border/30">
+              <span className="text-[#D4A373] text-[10px] font-bold tracking-[0.2em] uppercase mb-1 block">
+                Child Room View {idx + 1}
+              </span>
+              <h4 className="text-foreground font-bold text-sm md:text-base leading-snug">
+                {idx === 0 ? "Playful Patient Environment" : idx === 1 ? "Interactive Dental Chair Zone" : "Child-Friendly Theme & Wall Art"}
+              </h4>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Lightbox Modal */}
+      <AnimatePresence>
+        {lightboxIndex !== null && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closeLightbox}
+            className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/95 backdrop-blur-sm p-4 sm:p-6"
+          >
+            {/* Close Button */}
+            <button 
+              onClick={closeLightbox}
+              className="absolute top-6 right-6 z-50 p-2.5 rounded-full bg-white/10 hover:bg-white/25 text-white transition-colors border border-white/10"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            {/* Image Container */}
+            <div className="relative w-full max-w-4xl aspect-[4/3] md:aspect-video flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
+              
+              {/* Prev Button */}
+              {images.length > 1 && (
+                <button 
+                  onClick={goPrev}
+                  className="absolute left-2 sm:left-4 z-40 p-3 rounded-full bg-black/50 hover:bg-black/75 text-white border border-white/10 transition-all hover:scale-105"
+                >
+                  <ChevronLeft className="w-6 h-6" />
+                </button>
+              )}
+
+              {/* Active Image */}
+              <AnimatePresence mode="wait">
+                <motion.img 
+                  key={lightboxIndex}
+                  src={images[lightboxIndex]}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.25 }}
+                  className="max-w-full max-h-[80vh] object-contain rounded-xl shadow-2xl"
+                />
+              </AnimatePresence>
+
+              {/* Next Button */}
+              {images.length > 1 && (
+                <button 
+                  onClick={goNext}
+                  className="absolute right-2 sm:right-4 z-40 p-3 rounded-full bg-black/50 hover:bg-black/75 text-white border border-white/10 transition-all hover:scale-105"
+                >
+                  <ChevronRight className="w-6 h-6" />
+                </button>
+              )}
+            </div>
+
+            {/* Details Panel */}
+            <div className="mt-6 text-center max-w-lg px-4" onClick={(e) => e.stopPropagation()}>
+              <span className="text-[#D4A373] text-xs font-bold tracking-[0.2em] uppercase mb-1 block">
+                Child Room View {lightboxIndex + 1} of {images.length}
+              </span>
+              <h4 className="text-white font-display text-lg md:text-xl font-bold mb-2">
+                {lightboxIndex === 0 ? "Playful Patient Environment" : lightboxIndex === 1 ? "Interactive Dental Chair Zone" : "Child-Friendly Theme & Wall Art"}
+              </h4>
+              {images.length > 1 && (
+                <p className="text-white/40 text-xs">
+                  Use arrows or tap side buttons to navigate ({lightboxIndex + 1} / {images.length})
+                </p>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+};
+
 const ServiceDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -789,6 +954,11 @@ const ServiceDetail = () => {
                   ))}
                 </div>
               </motion.div>
+
+              {/* Child Room Gallery Section (above Success Stories) */}
+              {id === "child-dentistry" && service.childRoomImages && (
+                <ChildRoomGallery images={service.childRoomImages} />
+              )}
 
               <CasesGallerySection gallerySections={service.gallerySections} />
 
