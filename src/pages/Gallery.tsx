@@ -15,6 +15,11 @@ import frontView from "@/assets/gallery/front-view.webp";
 import childrenRoom from "@/assets/gallery/children-room.webp";
 import checkupRoom from "@/assets/gallery/checkup-room.webp";
 import reception3 from "@/assets/gallery/reception3.webp";
+import img3399 from "@/assets/gallery/IMG_3399.JPG";
+import nj04491 from "@/assets/gallery/NJ_04491.jpg";
+import nj04571 from "@/assets/gallery/NJ_04571.jpg";
+import nj04652 from "@/assets/gallery/NJ_04652.jpg";
+import nj04654 from "@/assets/gallery/NJ_04654.jpg";
 import pic1 from "@/assets/gallery/achievements/Picture1.jpg";
 import pic2 from "@/assets/gallery/achievements/Picture2.jpg";
 import pic4 from "@/assets/gallery/achievements/Picture4.jpg";
@@ -63,6 +68,11 @@ const allImages: GalleryImage[] = [
   { src: childrenRoom,  alt: "Pediatric Dental Room",         category: "clinic" },
   { src: checkupRoom,   alt: "Checkup Room",                  category: "clinic" },
   { src: reception3,    alt: "Reception & Lounge",            category: "clinic" },
+  { src: img3399,       alt: "Premium Consulting Suite",      category: "clinic" },
+  { src: nj04491,       alt: "Advanced Treatment Suite",      category: "clinic" },
+  { src: nj04571,       alt: "Dual Treatment Rooms",          category: "clinic" },
+  { src: nj04652,       alt: "Modern Clinical Setup",         category: "clinic" },
+  { src: nj04654,       alt: "State-of-the-Art Facility",     category: "clinic" },
   { src: pic1,  alt: "Dr. Rathin Bhindi — Achievement",       category: "achievements" },
   { src: pic2,  alt: "Certificate of Excellence",             category: "achievements" },
   { src: pic4,  alt: "Award Ceremony",                        category: "achievements" },

@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, ZoomIn, Award } from "lucide-react";
 
 const rawAwardImages = import.meta.glob(
   '/src/assets/award win/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}',
@@ -152,11 +152,20 @@ export const AwardsCarousel = () => {
               <span className="w-8 h-[2px] bg-[#54391E]" />
             </div>
             <h2 className="font-display text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold text-[#1A1A1A] leading-tight mb-4">
-              Our Awards & <span className="text-[#54391E]">Achievements</span>
+              Your Award Winning <span className="text-[#54391E]">Doctor</span>
             </h2>
-            <p className="mt-4 text-base md:text-lg text-gray-500 leading-relaxed">
-              A testament to our commitment to delivering world-class dental care and our dedication to continuous innovation and excellence in dentistry.
-            </p>
+            <div className="mt-6 space-y-3 max-w-2xl mx-auto text-left inline-block">
+              {[
+                "Famdent Excellence In Dentistry Awards",
+                "Best Dental Surgeon of the year ( Under 10 years of practice ) - 2025",
+                "Best Dental Clinic Interior of the year - 2026"
+              ].map((award, idx) => (
+                <div key={idx} className="flex items-start gap-3 text-gray-700 py-0.5">
+                  <Award className="w-5 h-5 text-[#54391E] flex-shrink-0 mt-0.5" />
+                  <span className="text-sm md:text-base font-medium leading-tight text-[#1A1A1A]">{award}</span>
+                </div>
+              ))}
+            </div>
           </motion.div>
         </div>
 

@@ -13,12 +13,13 @@ import imgBuilding from "@/assets/gallery/building.webp";
 import imgReception from "@/assets/gallery/reception.webp";
 import imgTreatment from "@/assets/gallery/treatment-room.webp";
 import imgChildren from "@/assets/gallery/children-room.webp";
+import imgDoctorCabin from "@/assets/gallery/doctor-cabin.webp";
 
 const reasons = [
   {
     icon: Award,
-    title: "More than 25 years of clinical experience",
-    desc: "We have more than 25 years of experience in dentistry which leads to better judgment, especially in tough instances when hurrying can cause issues later.",
+    title: "10+ years of clinical experience",
+    desc: "We have 10+ years of experience in dentistry which leads to better judgment, especially in tough instances when hurrying can cause issues later.",
   },
   {
     icon: HeartPulse,
@@ -28,7 +29,7 @@ const reasons = [
   {
     icon: Microscope,
     title: "Advanced Digital Technology In House",
-    desc: "Our clinic combines digital impressions, CBCT, and advanced imaging options to make diagnostic and treatment planning more accurate and less painful.",
+    desc: "Our clinic combines digital impressions, OPN, and advanced imaging options to make diagnostic and treatment planning more accurate and less painful.",
   },
   {
     icon: HeartHandshake,
@@ -112,7 +113,7 @@ export const WhyChooseUs = () => {
             ))}
           </div>
 
-          {/* ── Right Side: 4 Photos Overlapping Collage ── */}
+          {/* ── Right Side: 5 Photos Overlapping Collage ── */}
           <div ref={ref} className="w-full lg:w-7/12 relative min-h-[480px] lg:min-h-[580px]">
             
             {/* Photo 1: Building (Top Right - Z-index 10) */}
@@ -120,7 +121,7 @@ export const WhyChooseUs = () => {
               initial={{ opacity: 0, x: 40, y: -20 }}
               animate={inView ? { opacity: 1, x: 0, y: 0 } : {}}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="absolute top-0 right-0 w-[58%] h-[55%] rounded-3xl overflow-hidden shadow-xl z-10 border-[6px] border-white"
+              className="absolute top-0 right-0 w-[44%] h-[42%] rounded-3xl overflow-hidden shadow-xl z-10 border-[6px] border-white"
             >
               <img src={imgBuilding} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="Dentcity Exterior" loading="lazy" />
             </motion.div>
@@ -130,30 +131,42 @@ export const WhyChooseUs = () => {
               initial={{ opacity: 0, x: -40, y: -10 }}
               animate={inView ? { opacity: 1, x: 0, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-              className="absolute top-12 left-0 w-[48%] h-[48%] rounded-3xl overflow-hidden shadow-xl z-20 border-[6px] border-white"
+              className="absolute top-[8%] left-0 w-[40%] h-[38%] rounded-3xl overflow-hidden shadow-xl z-20 border-[6px] border-white"
             >
               <img src={imgReception} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="Reception Area" loading="lazy" />
             </motion.div>
 
-            {/* Photo 3: Main Treatment Room (Bottom Right - Z-index 30) */}
+            {/* Photo 3: Doctor Cabin (Center - Z-index 50) */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={inView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+              className="absolute top-[30%] left-[28%] w-[42%] h-[40%] rounded-3xl overflow-hidden shadow-2xl z-50 border-[6px] border-white"
+            >
+              <img src={imgDoctorCabin} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="Doctor Cabin" loading="lazy" />
+            </motion.div>
+
+            {/* Photo 4: Main Treatment Room (Bottom Right - Z-index 30) */}
             <motion.div 
               initial={{ opacity: 0, x: 40, y: 20 }}
               animate={inView ? { opacity: 1, x: 0, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-              className="absolute bottom-6 right-4 w-[48%] h-[48%] rounded-3xl overflow-hidden shadow-xl z-30 border-[6px] border-white"
+              className="absolute bottom-[4%] right-[2%] w-[42%] h-[40%] rounded-3xl overflow-hidden shadow-xl z-30 border-[6px] border-white"
             >
               <img src={imgTreatment} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="Treatment Room" loading="lazy" />
             </motion.div>
 
-            {/* Photo 4: Children Treatment Room (Bottom Left - Z-index 40) */}
+            {/* Photo 5: Children Treatment Room (Bottom Left - Z-index 40) */}
             <motion.div 
               initial={{ opacity: 0, x: -40, y: 30 }}
               animate={inView ? { opacity: 1, x: 0, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-              className="absolute -bottom-6 left-8 w-[44%] h-[44%] rounded-3xl overflow-hidden shadow-xl z-40 border-[6px] border-white"
+              transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+              className="absolute bottom-0 left-[4%] w-[38%] h-[36%] rounded-3xl overflow-hidden shadow-xl z-40 border-[6px] border-white"
             >
               <img src={imgChildren} className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" alt="Children Room" loading="lazy" />
             </motion.div>
+
+
             
             {/* Decorative dots pattern */}
             <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-[radial-gradient(#825B34_2px,transparent_2px)] [background-size:12px_12px] opacity-30 -z-10" />

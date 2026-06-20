@@ -92,8 +92,8 @@ export const DoctorProfile = () => {
       <div className="absolute bottom-[-10%] left-[-5%] w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-[150px] pointer-events-none z-0" />
 
       <div className="container mx-auto px-6 relative z-10">
-        {/* Mobile Header (Hidden on Desktop) */}
-        <div className="lg:hidden mb-10">
+        {/* Unified Section Header (Full Width to prevent overlap and overflow) */}
+        <div className="mb-10 lg:mb-12">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -105,12 +105,14 @@ export const DoctorProfile = () => {
               <span className="h-[2px] w-12 bg-[#D4A373]"></span>
             </div>
             
-            <h2 className="text-5xl md:text-7xl font-bold font-display leading-[1.05] mb-6">
-              Dr. Rathin <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-100 via-[#D4A373] to-[#825B34]">Bhindi</span>
+            <h2 
+              className="font-bold font-display leading-[1.05] mb-6 text-white whitespace-nowrap"
+              style={{ fontSize: "clamp(2rem, 5.5vw, 5rem)" }}
+            >
+              Dr. Rathin Bhindi
             </h2>
 
-            <p className="text-base md:text-lg text-gray-400 max-w-xl leading-relaxed italic relative">
+            <p className="text-base md:text-lg text-gray-400 max-w-2xl leading-relaxed italic relative">
               <span className="text-6xl text-[#D4A373]/20 absolute -top-4 -left-6 font-serif">"</span>
               <span className="relative z-10">{typedQuote}</span>
               <span className="inline-block w-[2px] h-[1em] bg-[#D4A373] ml-1 align-middle animate-pulse" />
@@ -128,23 +130,6 @@ export const DoctorProfile = () => {
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            {/* Desktop Header (Hidden on Mobile) */}
-            <div className="hidden lg:flex items-center gap-4 mb-6">
-              <span className="h-[2px] w-12 bg-[#D4A373]"></span>
-              <span className="text-[#D4A373] font-bold tracking-[0.25em] uppercase text-xs md:text-sm">Lead Specialist</span>
-              <span className="h-[2px] w-12 bg-[#D4A373]"></span>
-            </div>
-            
-            <h2 className="hidden lg:block text-5xl md:text-7xl lg:text-8xl font-bold font-display leading-[1.05] mb-6">
-              Dr. Rathin <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-100 via-[#D4A373] to-[#825B34]">Bhindi</span>
-            </h2>
-
-            <p className="hidden lg:block text-base md:text-lg text-gray-400 mb-10 max-w-xl leading-relaxed italic relative">
-              <span className="text-6xl text-[#D4A373]/20 absolute -top-4 -left-6 font-serif">"</span>
-              <span className="relative z-10">{typedQuote}</span>
-              <span className="inline-block w-[2px] h-[1em] bg-[#D4A373] ml-1 align-middle animate-pulse" />
-            </p>
 
             {/* Doctor Bio Paragraphs */}
             <div className="flex flex-col gap-5 mb-10 max-w-xl">
@@ -181,7 +166,7 @@ export const DoctorProfile = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </a>
-              <a href="tel:+919999999999" className="px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold rounded-full transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2">
+              <a href="tel:+917990416940" className="px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold rounded-full transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2">
                 <Phone className="w-5 h-5" /> Call Clinic
               </a>
             </div>

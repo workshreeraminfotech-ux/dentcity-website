@@ -43,7 +43,7 @@ const Contact = ({ isStandalone = false }: { isStandalone?: boolean }) => {
             <div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
                 <motion.a
-                  href="tel:+919825078955"
+                  href="tel:+917990416940"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -52,12 +52,12 @@ const Contact = ({ isStandalone = false }: { isStandalone?: boolean }) => {
                   <Phone className="w-5 h-5 text-[#54391E] mt-0.5 shrink-0" />
                   <div>
                     <h4 className="font-display font-bold text-[#1A1A1A] text-sm">Call Us</h4>
-                    <p className="text-sm text-gray-500 mt-1">+91 98250 78955</p>
+                    <p className="text-sm text-gray-500 mt-1">+91 79904 16940</p>
                   </div>
                 </motion.a>
 
                 <motion.a
-                  href="https://wa.me/919825078955"
+                  href="https://wa.me/917990416940"
                   target="_blank"
                   rel="noopener noreferrer"
                   initial={{ opacity: 0, y: 20 }}
@@ -69,7 +69,7 @@ const Contact = ({ isStandalone = false }: { isStandalone?: boolean }) => {
                   <WhatsAppIcon className="w-5 h-5 text-[#54391E] mt-0.5 shrink-0" />
                   <div>
                     <h4 className="font-display font-bold text-[#1A1A1A] text-sm">WhatsApp</h4>
-                    <p className="text-sm text-gray-500 mt-1">+91 98250 78955</p>
+                    <p className="text-sm text-gray-500 mt-1">+91 79904 16940</p>
                   </div>
                 </motion.a>
 

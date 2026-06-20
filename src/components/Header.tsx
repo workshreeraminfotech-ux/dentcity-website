@@ -98,11 +98,11 @@ const Header = () => {
               </svg>
               <span>Mon–Sat: 10 AM – 8 PM &nbsp;|&nbsp; Sun: By Appt</span>
             </span>
-            <a href="tel:+919825078955" className="flex items-center gap-1.5 font-semibold hover:opacity-80 transition-opacity flex-shrink-0">
+            <a href="tel:+917990416940" className="flex items-center gap-1.5 font-semibold hover:opacity-80 transition-opacity flex-shrink-0">
               <svg xmlns="http://www.w3.org/2000/svg" className="w-3 h-3 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C9.61 21 3 14.39 3 6a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.24 1.01l-2.21 2.2z"/>
               </svg>
-              +91 98250 78955
+              +91 79904 16940
             </a>
           </div>
 

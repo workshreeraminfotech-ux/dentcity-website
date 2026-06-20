@@ -12,7 +12,7 @@ import GalleryPage from "./Gallery";
 import ContactPage from "./Contact";
 
 import hero01 from "@/assets/hero section/01.jpg";
-import hero02 from "@/assets/hero section/NJ_04441.jpg";
+import hero02 from "@/assets/hero section/NJ_04441.png";
 import hero03 from "@/assets/hero section/NJ_04491.jpg";
 import hero04 from "@/assets/hero section/NJ_0451.jpg";
 import hero05 from "@/assets/hero section/NJ_0454.jpg";
@@ -36,16 +36,26 @@ import smileImage from "@/assets/our service/3.smiling designing/case 1/1.jpg";
 
 // ─── Slide data ───────────────────────────────────────────────────────────────
 const heroSlides = [
-  { src: hero01, badge: "Welcome to Dentcity", heading: "Where Healing", accent: "Begins with a Smile.", sub: "A warm, world-class clinic designed to make you feel at ease from the moment you walk in.", cta: "Book a Visit", ctaLink: "#contact", ctaIcon: Calendar, color: "#D4A373", showCta: true },
-  { src: hero02, badge: "Doctor's Consultation", heading: "Expert Hands.", accent: "Personalised Care.", sub: "Every diagnosis starts with a conversation — thorough, precise, and always patient-first.", cta: "Meet Our Doctor", ctaLink: "#doctor", ctaIcon: ArrowRight, color: "#D4A373", showCta: true },
-  { src: hero03, badge: "Advanced Treatment Suite", heading: "Precision Tools.", accent: "Superior Outcomes.", sub: "Our treatment suites house advanced dental instruments to ensure every procedure is comfortable, safe, and precise.", cta: "Explore Treatments", ctaLink: "#services", ctaIcon: ArrowRight, color: "#D4A373", showCta: false },
-  { src: hero04, badge: "World-Class Infrastructure", heading: "The Technology", accent: "Your Smile Deserves.", sub: "Dentcity features state-of-the-art clinical technology to deliver faster, safer, and highly predictable treatment outcomes.", cta: "Know More", ctaLink: "#services", ctaIcon: ArrowRight, color: "#D4A373", showCta: false },
-  { src: hero05, badge: "Premium OPD Suite", heading: "Comfort-First Design.", accent: "Zero Stress.", sub: "Every dental unit is designed with patient comfort in mind, blending ergonomic layouts with advanced clinical capabilities.", cta: "Explore the Clinic", ctaLink: "#contact", ctaIcon: ArrowRight, color: "#D4A373", showCta: false },
-  { src: hero06, badge: "Advanced Implantology Hub", heading: "Where Quality", accent: "Meets Perfection.", sub: "Our specialized implantology suites are optimized for surgical accuracy and absolute clinical sterilization.", cta: "Book for Kids", ctaLink: "#contact", ctaIcon: Calendar, color: "#D4A373", showCta: false },
-  { src: hero07, badge: "Dual Treatment Rooms", heading: "Minimal Wait.", accent: "Maximum Care.", sub: "With multiple fully-equipped treatment rooms, we ensure zero wait times and undivided attention for every patient.", cta: "Book Appointment", ctaLink: "#contact", ctaIcon: Calendar, color: "#D4A373", showCta: false },
-  { src: hero08, badge: "Continuing Dental Education", heading: "We Never", accent: "Stop Innovating.", sub: "Our in-house academic center reflects our commitment to stay at the cutting edge of global dental research.", cta: "Our Philosophy", ctaLink: "#contact", ctaIcon: ArrowRight, color: "#D4A373", showCta: false },
-  { src: hero09, badge: "Sterilization Protocol", heading: "Your Safety,", accent: "Our Top Priority.", sub: "We adhere to class-B sterilization protocols to ensure 100% infection control and complete safety for every visit.", cta: "Book a Consultation", ctaLink: "#contact", ctaIcon: Calendar, color: "#D4A373", showCta: false },
-  { src: hero10, badge: "Children's Treatment Suite", heading: "Gentle Care", accent: "For Happy Little Smiles.", sub: "Our dedicated children's zone turns dental visits into a fun, fear-free adventure for kids of all ages.", cta: "Book a Consultation", ctaLink: "#contact", ctaIcon: Calendar, color: "#D4A373", showCta: false },
+  // 1. Building Exterior — no change
+  { src: hero02, badge: "Doctor's Consultation", heading: "Expert Hands.", accent: "Personalised Care.", sub: "Every diagnosis starts with a conversation. Thorough, precise, and always patient-first.", cta: "Meet Our Doctor", ctaLink: "#doctor", ctaIcon: ArrowRight, color: "#D4A373", showCta: true, hideContent: true },
+  // 2. Waiting Area — Ground Floor Lounge
+  { src: hero01, badge: "Premium Patient Lounge", heading: "Relaxing Ambience.", accent: "Comfort-First Care.", sub: "A warm, world-class waiting lounge designed for comfort. Peaceful atmosphere for you and your family.", cta: "Book a Visit", ctaLink: "#contact", ctaIcon: Calendar, color: "#D4A373", showCta: true },
+  // 3. Waiting Area — Reception & Lobby
+  { src: hero10, badge: "Welcome Reception", heading: "Warm Welcome.", accent: "Premium Experience.", sub: "A thoughtfully designed reception adorned with awards. Where your world-class dental journey begins.", cta: "Book a Visit", ctaLink: "#contact", ctaIcon: Calendar, color: "#D4A373", showCta: false },
+  // 4. Doctor's Cabin
+  { src: hero05, badge: "Doctor's Cabin", heading: "Personalised Consultation.", accent: "Comfort-First Design.", sub: "A private, elegantly designed cabin for in-depth discussions. Tailored treatment plans crafted just for you.", cta: "Book a Consultation", ctaLink: "#contact", ctaIcon: Calendar, color: "#D4A373", showCta: false },
+  // 5. Second Floor Lobby
+  { src: hero08, badge: "Second Floor Lobby", heading: "Architectural Elegance.", accent: "Designed to Impress.", sub: "Designer ceilings, ambient lighting, and premium marble interiors. Redefining what a dental clinic can feel like.", cta: "Take a Tour", ctaLink: "#gallery", ctaIcon: ArrowRight, color: "#D4A373", showCta: false },
+  // 6. OPD Room
+  { src: hero06, badge: "OPD Treatment Room", heading: "Precision Tools.", accent: "Superior Outcomes.", sub: "Equipped with state-of-the-art dental units and digital monitors. Every procedure is comfortable, safe, and precise.", cta: "Explore Treatments", ctaLink: "#services", ctaIcon: ArrowRight, color: "#D4A373", showCta: false },
+  // 7. Checkup Room
+  { src: hero07, badge: "Advanced Checkup Suite", heading: "Where Quality", accent: "Meets Perfection.", sub: "Premium dental unit with a comfortable patient sofa. Thorough examinations in a relaxed, stress-free environment.", cta: "Book Appointment", ctaLink: "#contact", ctaIcon: Calendar, color: "#D4A373", showCta: false },
+  // 8. Children's Special Treatment Room
+  { src: hero09, badge: "Children's Treatment Suite", heading: "Gentle Care", accent: "For Happy Little Smiles.", sub: "A fun car-shaped dental chair with cartoon-themed walls. Turning every dental visit into a joyful adventure for kids.", cta: "Book a Consultation", ctaLink: "#contact", ctaIcon: Calendar, color: "#D4A373", showCta: false },
+  // 9. Conference Room
+  { src: hero03, badge: "Conference Room", heading: "Collaboration Space.", accent: "Knowledge Hub.", sub: "Elegant seating and modern interiors for team discussions. A space for patient education and professional consultations.", cta: "Know More", ctaLink: "#contact", ctaIcon: ArrowRight, color: "#D4A373", showCta: false },
+  // 10. Award & Certificate Showcase
+  { src: hero04, badge: "Awards & Accreditations", heading: "Proven Excellence.", accent: "Trusted Care.", sub: "International certifications and prestigious awards on display. A testament to our commitment to the highest standards of care.", cta: "Our Philosophy", ctaLink: "#contact", ctaIcon: ArrowRight, color: "#D4A373", showCta: false },
 ];
 
 // ─── Services ─────────────────────────────────────────────────────────────────
@@ -78,9 +88,9 @@ const HeroSection = () => {
   const goNext = useCallback(() => goTo((current + 1) % total), [current, total, goTo]);
   const goPrev = useCallback(() => goTo((current - 1 + total) % total), [current, total, goTo]);
 
-  // Auto-advance photo slide every 3 seconds with smooth progress tracking
+  // Auto-advance photo slide every 5 seconds with smooth progress tracking
   useEffect(() => {
-    const duration = 3000;
+    const duration = 5000;
     const start = performance.now();
     let animFrame: number;
 
@@ -120,8 +130,14 @@ const HeroSection = () => {
       </AnimatePresence>
 
       {/* Overlays */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/40 to-black/10 transition-all duration-700" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/25" />
+      <div 
+        className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/40 to-black/10 transition-all duration-700 pointer-events-none" 
+        style={{ opacity: slide.hideContent ? 0.05 : 1 }}
+      />
+      <div 
+        className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/25 transition-all duration-700 pointer-events-none" 
+        style={{ opacity: slide.hideContent ? 0.15 : 1 }}
+      />
 
       {/* Text */}
       <div className="absolute inset-0 z-10 flex flex-col justify-center">
@@ -131,62 +147,65 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }} transition={{ duration: 0.35, ease: "easeOut" }}
               className="flex flex-col">
+              {!slide.hideContent && (
+                <>
+                  {/* Badge */}
+                  <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.05, duration: 0.3 }}
+                    className="inline-flex items-center gap-2 mb-6 sm:mb-4">
+                    <span className="w-2 h-2 rounded-full flex-shrink-0 animate-pulse" style={{ backgroundColor: slide.color }} />
+                    <span className="text-xs font-bold tracking-[0.18em] sm:tracking-[0.25em] uppercase"
+                      style={{ color: slide.color }}>{slide.badge}</span>
+                  </motion.div>
 
-              {/* Badge */}
-              <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.05, duration: 0.3 }}
-                className="inline-flex items-center gap-2 mb-6 sm:mb-4">
-                <span className="w-2 h-2 rounded-full flex-shrink-0 animate-pulse" style={{ backgroundColor: slide.color }} />
-                <span className="text-xs font-bold tracking-[0.18em] sm:tracking-[0.25em] uppercase"
-                  style={{ color: slide.color }}>{slide.badge}</span>
-              </motion.div>
+                  {/* Heading */}
+                  <motion.h1 initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1, duration: 0.4 }}
+                    className="font-display drop-shadow-2xl mb-1 sm:mb-0"
+                    style={{ fontSize: "clamp(2.1rem, 5.5vw, 5rem)", fontWeight: 800, lineHeight: 1.1 }}>
+                    <span className="text-white block mb-1">{slide.heading}</span>
+                    <span className="block" style={{ color: slide.color }}>{slide.accent}</span>
+                  </motion.h1>
 
-              {/* Heading */}
-              <motion.h1 initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1, duration: 0.4 }}
-                className="font-display drop-shadow-2xl mb-1 sm:mb-0"
-                style={{ fontSize: "clamp(2.1rem, 5.5vw, 5rem)", fontWeight: 800, lineHeight: 1.1 }}>
-                <span className="text-white block mb-1">{slide.heading}</span>
-                <span className="block" style={{ color: slide.color }}>{slide.accent}</span>
-              </motion.h1>
+                  {/* Divider */}
+                  <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }}
+                    transition={{ delay: 0.15, duration: 0.3 }}
+                    className="origin-left mt-5 mb-5 sm:mt-6 sm:mb-6 h-[3px] w-16 sm:w-28 rounded-full"
+                    style={{ backgroundColor: slide.color }} />
 
-              {/* Divider */}
-              <motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }}
-                transition={{ delay: 0.15, duration: 0.3 }}
-                className="origin-left mt-5 mb-5 sm:mt-6 sm:mb-6 h-[3px] w-16 sm:w-28 rounded-full"
-                style={{ backgroundColor: slide.color }} />
+                  {/* Sub */}
+                  <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                    transition={{ delay: 0.2, duration: 0.35 }}
+                    className="text-white/90 max-w-[300px] sm:max-w-md lg:max-w-lg text-[15px] sm:text-sm md:text-[17px] xl:text-[18px]"
+                    style={{ lineHeight: 2.1 }}>
+                    {slide.sub}
+                  </motion.p>
 
-              {/* Sub */}
-              <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                transition={{ delay: 0.2, duration: 0.35 }}
-                className="text-white/90 max-w-[300px] sm:max-w-md lg:max-w-lg text-[15px] sm:text-sm md:text-[17px] xl:text-[18px]"
-                style={{ lineHeight: 2.1 }}>
-                {slide.sub}
-              </motion.p>
-
-              {/* CTAs */}
-              {slide.showCta && (
-                <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.25, duration: 0.35 }}
-                  className="mt-7 sm:mt-8 flex flex-row flex-wrap gap-3 sm:gap-4">
-                  <a href={slide.ctaLink}
-                    onClick={(e) => {
-                      if (slide.ctaLink.startsWith('#')) {
-                        const el = document.getElementById(slide.ctaLink.slice(1));
-                        if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth' }); }
-                      }
-                    }}
-                    className="inline-flex justify-center items-center gap-1.5 rounded-full font-semibold shadow-2xl transition-all hover:scale-105 active:scale-95 text-white px-5 py-2 sm:px-8 sm:py-3.5 text-xs sm:text-sm w-auto"
-                    style={{ background: `linear-gradient(135deg,${slide.color},${slide.color}bb)` }}>
-                    {slide.cta} <CtaIcon className="w-3.5 h-3.5 flex-shrink-0" />
-                  </a>
-                  <a href="#contact"
-                    onClick={(e) => { const el = document.getElementById('contact'); if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth' }); } }}
-                    className="inline-flex justify-center items-center gap-1.5 rounded-full font-semibold border-2 text-white backdrop-blur-sm hover:bg-white/10 transition-all hover:scale-105 active:scale-95 px-5 py-2 sm:px-8 sm:py-3.5 text-xs sm:text-sm w-auto"
-                    style={{ borderColor: `${slide.color}80` }}>
-                    <Phone className="w-4 h-4 flex-shrink-0" /> Call Us Now
-                  </a>
-                </motion.div>
+                  {/* CTAs */}
+                  {slide.showCta && (
+                    <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.25, duration: 0.35 }}
+                      className="mt-7 sm:mt-8 flex flex-row flex-wrap gap-3 sm:gap-4">
+                      <a href={slide.ctaLink}
+                        onClick={(e) => {
+                          if (slide.ctaLink.startsWith('#')) {
+                            const el = document.getElementById(slide.ctaLink.slice(1));
+                            if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth' }); }
+                          }
+                        }}
+                        className="inline-flex justify-center items-center gap-1.5 rounded-full font-semibold shadow-2xl transition-all hover:scale-105 active:scale-95 text-white px-5 py-2 sm:px-8 sm:py-3.5 text-xs sm:text-sm w-auto"
+                        style={{ background: `linear-gradient(135deg,${slide.color},${slide.color}bb)` }}>
+                        {slide.cta} <CtaIcon className="w-3.5 h-3.5 flex-shrink-0" />
+                      </a>
+                      <a href="#contact"
+                        onClick={(e) => { const el = document.getElementById('contact'); if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth' }); } }}
+                        className="inline-flex justify-center items-center gap-1.5 rounded-full font-semibold border-2 text-white backdrop-blur-sm hover:bg-white/10 transition-all hover:scale-105 active:scale-95 px-5 py-2 sm:px-8 sm:py-3.5 text-xs sm:text-sm w-auto"
+                        style={{ borderColor: `${slide.color}80` }}>
+                        <Phone className="w-4 h-4 flex-shrink-0" /> Call Us Now
+                      </a>
+                    </motion.div>
+                  )}
+                </>
               )}
             </motion.div>
           </AnimatePresence>

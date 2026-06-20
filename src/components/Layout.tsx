@@ -4,6 +4,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { HomeAchievements } from "./HomeAchievements";
 import WhatsAppButton from "./WhatsAppButton";
+import ConsultationPopup from "./ConsultationPopup";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const { pathname, hash } = useLocation();
@@ -29,6 +30,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       {pathname === "/" && <HomeAchievements />}
       <Footer />
       <WhatsAppButton />
+      <ConsultationPopup />
     </div>
   );
 };
