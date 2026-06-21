@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
 
@@ -17,6 +17,7 @@ export const HomeAchievements = () => {
   const [paused, setPaused] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [sortedImages, setSortedImages] = useState<ImageInfo[]>([]);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   // Dynamically group horizontal first, then vertical
   useEffect(() => {
@@ -109,29 +110,72 @@ export const HomeAchievements = () => {
   const COPIES = 4;     // enough copies so strip always overflows any screen
 
   // Sum of widths of one full loop of cards plus gaps
-  const loopWidth = displayImages.reduce((sum, img) => {
-    const cardWidth = img.isHorizontal ? 290 : 220;
-    return sum + cardWidth + GAP;
-  }, 0);
+  // Auto-scroll loop
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container || loopWidth === 0) return;
+
+    let animationId: number;
+    let lastTime = performance.now();
+    const speed = loopWidth / 180000; // matching 180s duration for loopWidth pixels
+
+    const scroll = (time: number) => {
+      const delta = time - lastTime;
+      lastTime = time;
+
+      if (!paused && lightboxIndex === null) {
+        container.scrollLeft += speed * delta;
+      }
+      animationId = requestAnimationFrame(scroll);
+    };
+
+    animationId = requestAnimationFrame(scroll);
+    return () => cancelAnimationFrame(animationId);
+  }, [paused, lightboxIndex, loopWidth]);
+
+  // Infinite scroll wrap boundary checker
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container || loopWidth === 0) return;
+
+    const handleScroll = () => {
+      if (container.scrollLeft >= loopWidth * 2) {
+        container.scrollLeft -= loopWidth;
+      } else if (container.scrollLeft <= 0) {
+        container.scrollLeft += loopWidth;
+      }
+    };
+
+    container.addEventListener("scroll", handleScroll);
+    return () => container.removeEventListener("scroll", handleScroll);
+  }, [loopWidth]);
+
+  const handleManualScroll = (direction: "left" | "right") => {
+    const container = scrollRef.current;
+    if (container) {
+      const scrollAmount = 300;
+      container.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth"
+      });
+    }
+  };
 
   return (
     <>
-      {/* ── Keyframe injection ── */}
       <style>{`
-        @keyframes home-awards-scroll {
-          0%   { transform: translateX(0); }
-          100% { transform: translateX(-${loopWidth}px); }
-        }
         .home-awards-track {
           display: flex;
           gap: ${GAP}px;
           align-items: center;
           width: max-content;
-          animation: home-awards-scroll 180s linear infinite;
-          will-change: transform;
         }
-        .home-awards-track.paused {
-          animation-play-state: paused;
+        .scrollbar-none::-webkit-scrollbar {
+          display: none;
+        }
+        .scrollbar-none {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
         }
       `}</style>
 
@@ -160,43 +204,65 @@ export const HomeAchievements = () => {
           </motion.div>
         </div>
 
-        {/* ── Scroll strip ── */}
-        <div
-          className="w-full relative mt-2 md:mt-8 overflow-hidden"
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
-          onTouchStart={() => setPaused(true)}
-          onTouchEnd={() => setPaused(false)}
-        >
-          {/* pt/pb via wrapper div — NOT on track — so gap calc stays correct */}
-          <div className={`home-awards-track py-4 ${paused || lightboxIndex !== null ? "paused" : ""}`}>
-            {/* 4 copies → strip always wider than any screen */}
-            {Array.from({ length: COPIES }, () => displayImages).flat().map((img, idx) => {
-              const cardW = img.isHorizontal ? 290 : 220;
-              const cardH = img.isHorizontal ? 220 : 290;
-              return (
-                <div
-                  key={idx}
-                  onClick={() => setLightboxIndex(idx % totalItems)}
-                  className="flex-shrink-0 rounded-[4px] bg-[#3D3D3D] border-[6px] border-[#2A2A2A] shadow-md group cursor-pointer transition-all duration-300 hover:-translate-y-1.5 hover:scale-105 p-2.5"
-                  style={{ width: cardW, height: cardH }}
-                >
-                  <div className="w-full h-full relative border border-white/10 overflow-hidden bg-[#1E1E1E]">
-                    <img
-                      src={img.src}
-                      alt={`Dentcity Award ${(idx % totalItems) + 1}`}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      loading="lazy"
-                      draggable={false}
-                    />
-                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                      <ZoomIn className="text-white w-8 h-8 opacity-80" />
+        {/* ── Scroll wrapper with manual buttons ── */}
+        <div className="relative w-full mt-2 md:mt-8 group/carousel">
+          {/* Left Arrow Button */}
+          <button
+            onClick={() => handleManualScroll("left")}
+            className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border border-gray-200 text-gray-800 shadow-lg rounded-full w-12 h-12 flex items-center justify-center transition-all hover:scale-110 active:scale-95 z-20 opacity-0 group-hover/carousel:opacity-100 duration-300 hidden md:flex"
+            aria-label="Scroll Left"
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </button>
+
+          {/* Scrollable Container */}
+          <div
+            ref={scrollRef}
+            className="w-full overflow-x-auto scroll-smooth scrollbar-none"
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+            onTouchStart={() => setPaused(true)}
+            onTouchEnd={() => setPaused(false)}
+          >
+            {/* pt/pb via wrapper div — NOT on track — so gap calc stays correct */}
+            <div className="home-awards-track py-4">
+              {/* 4 copies → strip always wider than any screen */}
+              {Array.from({ length: COPIES }, () => displayImages).flat().map((img, idx) => {
+                const cardW = img.isHorizontal ? 290 : 220;
+                const cardH = img.isHorizontal ? 220 : 290;
+                return (
+                  <div
+                    key={idx}
+                    onClick={() => setLightboxIndex(idx % totalItems)}
+                    className="flex-shrink-0 rounded-[4px] bg-[#3D3D3D] border-[6px] border-[#2A2A2A] shadow-md group cursor-pointer transition-all duration-300 hover:-translate-y-1.5 hover:scale-105 p-2.5"
+                    style={{ width: cardW, height: cardH }}
+                  >
+                    <div className="w-full h-full relative border border-white/10 overflow-hidden bg-[#1E1E1E]">
+                      <img
+                        src={img.src}
+                        alt={`Dentcity Award ${(idx % totalItems) + 1}`}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        loading="lazy"
+                        draggable={false}
+                      />
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <ZoomIn className="text-white w-8 h-8 opacity-80" />
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
+
+          {/* Right Arrow Button */}
+          <button
+            onClick={() => handleManualScroll("right")}
+            className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border border-gray-200 text-gray-800 shadow-lg rounded-full w-12 h-12 flex items-center justify-center transition-all hover:scale-110 active:scale-95 z-20 opacity-0 group-hover/carousel:opacity-100 duration-300 hidden md:flex"
+            aria-label="Scroll Right"
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
 
           {/* Edge fades */}
           <div className="absolute top-0 left-0 bottom-0 w-16 md:w-36 bg-gradient-to-r from-background to-transparent pointer-events-none z-10" />
