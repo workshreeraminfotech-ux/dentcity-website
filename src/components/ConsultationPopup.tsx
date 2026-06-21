@@ -99,11 +99,11 @@ const ConsultationPopup = () => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ type: "spring", duration: 0.5, bounce: 0.2 }}
-            className="relative w-full max-w-md bg-white rounded-3xl overflow-hidden shadow-2xl z-[1010] border border-gray-100"
+            className="relative w-full max-w-md max-h-[90vh] overflow-y-auto bg-white rounded-3xl shadow-2xl z-[1010] border border-gray-100"
           >
             {/* Elegant Header Banner */}
             <div 
-              className="relative p-6 text-white text-center" 
+              className="relative p-4 sm:p-6 text-white text-center" 
               style={{ background: "linear-gradient(135deg, #54391E 0%, #825B34 100%)" }}
             >
               <button
@@ -115,23 +115,23 @@ const ConsultationPopup = () => {
                 <X className="w-5 h-5" />
               </button>
 
-              <div className="mx-auto w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center mb-3 shadow-inner">
-                <Sparkles className="w-6 h-6 text-white" />
+              <div className="mx-auto w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center mb-2 sm:mb-3 shadow-inner">
+                <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </div>
               
-              <h3 className="font-display font-extrabold text-xl sm:text-2xl leading-tight tracking-wide">
+              <h3 className="font-display font-extrabold text-lg sm:text-2xl leading-tight tracking-wide">
                 Free Consultation
               </h3>
               
-              <p className="text-white/80 text-xs sm:text-sm mt-1.5 max-w-xs mx-auto">
+              <p className="text-white/80 text-[11px] sm:text-sm mt-1 sm:mt-1.5 max-w-xs mx-auto">
                 Fill in your details to chat directly with our expert doctor on WhatsApp.
               </p>
             </div>
 
             {/* Modal Body / Form */}
-            <form onSubmit={handleSubmit} className="p-6 space-y-4">
+            <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-3 sm:space-y-4">
               
-              <div className="space-y-1.5">
+              <div className="space-y-1">
                 <Label htmlFor="popup-name" className="text-xs font-bold text-gray-700 uppercase tracking-wider">
                   Full Name
                 </Label>
@@ -146,7 +146,7 @@ const ConsultationPopup = () => {
                 />
               </div>
 
-              <div className="space-y-1.5">
+              <div className="space-y-1">
                 <Label htmlFor="popup-phone" className="text-xs font-bold text-gray-700 uppercase tracking-wider">
                   Phone Number
                 </Label>
@@ -162,7 +162,7 @@ const ConsultationPopup = () => {
                 />
               </div>
 
-              <div className="space-y-1.5">
+              <div className="space-y-1">
                 <Label htmlFor="popup-service" className="text-xs font-bold text-gray-700 uppercase tracking-wider">
                   Select Concern / Service
                 </Label>
@@ -182,7 +182,7 @@ const ConsultationPopup = () => {
                 </Select>
               </div>
 
-              <div className="space-y-1.5">
+              <div className="space-y-1">
                 <Label htmlFor="popup-message" className="text-xs font-bold text-gray-700 uppercase tracking-wider">
                   Brief Message (Optional)
                 </Label>
@@ -192,20 +192,20 @@ const ConsultationPopup = () => {
                   value={formData.message}
                   onChange={handleChange}
                   placeholder="Describe your dental concern..."
-                  className="min-h-[70px] rounded-xl border-gray-200 focus:border-[#54391E]/30 focus:ring-[#54391E]/10 resize-none"
+                  className="min-h-[50px] sm:min-h-[70px] rounded-xl border-gray-200 focus:border-[#54391E]/30 focus:ring-[#54391E]/10 resize-none"
                 />
               </div>
 
               <Button
                 type="submit"
-                className="w-full h-12 text-sm font-bold text-white rounded-xl flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all border-0 shadow-lg hover:shadow-xl mt-2"
+                className="w-full h-10 sm:h-12 text-xs sm:text-sm font-bold text-white rounded-xl flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all border-0 shadow-lg hover:shadow-xl mt-1 sm:mt-2"
                 style={{ background: "linear-gradient(135deg, #128C7E 0%, #075E54 100%)" }}
               >
                 <WhatsAppIcon className="w-5 h-5 text-white" />
                 Start Chat on WhatsApp
               </Button>
 
-              <div className="text-center text-[10px] text-gray-400 leading-normal">
+              <div className="text-center text-[9px] sm:text-[10px] text-gray-400 leading-normal">
                 By submitting this form, you will be redirected to WhatsApp to share your details.
               </div>
             </form>
