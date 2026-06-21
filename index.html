@@ -55,6 +55,20 @@
         z-index: 2;
       }
 
+      /* Welcome text */
+      .loader-welcome {
+        font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.35em;
+        color: #825B34;
+        text-transform: uppercase;
+        opacity: 0;
+        transform: translateY(-10px);
+        animation: contentFadeIn 0.8s cubic-bezier(0.25, 1, 0.5, 1) 0.2s forwards;
+        text-align: center;
+      }
+
       /* Tagline */
       .loader-tagline {
         font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
@@ -128,12 +142,13 @@
 
     <!-- Clean White Premium Preloader -->
     <div id="initial-loader">
+      <div class="loader-welcome">Welcome to Dentcity</div>
       <div class="loader-logo-container">
         <div class="loader-glow"></div>
         <img src="/src/assets/dentcity%20logo.png" class="loader-logo" alt="Dentcity" />
       </div>
       <div class="loader-content">
-        <div class="loader-tagline">Crafting Your Perfect Smile</div>
+        <div class="loader-tagline">We are happy to make you smile again</div>
         <div class="loader-progress-bar">
           <div class="loader-progress-fill"></div>
         </div>
