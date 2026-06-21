@@ -110,6 +110,11 @@ export const AwardsCarousel = () => {
   const COPIES = 4;     // enough copies so strip always overflows any screen
 
   // Sum of widths of one full loop of cards plus gaps
+  const loopWidth = displayImages.reduce((sum, img) => {
+    const cardWidth = img.isHorizontal ? 290 : 220;
+    return sum + cardWidth + GAP;
+  }, 0);
+
   // Auto-scroll loop
   useEffect(() => {
     const container = scrollRef.current;
