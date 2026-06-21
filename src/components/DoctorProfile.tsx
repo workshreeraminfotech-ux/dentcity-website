@@ -19,7 +19,11 @@ function Counter({ target, inView, duration }: { target: number; inView: boolean
         duration,
         ease: "easeOut",
         onUpdate(value) {
-          node.textContent = Math.round(value).toString();
+          if (target % 1 !== 0) {
+            node.textContent = value.toFixed(1);
+          } else {
+            node.textContent = Math.round(value).toString();
+          }
         },
       });
       return () => controls.stop();
@@ -58,10 +62,10 @@ const achievements = [
 ];
 
 const statsData = [
-  { raw: 10,  suffix: "+", label: "Years Exp.",     dur: 2.5 },
-  { raw: 30,  suffix: "+", label: "Global Programs",dur: 3.5 },
-  { raw: 3,   suffix: "+", label: "Accreditations", dur: 2.0 },
-  { raw: 100, suffix: "%", label: "Comprehensive",  dur: 4.0 },
+  { raw: 10,   suffix: "+", label: "Years Exp.",                 dur: 2.5 },
+  { raw: 30,   suffix: "+", label: "Global Programs",            dur: 3.5 },
+  { raw: 3,    suffix: "+", label: "International Accreditations", dur: 2.0 },
+  { raw: 98.6, suffix: "%", label: "Comprehensive",              dur: 4.0 },
 ];
 
 /* ──────────────────────────────────────────────────────────────────
