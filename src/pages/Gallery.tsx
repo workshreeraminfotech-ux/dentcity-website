@@ -97,7 +97,7 @@ const Gallery = ({ isStandalone = false }: { isStandalone?: boolean }) => {
   return (
     <>
       {/* ── HERO ─────────────────────────────────────────── */}
-      <section className={`relative bg-[#FAFAFA] pb-6 overflow-hidden ${isStandalone ? "pt-20 md:pt-24" : "pt-6 md:pt-8"}`}>
+      <section className={`relative bg-white pb-6 overflow-hidden ${isStandalone ? "pt-20 md:pt-24" : "pt-6 md:pt-8"}`}>
         {/* Background Soft Accents */}
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#54391E]/5 rounded-full blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/3" />
         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#54391E]/5 rounded-full blur-[100px] pointer-events-none translate-y-1/2 -translate-x-1/3" />
@@ -358,7 +358,7 @@ const Gallery = ({ isStandalone = false }: { isStandalone?: boolean }) => {
 
         /* ── GRID ── */
         .gallery-grid-section {
-          background: #FAFAFA;
+          background: #ffffff;
           padding: 3rem 1rem 5rem;
         }
         .gallery-masonry {
