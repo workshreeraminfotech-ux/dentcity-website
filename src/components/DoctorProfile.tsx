@@ -57,7 +57,7 @@ function useTypewriter(text: string, inView: boolean, speed = 25) {
 const achievements = [
   "Specialized in Dental Implantology",
   "Full-Mouth Reconstructions Expert",
-  "Root Canal & Orthodontic Care",
+  "Smile Designing",
   "Comprehensive Family Dentistry",
 ];
 
