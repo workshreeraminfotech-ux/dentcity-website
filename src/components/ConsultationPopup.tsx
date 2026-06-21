@@ -120,7 +120,7 @@ const ConsultationPopup = () => {
               </div>
               
               <h3 className="font-display font-extrabold text-lg sm:text-2xl leading-tight tracking-wide">
-                Free Consultation
+                Let's Consultation
               </h3>
               
               <p className="text-white/80 text-[11px] sm:text-sm mt-1 sm:mt-1.5 max-w-xs mx-auto">

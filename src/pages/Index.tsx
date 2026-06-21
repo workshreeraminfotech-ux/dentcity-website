@@ -88,9 +88,9 @@ const HeroSection = () => {
   const goNext = useCallback(() => goTo((current + 1) % total), [current, total, goTo]);
   const goPrev = useCallback(() => goTo((current - 1 + total) % total), [current, total, goTo]);
 
-  // Auto-advance photo slide: 8 seconds for the first slide, 5 seconds for others
+  // Auto-advance photo slide: 13 seconds for the first slide, 5 seconds for others
   useEffect(() => {
-    const duration = current === 0 ? 8000 : 5000;
+    const duration = current === 0 ? 13000 : 5000;
     const start = performance.now();
     let animFrame: number;
 

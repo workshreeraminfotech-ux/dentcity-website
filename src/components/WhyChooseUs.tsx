@@ -29,7 +29,7 @@ const reasons = [
   {
     icon: Microscope,
     title: "Advanced Digital Technology In House",
-    desc: "Our clinic combines digital impressions, OPN, and advanced imaging options to make diagnostic and treatment planning more accurate and less painful.",
+    desc: "Our clinic combines digital impressions, OPG, and advanced imaging options to make diagnostic and treatment planning more accurate and less painful.",
   },
   {
     icon: HeartHandshake,
