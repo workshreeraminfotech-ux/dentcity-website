@@ -127,7 +127,7 @@ export const AwardsCarousel = () => {
           gap: ${GAP}px;
           align-items: center;
           width: max-content;
-          animation: awards-scroll 120s linear infinite;
+          animation: awards-scroll 240s linear infinite;
           will-change: transform;
         }
         .awards-track.paused {
