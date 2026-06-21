@@ -37,7 +37,7 @@ import smileImage from "@/assets/our service/3.smiling designing/case 1/1.jpg";
 // ─── Slide data ───────────────────────────────────────────────────────────────
 const heroSlides = [
   // 1. Building Exterior — no change
-  { src: hero02, badge: "Doctor's Consultation", heading: "Expert Hands.", accent: "Personalised Care.", sub: "Every diagnosis starts with a conversation. Thorough, precise, and always patient-first.", cta: "Meet Our Doctor", ctaLink: "#doctor", ctaIcon: ArrowRight, color: "#D4A373", showCta: true },
+  { src: hero02, badge: "Doctor's Consultation", heading: "Expert Hands.", accent: "Personalised Care.", sub: "Every diagnosis starts with a conversation. Thorough, precise, and always patient-first.", cta: "Meet Our Doctor", ctaLink: "#doctor", ctaIcon: ArrowRight, color: "#D4A373", showCta: true, hideContent: true },
   // 2. Waiting Area — Ground Floor Lounge
   { src: hero01, badge: "Premium Patient Lounge", heading: "Relaxing Ambience.", accent: "Comfort-First Care.", sub: "A warm, world-class waiting lounge designed for comfort. Peaceful atmosphere for you and your family.", cta: "Book a Visit", ctaLink: "#contact", ctaIcon: Calendar, color: "#D4A373", showCta: true },
   // 3. Waiting Area — Reception & Lobby
@@ -88,9 +88,9 @@ const HeroSection = () => {
   const goNext = useCallback(() => goTo((current + 1) % total), [current, total, goTo]);
   const goPrev = useCallback(() => goTo((current - 1 + total) % total), [current, total, goTo]);
 
-  // Auto-advance photo slide every 5 seconds with smooth progress tracking
+  // Auto-advance photo slide: 8 seconds for the first slide, 5 seconds for others
   useEffect(() => {
-    const duration = 5000;
+    const duration = current === 0 ? 8000 : 5000;
     const start = performance.now();
     let animFrame: number;
 

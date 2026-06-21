@@ -3,7 +3,7 @@ import { motion, useInView, animate } from "framer-motion";
 import {
   Award, CheckCircle2, BadgeCheck, Phone
 } from "lucide-react";
-import doctorImg from "@/assets/doctor.png";
+import doctorImg from "@/assets/doctor.jpg";
 
 /* ──────────────────────────────────────────────────────────────────
    Counter Component (Zero Lag - No React Re-renders)
@@ -80,56 +80,64 @@ export const DoctorProfile = () => {
 
   return (
     <section className="relative w-full bg-[#030712] text-white py-12 lg:py-16 overflow-hidden" ref={ref}>
-      {/* Background massive text */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full overflow-hidden pointer-events-none flex items-center justify-center opacity-[0.03] select-none z-0">
-        <h2 className="text-[120px] md:text-[200px] lg:text-[280px] font-black tracking-tighter text-white whitespace-nowrap">
-          EXPERTISE
-        </h2>
-      </div>
+
 
       {/* Ambient glowing orbs */}
       <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-amber-500/10 rounded-full blur-[150px] pointer-events-none z-0" />
       <div className="absolute bottom-[-10%] left-[-5%] w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-[150px] pointer-events-none z-0" />
 
       <div className="container mx-auto px-6 relative z-10">
-        {/* Unified Section Header (Full Width to prevent overlap and overflow) */}
-        <div className="mb-10 lg:mb-12">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8 }}
-          >
-            <div className="flex items-center gap-4 mb-6">
-              <span className="h-[2px] w-12 bg-[#D4A373]"></span>
-              <span className="text-[#D4A373] font-bold tracking-[0.25em] uppercase text-xs md:text-sm">Lead Specialist</span>
-              <span className="h-[2px] w-12 bg-[#D4A373]"></span>
-            </div>
-            
-            <h2 
-              className="font-bold font-display leading-[1.05] mb-6 text-white whitespace-nowrap"
-              style={{ fontSize: "clamp(2rem, 5.5vw, 5rem)" }}
-            >
-              Dr. Rathin Bhindi
-            </h2>
+        {/* Top Badge (Spans full width) */}
+        <div className="mb-8">
+          <div className="flex items-center gap-4">
+            <span className="h-[2px] w-12 bg-[#D4A373]"></span>
+            <span className="text-[#D4A373] font-bold tracking-[0.25em] uppercase text-xs md:text-sm">Lead Specialist</span>
+            <span className="h-[2px] w-12 bg-[#D4A373]"></span>
+          </div>
+        </div>
 
-            <p className="text-base md:text-lg text-gray-400 max-w-2xl leading-relaxed italic relative">
-              <span className="text-6xl text-[#D4A373]/20 absolute -top-4 -left-6 font-serif">"</span>
-              <span className="relative z-10">{typedQuote}</span>
-              <span className="inline-block w-[2px] h-[1em] bg-[#D4A373] ml-1 align-middle animate-pulse" />
-            </p>
-          </motion.div>
+        {/* Mobile-only Title & Quote (Hidden on desktop) */}
+        <div className="block lg:hidden mb-8">
+          <h2 
+            className="font-bold font-display leading-[1.05] mb-4 text-white"
+            style={{ fontSize: "clamp(2rem, 5.5vw, 5rem)" }}
+          >
+            Dr. Rathin Bhindi
+          </h2>
+
+          <p className="text-base text-gray-400 leading-relaxed italic relative">
+            <span className="text-6xl text-[#D4A373]/20 absolute -top-4 -left-6 font-serif">"</span>
+            <span className="relative z-10">{typedQuote}</span>
+            <span className="inline-block w-[2px] h-[1em] bg-[#D4A373] ml-1 align-middle animate-pulse" />
+          </p>
         </div>
 
         {/* flex-col-reverse makes the right side (image) appear on top on mobile screens */}
-        <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-16 lg:gap-12">
+        <div className="flex flex-col-reverse lg:flex-row items-start justify-between gap-8 lg:gap-12">
           
           {/* Left Content (Text) */}
           <motion.div 
-            className="w-full lg:w-1/2 flex flex-col justify-center mt-8 lg:mt-0"
+            className="w-full lg:w-1/2 flex flex-col justify-start mt-4 lg:mt-0"
             initial={{ opacity: 0, x: -50 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
+            {/* Desktop-only Title & Quote (Visible only on desktop, aligned line-to-line with the image) */}
+            <div className="hidden lg:block">
+              <h2 
+                className="font-bold font-display leading-[1.05] mb-6 text-white whitespace-nowrap"
+                style={{ fontSize: "clamp(2rem, 5.5vw, 5rem)" }}
+              >
+                Dr. Rathin Bhindi
+              </h2>
+
+              <p className="text-base md:text-lg text-gray-400 max-w-2xl leading-relaxed italic relative mb-10">
+                <span className="text-6xl text-[#D4A373]/20 absolute -top-4 -left-6 font-serif">"</span>
+                <span className="relative z-10">{typedQuote}</span>
+                <span className="inline-block w-[2px] h-[1em] bg-[#D4A373] ml-1 align-middle animate-pulse" />
+              </p>
+            </div>
+
 
             {/* Doctor Bio Paragraphs */}
             <div className="flex flex-col gap-5 mb-10 max-w-xl">
@@ -174,7 +182,7 @@ export const DoctorProfile = () => {
 
           {/* Right Content (Image & Floating Badges) */}
           <motion.div 
-            className="w-full lg:w-[45%] relative mt-6 lg:mt-0"
+            className="w-full lg:w-[45%] relative mt-4 lg:mt-0"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={inView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
@@ -183,7 +191,7 @@ export const DoctorProfile = () => {
             <div className="relative w-full aspect-[4/5] rounded-[2.5rem] overflow-hidden border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
                <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/20 to-transparent z-10" />
                <div className="absolute inset-0 bg-gradient-to-r from-[#030712]/50 via-transparent to-transparent z-10" />
-               <img src={doctorImg} alt="Dr. Rathin Bhindi" className="absolute inset-0 w-full h-full object-cover" />
+               <img src={doctorImg} alt="Dr. Rathin Bhindi" className="absolute inset-0 w-full h-full object-cover object-top" />
             </div>
 
             {/* Floating Credential Box 1 */}
