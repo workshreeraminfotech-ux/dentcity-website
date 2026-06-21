@@ -123,13 +123,22 @@ export const AwardsCarousel = () => {
     let animationId: number;
     let lastTime = performance.now();
     const speed = loopWidth / 60000; // matching 60s duration for loopWidth pixels
+    let currentScroll = container.scrollLeft;
 
     const scroll = (time: number) => {
       const delta = time - lastTime;
       lastTime = time;
 
       if (!paused && lightboxIndex === null) {
-        container.scrollLeft += speed * delta;
+        currentScroll += speed * delta;
+        if (currentScroll >= loopWidth * 2) {
+          currentScroll -= loopWidth;
+        } else if (currentScroll <= 0) {
+          currentScroll += loopWidth;
+        }
+        container.scrollLeft = currentScroll;
+      } else {
+        currentScroll = container.scrollLeft;
       }
       animationId = requestAnimationFrame(scroll);
     };
