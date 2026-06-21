@@ -43,8 +43,8 @@ const reasons = [
   },
   {
     icon: Smile,
-    title: "More than 1,000 successful smiles",
-    desc: "Over the years, we have crafted over 1,000 successful smiles, resulting from different dental treatments. This has helped our doctors and patients create strong relationships.",
+    title: "More than 5,000 successful smiles",
+    desc: "Over the years, we have crafted over 5,000 successful smiles, resulting from different dental treatments. This has helped our doctors and patients create strong relationships.",
   },
 ];
 

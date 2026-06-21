@@ -34,11 +34,11 @@ const ConsultationPopup = () => {
         // Loader is still present, check again in 200ms
         timer = setTimeout(checkLoader, 200);
       } else {
-        // Loader is gone! Wait exactly 4 seconds and then show the popup
+        // Loader is gone! Wait exactly 10 seconds and then show the popup
         timer = setTimeout(() => {
           setIsOpen(true);
           setHasTriggered(true);
-        }, 4000);
+        }, 10000);
       }
     };
 
