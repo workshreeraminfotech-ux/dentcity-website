@@ -223,7 +223,7 @@ export const HomeAchievements = () => {
           {/* Scrollable Container */}
           <div
             ref={scrollRef}
-            className="w-full overflow-x-auto scroll-smooth scrollbar-none"
+            className="w-full overflow-x-auto scrollbar-none"
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
             onTouchStart={() => setPaused(true)}
