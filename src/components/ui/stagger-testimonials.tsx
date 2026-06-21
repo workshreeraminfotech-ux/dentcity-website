@@ -1,7 +1,8 @@
 "use client"
 
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Star, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 const SQRT_5000 = Math.sqrt(5000);
@@ -73,19 +74,27 @@ interface TestimonialCardProps {
   testimonial: typeof testimonials[0];
   handleMove: (steps: number) => void;
   cardSize: number;
+  onOpenFullReview?: (testimonial: typeof testimonials[0]) => void;
 }
 
 const TestimonialCard: React.FC<TestimonialCardProps> = ({ 
   position, 
   testimonial, 
   handleMove, 
-  cardSize 
+  cardSize,
+  onOpenFullReview
 }) => {
   const isCenter = position === 0;
 
   return (
     <div
-      onClick={() => handleMove(position)}
+      onClick={(e) => {
+        if (isCenter) {
+          onOpenFullReview?.(testimonial);
+        } else {
+          handleMove(position);
+        }
+      }}
       className={cn(
         "absolute left-1/2 top-1/2 cursor-pointer p-8 transition-all duration-500 ease-in-out rounded-3xl",
         isCenter 
@@ -123,12 +132,19 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
       )}>
         "{testimonial.testimonial}"
       </h3>
-      <p className={cn(
-        "absolute bottom-8 left-8 right-8 mt-2 text-sm font-bold",
-        isCenter ? "text-[#54391E]" : "text-gray-400"
-      )}>
-        — {testimonial.by}
-      </p>
+      <div className="absolute bottom-8 left-8 right-8 flex justify-between items-center mt-2">
+        <p className={cn(
+          "text-sm font-bold",
+          isCenter ? "text-[#54391E]" : "text-gray-400"
+        )}>
+          — {testimonial.by}
+        </p>
+        {isCenter && (
+          <span className="text-xs font-semibold text-[#825B34] hover:text-[#54391E] flex items-center gap-0.5">
+            Read More →
+          </span>
+        )}
+      </div>
     </div>
   );
 };
@@ -137,6 +153,7 @@ export const StaggerTestimonials: React.FC = () => {
   const [cardSize, setCardSize] = useState(365);
   const [containerHeight, setContainerHeight] = useState(450);
   const [testimonialsList, setTestimonialsList] = useState(testimonials);
+  const [activeReview, setActiveReview] = useState<typeof testimonials[0] | null>(null);
 
   const handleMove = (steps: number) => {
     const newList = [...testimonialsList];
@@ -168,13 +185,14 @@ export const StaggerTestimonials: React.FC = () => {
     return () => window.removeEventListener("resize", updateSize);
   }, []);
 
-  // Auto-scrolling
+  // Auto-scrolling (paused when activeReview modal is open)
   useEffect(() => {
+    if (activeReview !== null) return;
     const interval = setInterval(() => {
       handleMove(1);
     }, 4000);
     return () => clearInterval(interval);
-  }, [testimonialsList]);
+  }, [testimonialsList, activeReview]);
 
   return (
     <div>
@@ -193,6 +211,7 @@ export const StaggerTestimonials: React.FC = () => {
               handleMove={handleMove}
               position={position}
               cardSize={cardSize}
+              onOpenFullReview={setActiveReview}
             />
           );
         })}
@@ -237,6 +256,62 @@ export const StaggerTestimonials: React.FC = () => {
           Write a Review on Google
         </a>
       </div>
+
+      {/* Lightbox / Modal for Full Review */}
+      <AnimatePresence>
+        {activeReview && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[1050] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4"
+            onClick={() => setActiveReview(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 20 }}
+              transition={{ type: "spring", duration: 0.4 }}
+              className="relative w-full max-w-lg bg-white rounded-3xl p-6 sm:p-8 shadow-2xl z-[1060] border border-gray-100 max-h-[90vh] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setActiveReview(null)}
+                className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full p-1.5 transition-all"
+                aria-label="Close"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <div className="flex items-center gap-4 mb-6">
+                <img
+                  src={activeReview.imgSrc}
+                  alt={activeReview.by}
+                  className="h-14 w-14 rounded-xl object-cover border border-gray-100 shadow-sm"
+                />
+                <div>
+                  <h4 className="font-display font-bold text-lg text-[#1A1A1A]">
+                    {activeReview.by}
+                  </h4>
+                  <div className="flex gap-0.5 mt-1">
+                    {Array.from({ length: activeReview.rating }).map((_, i) => (
+                      <Star
+                        key={i}
+                        className="w-4 h-4 fill-[#54391E] text-[#54391E]"
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <p className="text-gray-700 text-sm sm:text-base leading-relaxed whitespace-pre-line italic">
+                "{activeReview.testimonial}"
+              </p>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
