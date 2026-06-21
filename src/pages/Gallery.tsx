@@ -20,38 +20,12 @@ import nj04491 from "@/assets/gallery/NJ_04491.jpg";
 import nj04571 from "@/assets/gallery/NJ_04571.jpg";
 import nj04652 from "@/assets/gallery/NJ_04652.jpg";
 import nj04654 from "@/assets/gallery/NJ_04654.jpg";
-import pic1 from "@/assets/gallery/achievements/Picture1.jpg";
-import pic2 from "@/assets/gallery/achievements/Picture2.jpg";
-import pic4 from "@/assets/gallery/achievements/Picture4.jpg";
-import pic6 from "@/assets/gallery/achievements/Picture6.jpg";
-import pic12 from "@/assets/gallery/achievements/Picture12.jpg";
-import pic13 from "@/assets/gallery/achievements/Picture13.jpg";
-import pic16 from "@/assets/gallery/achievements/Picture16.jpg";
-import pic22 from "@/assets/gallery/achievements/Picture22.jpg";
-import pic24 from "@/assets/gallery/achievements/Picture24.jpg";
-import pic26 from "@/assets/gallery/achievements/Picture26.jpg";
-import pic27 from "@/assets/gallery/achievements/Picture27.jpg";
-import pic30 from "@/assets/gallery/achievements/Picture30.jpg";
-import pic32 from "@/assets/gallery/achievements/Picture32.jpg";
-import pic34 from "@/assets/gallery/achievements/Picture34.jpg";
-import pic35 from "@/assets/gallery/achievements/Picture35.jpg";
-import pic36 from "@/assets/gallery/achievements/Picture36.jpg";
-import pic38 from "@/assets/gallery/achievements/Picture38.jpg";
-import pic39 from "@/assets/gallery/achievements/Picture39.jpg";
-import pic41 from "@/assets/gallery/achievements/Picture41.jpg";
-import pic42 from "@/assets/gallery/achievements/Picture42.jpg";
-import pic43 from "@/assets/gallery/achievements/Picture43.jpg";
-import pic44 from "@/assets/gallery/achievements/Picture44.jpg";
-import pic45 from "@/assets/gallery/achievements/Picture45.jpg";
-import pic46 from "@/assets/gallery/achievements/Picture46.jpg";
-import pic47 from "@/assets/gallery/achievements/Picture47.jpg";
-import pic48 from "@/assets/gallery/achievements/Picture48.jpg";
-import pic49 from "@/assets/gallery/achievements/Picture49.jpg";
+
 
 interface GalleryImage {
   src: string;
   alt: string;
-  category: "clinic" | "achievements";
+  category: "clinic";
 }
 
 const allImages: GalleryImage[] = [
@@ -73,43 +47,9 @@ const allImages: GalleryImage[] = [
   { src: nj04571,       alt: "Dual Treatment Rooms",          category: "clinic" },
   { src: nj04652,       alt: "Modern Clinical Setup",         category: "clinic" },
   { src: nj04654,       alt: "State-of-the-Art Facility",     category: "clinic" },
-  { src: pic1,  alt: "Dr. Rathin Bhindi — Achievement",       category: "achievements" },
-  { src: pic2,  alt: "Certificate of Excellence",             category: "achievements" },
-  { src: pic4,  alt: "Award Ceremony",                        category: "achievements" },
-  { src: pic6,  alt: "Recognition Award",                     category: "achievements" },
-  { src: pic12, alt: "International Certification",           category: "achievements" },
-  { src: pic13, alt: "Diploma Award",                         category: "achievements" },
-  { src: pic16, alt: "Conference Achievement",                category: "achievements" },
-  { src: pic22, alt: "Certificate Presentation",              category: "achievements" },
-  { src: pic24, alt: "Achievement Felicitation",              category: "achievements" },
-  { src: pic26, alt: "Award Presentation",                    category: "achievements" },
-  { src: pic27, alt: "Excellence Award",                      category: "achievements" },
-  { src: pic30, alt: "Distinguished Achievement",             category: "achievements" },
-  { src: pic32, alt: "Certification Ceremony",                category: "achievements" },
-  { src: pic34, alt: "Dental Excellence Award",               category: "achievements" },
-  { src: pic35, alt: "International Implant Foundation",      category: "achievements" },
-  { src: pic36, alt: "Felicitation Ceremony",                 category: "achievements" },
-  { src: pic38, alt: "Award — Dr. Rathin Bhindi",             category: "achievements" },
-  { src: pic39, alt: "Recognition Ceremony",                  category: "achievements" },
-  { src: pic41, alt: "Achievement Recognition",               category: "achievements" },
-  { src: pic42, alt: "Certificate of Achievement",            category: "achievements" },
-  { src: pic43, alt: "Conference Recognition",                category: "achievements" },
-  { src: pic44, alt: "Award Felicitation",                    category: "achievements" },
-  { src: pic45, alt: "Dental Implant Foundation",             category: "achievements" },
-  { src: pic46, alt: "Recognition Award Ceremony",            category: "achievements" },
-  { src: pic47, alt: "Distinguished Dentist Award",           category: "achievements" },
-  { src: pic48, alt: "Achievement Diploma",                   category: "achievements" },
-  { src: pic49, alt: "Excellence in Dentistry",               category: "achievements" },
 ];
-const FILTERS = [
-  { key: "clinic",       label: "Clinic & Facilities", icon: Building2 },
-  { key: "achievements", label: "Doctor Achievements", icon: Award },
-] as const;
-
-type FilterKey = (typeof FILTERS)[number]["key"];
 
 const Gallery = ({ isStandalone = false }: { isStandalone?: boolean }) => {
-  const [activeFilter, setActiveFilter] = useState<FilterKey>("clinic");
   
   // Custom Lightbox State decoupled from active tab
   const [lightboxData, setLightboxData] = useState<{
@@ -117,7 +57,7 @@ const Gallery = ({ isStandalone = false }: { isStandalone?: boolean }) => {
     index: number;
   } | null>(null);
 
-  const filtered = allImages.filter((img) => img.category === activeFilter);
+  const filtered = allImages;
 
   const openLightbox = (images: { src: string; alt: string; category: string }[], index: number) => {
     setLightboxData({ images, index });
@@ -178,40 +118,16 @@ const Gallery = ({ isStandalone = false }: { isStandalone?: boolean }) => {
               <span className="w-8 h-[2px] bg-[#54391E]" />
             </div>
             <h1 className="font-display text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold text-[#1A1A1A] leading-tight mb-4">
-              Clinic, Facilities & <span className="text-[#54391E]">Achievements</span>
+              Clinic & <span className="text-[#54391E]">Facilities</span>
             </h1>
             <p className="text-gray-500 text-lg md:text-xl max-w-2xl mx-auto mt-4 leading-relaxed">
-              Step inside DENTCITY — explore our world-class infrastructure and the milestones that define our legacy.
+              Step inside DENTCITY — explore our world-class clinical infrastructure and modern facilities.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* ── FILTER TABS ──────────────────────────────────── */}
-      <section className="gallery-filter-section">
-        <div className="gallery-container">
-          <div className="gallery-filter-bar">
-            {FILTERS.map(({ key, label, icon: Icon }) => {
-              const count = allImages.filter((i) => i.category === key).length;
-              return (
-                <button
-                  key={key}
-                  id={`gallery-filter-${key}`}
-                  onClick={() => { setActiveFilter(key); setLightboxData(null); }}
-                  className={`gallery-filter-btn${activeFilter === key ? " active" : ""}`}
-                >
-                  <Icon size={16} />
-                  <span>{label}</span>
-                  <span className="gallery-filter-count">{count}</span>
-                  {activeFilter === key && (
-                    <motion.div className="gallery-filter-underline" layoutId="filterUnderline" />
-                  )}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+
 
       {/* ── MAIN CONTENT ── */}
       <section className="gallery-grid-section">
@@ -219,7 +135,6 @@ const Gallery = ({ isStandalone = false }: { isStandalone?: boolean }) => {
           
           {/* Masonry View */}
           <motion.div
-            key={activeFilter}
             className="gallery-masonry"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -250,11 +165,6 @@ const Gallery = ({ isStandalone = false }: { isStandalone?: boolean }) => {
                         <p className="gallery-card-label">{img.alt}</p>
                       </div>
                     </div>
-
-                    {/* Category badge */}
-                    <span className={`gallery-card-badge badge-${img.category}`}>
-                      {img.category === "clinic" ? "Clinic" : "Achievement"}
-                    </span>
                   </motion.div>
                 ))}
               </AnimatePresence>
@@ -315,9 +225,6 @@ const Gallery = ({ isStandalone = false }: { isStandalone?: boolean }) => {
                 className="gallery-lb-img"
               />
               <div className="gallery-lb-caption">
-                <span className={`gallery-lb-badge badge-${selectedImage.category}`}>
-                  {selectedImage.category === "clinic" ? "Clinic" : "Achievement"}
-                </span>
                 <p className="gallery-lb-alt">{selectedImage.alt}</p>
                 <span className="gallery-lb-counter">
                   {lightboxData.index + 1} / {lightboxData.images.length}
