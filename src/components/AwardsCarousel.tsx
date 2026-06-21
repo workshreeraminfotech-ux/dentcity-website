@@ -219,7 +219,13 @@ export const AwardsCarousel = () => {
         </div>
 
         {/* ── Scroll wrapper with manual buttons ── */}
-        <div className="relative w-full mt-2 md:mt-8 group/carousel">
+        <div 
+          className="relative w-full mt-2 md:mt-8 group/carousel"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          onTouchStart={() => setPaused(true)}
+          onTouchEnd={() => setPaused(false)}
+        >
           {/* Left Arrow Button */}
           <button
             onClick={() => handleManualScroll("left")}
@@ -233,10 +239,6 @@ export const AwardsCarousel = () => {
           <div
             ref={scrollRef}
             className="w-full overflow-x-auto scrollbar-none"
-            onMouseEnter={() => setPaused(true)}
-            onMouseLeave={() => setPaused(false)}
-            onTouchStart={() => setPaused(true)}
-            onTouchEnd={() => setPaused(false)}
           >
             {/* pt/pb via wrapper div — NOT on track — so gap calc stays correct */}
             <div className="awards-track py-4">
