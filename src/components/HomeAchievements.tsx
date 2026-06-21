@@ -127,7 +127,7 @@ export const HomeAchievements = () => {
           gap: ${GAP}px;
           align-items: center;
           width: max-content;
-          animation: home-awards-scroll 35s linear infinite;
+          animation: home-awards-scroll 180s linear infinite;
           will-change: transform;
         }
         .home-awards-track.paused {
