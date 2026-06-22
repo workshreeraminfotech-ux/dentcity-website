@@ -177,7 +177,7 @@ export const StaggerTestimonials: React.FC = () => {
     const updateSize = () => {
       const { matches } = window.matchMedia("(min-width: 640px)");
       setCardSize(matches ? 365 : 290);
-      setContainerHeight(matches ? 450 : 360);
+      setContainerHeight(matches ? 450 : 410);
     };
 
     updateSize();

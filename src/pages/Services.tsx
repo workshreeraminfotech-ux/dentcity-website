@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ChevronRight } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import imgImplant from "@/assets/premium_services/implant_dentistry.png";
@@ -32,15 +32,17 @@ const ServiceCard = ({
 }: {
   service: { slug: string; title: string; desc: string; img: string };
   index: number;
-}) => (
-  <motion.div
-    initial={{ opacity: 0, y: 30 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ delay: (index % 3) * 0.1 }}
-    onClick={() => window.location.href = `/services/${service.slug}`}
-    className="group rounded-2xl overflow-hidden bg-card border border-border hover-lift flex flex-col cursor-pointer"
-  >
+}) => {
+  const navigate = useNavigate();
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: (index % 3) * 0.1 }}
+      onClick={() => navigate(`/services/${service.slug}`)}
+      className="group rounded-2xl overflow-hidden bg-card border border-border hover-lift flex flex-col cursor-pointer"
+    >
     {/* Image */}
     <div className="h-48 overflow-hidden relative">
       <img
@@ -67,7 +69,8 @@ const ServiceCard = ({
       </Link>
     </div>
   </motion.div>
-);
+  );
+};
 
 const Services = () => {
   return (

@@ -18,6 +18,13 @@ export const AwardsCarousel = () => {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [sortedImages, setSortedImages] = useState<ImageInfo[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const manualScrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (manualScrollTimeoutRef.current) clearTimeout(manualScrollTimeoutRef.current);
+    };
+  }, []);
 
   // Dynamically group horizontal first, then vertical
   useEffect(() => {
@@ -167,6 +174,13 @@ export const AwardsCarousel = () => {
   const handleManualScroll = (direction: "left" | "right") => {
     const container = scrollRef.current;
     if (container) {
+      setPaused(true);
+      if (manualScrollTimeoutRef.current) clearTimeout(manualScrollTimeoutRef.current);
+      manualScrollTimeoutRef.current = setTimeout(() => {
+        setPaused(false);
+        manualScrollTimeoutRef.current = null;
+      }, 2000);
+
       const scrollAmount = 300;
       container.scrollBy({
         left: direction === "left" ? -scrollAmount : scrollAmount,
@@ -230,18 +244,38 @@ export const AwardsCarousel = () => {
         {/* ── Scroll wrapper with manual buttons ── */}
         <div 
           className="relative w-full mt-2 md:mt-8 group/carousel"
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
-          onTouchStart={() => setPaused(true)}
-          onTouchEnd={() => setPaused(false)}
+          onMouseEnter={() => {
+            setPaused(true);
+            if (manualScrollTimeoutRef.current) {
+              clearTimeout(manualScrollTimeoutRef.current);
+              manualScrollTimeoutRef.current = null;
+            }
+          }}
+          onMouseLeave={() => {
+            if (!manualScrollTimeoutRef.current) {
+              setPaused(false);
+            }
+          }}
+          onTouchStart={() => {
+            setPaused(true);
+            if (manualScrollTimeoutRef.current) {
+              clearTimeout(manualScrollTimeoutRef.current);
+              manualScrollTimeoutRef.current = null;
+            }
+          }}
+          onTouchEnd={() => {
+            if (!manualScrollTimeoutRef.current) {
+              setPaused(false);
+            }
+          }}
         >
           {/* Left Arrow Button */}
           <button
             onClick={() => handleManualScroll("left")}
-            className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border border-gray-200 text-gray-800 shadow-lg rounded-full w-12 h-12 flex items-center justify-center transition-all hover:scale-110 active:scale-95 z-20 opacity-0 group-hover/carousel:opacity-100 duration-300 hidden md:flex"
+            className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border border-gray-200 text-gray-800 shadow-lg rounded-full w-9 h-9 md:w-12 md:h-12 flex items-center justify-center transition-all hover:scale-110 active:scale-95 z-20 opacity-90 md:opacity-0 md:group-hover/carousel:opacity-100 duration-300"
             aria-label="Scroll Left"
           >
-            <ChevronLeft className="w-6 h-6" />
+            <ChevronLeft className="w-4 h-4 md:w-6 md:h-6" />
           </button>
 
           {/* Scrollable Container */}
@@ -283,10 +317,10 @@ export const AwardsCarousel = () => {
           {/* Right Arrow Button */}
           <button
             onClick={() => handleManualScroll("right")}
-            className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border border-gray-200 text-gray-800 shadow-lg rounded-full w-12 h-12 flex items-center justify-center transition-all hover:scale-110 active:scale-95 z-20 opacity-0 group-hover/carousel:opacity-100 duration-300 hidden md:flex"
+            className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white border border-gray-200 text-gray-800 shadow-lg rounded-full w-9 h-9 md:w-12 md:h-12 flex items-center justify-center transition-all hover:scale-110 active:scale-95 z-20 opacity-90 md:opacity-0 md:group-hover/carousel:opacity-100 duration-300"
             aria-label="Scroll Right"
           >
-            <ChevronRight className="w-6 h-6" />
+            <ChevronRight className="w-4 h-4 md:w-6 md:h-6" />
           </button>
 
           {/* Edge fades */}

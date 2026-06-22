@@ -76,6 +76,15 @@ const Header = () => {
     }
   };
 
+  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    const homeEl = document.getElementById("home");
+    if (homeEl) {
+      e.preventDefault();
+      homeEl.scrollIntoView({ behavior: "smooth" });
+      window.history.pushState(null, "", "/#home");
+    }
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
       {/* Announcement Bar */}
@@ -113,7 +122,7 @@ const Header = () => {
       <div className="bg-[#F2F4F3]/90 backdrop-blur-md border-b border-border shadow-sm">
       <div className="container mx-auto flex items-center justify-between h-[70px] md:h-[76px] px-4 relative">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 py-2 z-10">
+        <Link to="/" onClick={handleLogoClick} className="flex items-center gap-2 py-2 z-10">
           <img src={dentcityLogo} alt="Dentcity Logo" className="h-[45px] md:h-14 w-auto object-contain" />
         </Link>
 

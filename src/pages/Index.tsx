@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ChevronRight, Phone, ChevronLeft, Calendar } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
@@ -218,14 +218,14 @@ const HeroSection = () => {
         <span className="text-white/40 text-sm">/ {String(total).padStart(2, "0")}</span>
       </div>
 
-      {/* Arrows — desktop only so they don't overlap mobile text */}
+      {/* Arrows */}
       <button onClick={goPrev} aria-label="Previous"
-        className="hidden md:flex absolute left-5 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/10 hover:bg-white/25 border border-white/20 backdrop-blur-sm items-center justify-center text-white transition-all hover:scale-110 active:scale-95">
-        <ChevronLeft className="w-5 h-5" />
+        className="absolute left-3 md:left-5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 md:w-12 md:h-12 rounded-full bg-black/20 hover:bg-black/40 md:bg-white/10 md:hover:bg-white/25 border border-white/20 backdrop-blur-sm flex items-center justify-center text-white transition-all hover:scale-110 active:scale-95">
+        <ChevronLeft className="w-4 h-4 md:w-5 md:h-5" />
       </button>
       <button onClick={goNext} aria-label="Next"
-        className="hidden md:flex absolute right-5 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/10 hover:bg-white/25 border border-white/20 backdrop-blur-sm items-center justify-center text-white transition-all hover:scale-110 active:scale-95">
-        <ChevronRight className="w-5 h-5" />
+        className="absolute right-3 md:right-5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 md:w-12 md:h-12 rounded-full bg-black/20 hover:bg-black/40 md:bg-white/10 md:hover:bg-white/25 border border-white/20 backdrop-blur-sm flex items-center justify-center text-white transition-all hover:scale-110 active:scale-95">
+        <ChevronRight className="w-4 h-4 md:w-5 md:h-5" />
       </button>
 
       {/* Progress + Dots */}
@@ -247,6 +247,7 @@ const HeroSection = () => {
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 const Index = () => {
+  const navigate = useNavigate();
   // Handle cross-page navigation: if arriving with #general-dentistry hash
   useEffect(() => {
     if (window.location.hash === "#general-dentistry") {
@@ -313,7 +314,7 @@ const Index = () => {
                     ? "border-2 border-primary shadow-[0_0_24px_rgba(0,0,0,0.08)]"
                     : "border border-border shadow-sm hover:shadow-md"
                   }`}
-                onClick={() => window.location.href = `/services/${service.slug}`}
+                onClick={() => navigate(`/services/${service.slug}`)}
               >
                 <div className="h-44 overflow-hidden relative">
                   <img

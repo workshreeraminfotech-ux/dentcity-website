@@ -98,9 +98,6 @@ const Gallery = ({ isStandalone = false }: { isStandalone?: boolean }) => {
     <>
       {/* ── HERO ─────────────────────────────────────────── */}
       <section className={`relative bg-white pb-6 overflow-hidden ${isStandalone ? "pt-20 md:pt-24" : "pt-6 md:pt-8"}`}>
-        {/* Background Soft Accents */}
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#54391E]/5 rounded-full blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/3" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-[#54391E]/5 rounded-full blur-[100px] pointer-events-none translate-y-1/2 -translate-x-1/3" />
 
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
           <motion.div

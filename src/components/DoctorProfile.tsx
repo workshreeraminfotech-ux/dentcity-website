@@ -63,7 +63,7 @@ const achievements = [
 
 const statsData = [
   { raw: 10,   suffix: "+", label: "Years Exp.",                 dur: 2.5 },
-  { raw: 30,   suffix: "+", label: "National Programs",          dur: 3.5 },
+  { raw: 30,   suffix: "+", label: "National\nPrograms",          dur: 3.5 },
   { raw: 3,    suffix: "+", label: "International Accreditations", dur: 2.0 },
   { raw: 98.6, suffix: "%", label: "Comprehensive",              dur: 4.0 },
 ];
@@ -79,7 +79,7 @@ export const DoctorProfile = () => {
   const statsRef = useRef<HTMLDivElement>(null);
   const statsInView = useInView(statsRef, { once: true, margin: "-50px" });
 
-  const quote = "I believe that if I don't upgrade today, my patients will be benefited only till yesterday's advancements.";
+  const quote = "\"I believe that if I don't upgrade today, my patients will be benefited only till yesterday's advancements.\"";
   const typedQuote = useTypewriter(quote, inView, 30);
 
   return (
@@ -109,8 +109,7 @@ export const DoctorProfile = () => {
             Dr. Rathin Bhindi
           </h2>
 
-          <p className="text-base text-gray-400 leading-relaxed italic relative">
-            <span className="text-6xl text-[#D4A373]/20 absolute -top-4 -left-6 font-serif">"</span>
+          <p className="text-base text-gray-400 leading-relaxed italic relative max-w-xl">
             <span className="relative z-10">{typedQuote}</span>
             <span className="inline-block w-[2px] h-[1em] bg-[#D4A373] ml-1 align-middle animate-pulse" />
           </p>
@@ -136,7 +135,6 @@ export const DoctorProfile = () => {
               </h2>
 
               <p className="text-base md:text-lg text-gray-400 max-w-2xl leading-relaxed italic relative mb-10">
-                <span className="text-6xl text-[#D4A373]/20 absolute -top-4 -left-6 font-serif">"</span>
                 <span className="relative z-10">{typedQuote}</span>
                 <span className="inline-block w-[2px] h-[1em] bg-[#D4A373] ml-1 align-middle animate-pulse" />
               </p>
@@ -161,7 +159,7 @@ export const DoctorProfile = () => {
                       <Counter target={s.raw} inView={statsInView} duration={s.dur} />
                       <span className="text-[#D4A373]">{s.suffix}</span>
                    </span>
-                   <span className="text-[10px] md:text-xs text-gray-500 uppercase tracking-widest font-semibold">{s.label}</span>
+                   <span className="text-[10px] md:text-xs text-gray-500 uppercase tracking-widest font-semibold whitespace-pre-line">{s.label}</span>
                 </div>
               ))}
             </div>
