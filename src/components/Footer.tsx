@@ -108,7 +108,15 @@ const Footer = () => {
             © {new Date().getFullYear()} DENTCITY Superspeciality Dental & Implant Centre. All rights reserved.
           </p>
           <p className="text-xs opacity-50">
-            Developed by <span className="opacity-100 font-semibold">SR Infotech</span>
+            Developed by{" "}
+            <a
+              href="https://wa.me/918200712955"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="opacity-100 font-semibold hover:underline"
+            >
+              MatrixTechX
+            </a>
           </p>
         </div>
       </div>
